@@ -1,0 +1,321 @@
+/* Reset & Global */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+html, body {
+    background-color: #d4d4d4;
+    cursor: url('cursor.png') 4 4, auto;
+    cursor: url('pointer.png'), pointer;
+    height: 100%;              /* full height page */
+    flex-direction: column;    /* stack header, content, footer */
+}
+/* Dashboard button (your existing icon) */
+#dashboardBtn {
+  width: 50px;
+  cursor: pointer;
+}
+
+/* Fixed dropdown menu */
+.dashboard-menu {
+  position: fixed;
+  top: 60px; /* drops below header */
+  right: 20px; /* stick to the right side */
+  background: rgba(0, 0, 0, 0.95);
+  border-radius: 10px;
+  display: none;
+  flex-direction: column;
+  min-width: 200px;
+  padding: 10px 0;
+  z-index: 9999; /* stay on top */
+  box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+}
+.dashboard-menu {
+  display: none;
+  flex-direction: column;
+}
+.dashboard-menu a {
+  padding: 12px 16px;
+  color: white;
+  text-decoration: none;
+  display: block;
+}
+
+.dashboard-menu a:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+/* Header */
+header {
+    display: flex;
+    justify-content: space-between; /* Links on left, image on right */
+    align-items: center;
+    background-color: #111; /* Dark header */
+    padding: 10px 20px;
+}
+header a, footer a {
+    margin: 0 10px;  
+    color: white;
+    margin-right: 15px;
+    text-decoration: none;
+    font-family: monospace;
+    font-weight: bold;
+    text-align: center;
+}
+#container div a {
+    color: white;
+    text-align: center;
+    font-family: monospace;
+    text-decoration: none;
+}
+#container div p {
+    color: white;
+    text-align: center;
+    font-family: monospace;
+    text-decoration: none;
+}
+header a:hover, footer a:hover {
+    color: #ff4444;
+    text-decoration: underline;
+}
+header img {
+    width: 30px;
+    height: auto;
+    image-rendering: pixelated;
+}
+header a:hover, footer a:hover {
+    color: #ff4444;
+    text-decoration: underline;
+}
+#container div a:hover, #container div p:hover {
+    color: #ff4444;
+    text-decoration: none;
+}
+
+/* Mid Container Grid */
+#container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 20px;
+  padding: 20px;
+  background-color: #d3d3d3;
+  justify-items: center;
+  align-items: start;
+  min-height: calc(100vh - 120px); /* keeps it tall enough, adjust 120px if header/footer differ */
+}
+
+#container div {
+  width: 280px;
+  min-height: 220px; /* fixed height for cards */
+  background: #d4d4d4;
+  text-align: center;
+  border-radius: 15%;
+  padding: 10px;
+  position: relative;
+  overflow: hidden;
+  border: 3px solid transparent;
+  transition: opacity 0.3s ease;
+}
+#container div img {
+    width: 100px;
+    height: auto;
+    display: block;
+    margin: 0 auto 10px;
+    border-radius: 15%;
+    transition: transform 0.3s ease;
+}
+#container div:hover img {
+    transform: scale(1.05);
+}
+#container div:hover p {
+    transform: scale(1.1);
+}
+#container div:hover h3 {
+    transform: scale(1.1);
+}
+/* BIG Container Grid */
+#container-discov {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 20px;
+    background-color: #d3d3d3;
+}
+#container-discov div {
+    flex: 1 1 280px;
+    width: 280px;
+    margin: 10px;
+    background: #d4d4d4;
+    text-align: center;
+    border-radius: 15%;
+    padding: 10px;
+    position: relative;
+    overflow: hidden;
+    border: 3px solid transparent;
+}
+#container-discov div img {
+    width: 300px;
+    height: auto;
+    display: block;
+    margin: 0 auto 10px;
+    border-radius: 15%;
+    transition: transform 0.3s ease;
+}
+#container-discov div:hover img {
+    transform: scale(1.05);
+}
+#container-discov div:hover p {
+    transform: scale(1.1);
+}
+#container-discov div:hover h3 {
+    transform: scale(1.1);
+}
+
+/* Status Effects */
+.soon {
+    opacity: 0.5;
+    pointer-events: none;
+}
+.soon::after {
+    content: "COMING SOON";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(0, 0, 0, 0.7);
+    color: #fff;
+    padding: 10px;
+    border-radius: 8px;
+    font-weight: bold;
+}
+
+/* Hover Borders */
+.ok:hover {
+    border: 3px solid #00ff00;
+    box-shadow: 0 0 10px #00ff00;
+}
+.FIX:hover,
+.soon:hover {
+    border: 3px solid #ff0000;
+    box-shadow: 0 0 10px #ff0000;
+}
+
+/* Image Filters by Status */
+.ok img {
+    /*border: 3px solid #59f52d;*/
+}
+.FIX img {
+    filter: invert(100%);
+    opacity: 0.7;
+}
+.soon img {
+    filter: grayscale(100%);
+    opacity: 0.7;
+}
+
+/* FIX Icon Overlay */
+.FIX::after {
+    content: url('images/status/progress.jpeg');
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    opacity: 0.8;
+    width: 60px;
+    height: 60px;
+    pointer-events: none;
+}
+
+/* Embed Fullscreen */
+embed {
+    display: block;
+    width: 100%;
+    height: 100%;
+    border: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+    /* Floating button */
+    #toTopBtn {
+      position: fixed;   /* stays in place even when scrolling */
+      bottom: 12px;      /* distance from bottom */
+      right: 40px;       /* distance from right */
+      display: none;     /* hidden by default */
+      padding: 12px 16px;
+      font-size: 16px;
+      border: none;
+      border-radius: 20%; /* round button */
+      background: #5865f2;
+      color: white;
+      cursor: pointer;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+      transition: background 0.3s, opacity 0.3s;
+    }
+
+    #toTopBtn:hover {
+      background: #5865f2;
+    }
+.search-box {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  margin-left: 120px; /*how far right you want this to be!*/
+}
+
+.search-box input {
+  padding: 6px 8px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+}
+
+.search-box button {
+  padding: 6px 10px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  background: #333;
+  color: #fff;
+}
+.search-box button:hover {
+  background: #555;
+}
+
+/* Footer */
+footer {
+    margin-top: auto;          /* pushes footer to bottom */
+    background: #555;
+    text-align: center;
+    padding: 40px;
+}
+header {
+    display: flex;
+    justify-content: space-between; /* space between left side links & right side controls */
+    align-items: center;
+    background-color: #111;
+    padding: 10px 20px;
+}
+
+/* Group dashboard button + search */
+.header-controls {
+    display: flex;
+    align-items: center;
+    gap: 0px; /* space between dashboard and search */
+}
+
+.search-box {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    margin-left: 0; /* remove the hacky push */
+}
+#toTopBtn {
+  opacity: 0.6;
+  transition: opacity 0.3s;
+}
+#toTopBtn:hover {
+  opacity: 1;
+}
