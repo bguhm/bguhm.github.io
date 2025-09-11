@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html>
+  <head> 
+    <title>[ Early Access ]</title>
+    <link rel="icon" href="untitled.png" />
+  </head>
+  <body>
+    <div class="lockscreen">
+      <h2>Enter Passcode</h2>
+      <input type="password" id="passcode" disabled />
+      <div class="keypad">
+        <button onclick="addDigit('1')">1</button>
+        <button onclick="addDigit('2')">2</button>
+        <button onclick="addDigit('3')">3</button>
+        <button onclick="addDigit('4')">4</button>
+        <button onclick="addDigit('5')">5</button>
+        <button onclick="addDigit('6')">6</button>
+        <button onclick="addDigit('7')">7</button>
+        <button onclick="addDigit('8')">8</button>
+        <button onclick="addDigit('9')">9</button>
+        <button onclick="clearPasscode()">⌫</button>
+        <button onclick="addDigit('0')">0</button>
+        <button class="enter" onclick="checkPasscode()">✓</button>
+      </div>
+
+      <!-- ✅ Unlock status message -->
+      <p id="statusMessage" style="margin-top:15px; font-size:1.2em; display:none;"></p>
+    </div>
+
+    <style>
+      body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        background: #000;
+        color: #fff;
+        font-family: Arial, sans-serif;
+      }
+
+      .lockscreen {
+        text-align: center;
+      }
+
+      #passcode {
+        font-size: 2em;
+        text-align: center;
+        margin-bottom: 15px;
+        border: none;
+        background: #222;
+        color: white;
+        width: 180px;
+        border-radius: 8px;
+        padding: 8px;
+      }
+
+      .keypad {
+        display: grid;
+        grid-template-columns: repeat(3, 80px);
+        gap: 10px;
+        justify-content: center;
+      }
+
+      .keypad button {
+        font-size: 1.8em;
+        padding: 20px;
+        background: #333;
+        color: #fff;
+        border: none;
+        border-radius: 10px;
+        cursor: pointer;
+        transition: background 0.2s;
+      }
+
+      .keypad button:hover {
+        background: #555;
+      }
+
+      .enter {
+        background: green;
+      }
+    </style>
+
+    <script>
+      let input = "";
+      const correctPasscode = "2029"; // change passcode if needed
+
+      function addDigit(digit) {
+        if (input.length < 6) { 
+          input += digit;
+          document.getElementById("passcode").value = input.replace(/./g, "•");
+        }
+      }
+
+      function clearPasscode() {
+        input = input.slice(0, -1);
+        document.getElementById("passcode").value = input.replace(/./g, "•");
+      }
+
+      function checkPasscode() {
+        const status = document.getElementById("statusMessage");
+        if (input === correctPasscode) {
+          // ✅ Set session token
+          sessionStorage.setItem("authToken", "granted");
+
+          status.style.display = "block";
+          status.textContent = "Unlocked!";
+          status.style.color = "lightgreen";
+
+          setTimeout(() => {
+            window.location.href = "main.html";
+          }, 1000);
+        } else {
+          status.style.display = "block"; 
+          status.textContent = "Wrong passcode!";
+          status.style.color = "red";
+
+          input = "";
+          document.getElementById("passcode").value = "";
+        }
+      }
+
+      // ✅ Keyboard support
+      document.addEventListener("keydown", function(event) {
+        if (!isNaN(event.key) && event.key !== " ") {
+          addDigit(event.key);
+        } else if (event.key === "Backspace") {
+          clearPasscode();
+        } else if (event.key === "Enter") {
+          checkPasscode();
+        }
+      });
+    </script>
+<script>
+function checkPasscode() {
+  const correct = "2029"; // your passcode
+  if (input === correct) {
+    // 🔑 Generate token (time-based + random)
+    const token = btoa(Date.now().toString() + Math.random().toString());
+    sessionStorage.setItem("authToken", token);
+
+    // Optional: also store a small signature so main.html knows it’s legit
+    sessionStorage.setItem("authSignature", "jouyuss-secret");
+
+    // Redirect
+    window.location.href = "main.html";
+  } else {
+    alert("Wrong passcode!");
+    input = "";
+    document.getElementById("passcode").value = "";
+  }
+}
+</script>
+
+  </body>
+</html>
