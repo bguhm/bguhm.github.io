@@ -1,0 +1,816 @@
+<!DOCTYPE html>
+<html>
+  <head> 
+  <title>Jouyuss</title>
+  <link rel="icon" href="yorokobi.png" />
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/themes.css" />
+  <meta name="author" content="jouyuss by waterl3mon">
+  <meta name="keywords" content="fun, stratagem, github, waterlemon">
+        <!--thanks to @WilardzySenpai-->
+    <link rel="stylesheet" href="css/loading-screen.css" />
+	<script src="javascript/main.js"></script>
+    <!--Creates Discord Widget-->
+        <script src='https://cdn.jsdelivr.net/npm/@widgetbot/crate@3' async defer>
+      new Crate({
+          server: '1273329263923302430', // server
+          channel: '1329289920845713471' // #channels
+      })
+    </script>
+
+
+</head>
+
+  <body>  
+  <!-- LOADING SCREEN -->
+  <div class="preloader">
+    <div class="loader-gif">
+      <img src="loading.gif" alt="Loading..." />
+    </div>
+    <div class="counter">0</div>
+    <div class="loading-text">Loading...</div>
+  </div>
+
+<header>
+  <div class="nav-links">
+    <a href="home.html">Home</a>
+    <a href="favorite.html">Favorites</a>
+    <a href="discover.html">Discovery</a>
+    <a href="settings.html">Settings</a>
+    <a href="support.html">Support</a>
+    <a href="info.html">Info</a>
+  </div>
+
+<!-- Search bar inside header -->
+<div class="search-box">
+  <input type="text" id="searchInputHeader" placeholder="Search games...">
+  <button id="searchBtnHeader">🔍</button>
+</div>
+
+<script>
+function filterGames(query) {
+  const input = query.toLowerCase();
+  const games = document.querySelectorAll("#container > div");
+
+  games.forEach(game => {
+    const title = game.querySelector("h3")?.textContent.toLowerCase() || "";
+    const author = game.querySelector("p")?.textContent.toLowerCase() || "";
+    game.style.display = (title.includes(input) || author.includes(input)) ? "block" : "none";
+  });
+}
+
+// live search while typing
+document.getElementById("searchInputHeader").addEventListener("keyup", function() {
+  filterGames(this.value);
+});
+
+// search when clicking button
+document.getElementById("searchBtnHeader").addEventListener("click", function() {
+  const query = document.getElementById("searchInputHeader").value;
+  filterGames(query);
+});
+</script>
+
+
+<!-- Dashboard Image -->
+<!-- Dashboard Icon -->
+<img src="dashboard.png" alt="Dashboard" 
+     onerror="this.src='git.gif';" 
+     id="dashboardBtn" />
+
+</header>
+	  
+<marquee id="quote" behavior="scroll" direction="left" scrollamount="5">Added Super Mario 64! (wait abit before scrolling down) i WILL fix this issue soon!</marquee>
+	  
+<!-- FIX THIS LATER
+
+<script>
+let messages = [];
+let lastIndex = -1;
+
+async function loadQuotes() {
+  try {
+    const response = await fetch("quotes.json");
+    const data = await response.json();
+    messages = data.messages;
+
+    showRandomQuote();
+    // refresh every 20s (long enough for text to scroll fully)
+    setInterval(showRandomQuote, 27000);
+  } catch (err) {
+    console.error("Error loading quotes:", err);
+  }
+}
+
+function showRandomQuote() {
+  if (messages.length === 0) return;
+
+  let index;
+  do {
+    index = Math.floor(Math.random() * messages.length);
+  } while (index === lastIndex && messages.length > 1);
+
+  lastIndex = index;
+
+  const marquee = document.getElementById("quote");
+
+  // restart scrolling by cloning
+  const newMarquee = marquee.cloneNode(true);
+  newMarquee.innerText = messages[index];
+  marquee.parentNode.replaceChild(newMarquee, marquee);
+}
+
+loadQuotes();
+</script>
+-->
+  
+<main>
+    <div id="container">
+      <!--
+      <div class="ok">   
+        <a href="fridaynightfunkin/index.html" >
+          <img src="fridaynightfunkin/funkinlogo.png" onerror="this.src='replace.png';" class="contented">
+          <h3>TEST OK</h3>
+          <p>by ninjamuffin99</p>
+        </a>
+      </div>
+		
+		<div class="FIX">  
+        <a href="fridaynightfunkin/index.html" >
+          <img src="fridaynightfunkin/funkinlogo.png" onerror="this.src='replace.png';" class="contented">
+          <h3>TEST FIX</h3>
+          <p>by ninjamuffin99</p>
+        </a>
+      </div>
+
+		<div class="soon">  
+        <a href="fridaynightfunkin/index.html" >
+          <img src="fridaynightfunkin/funkinlogo.png" onerror="this.src='replace.png';" class="contented">
+          <h3>TEST COMING SOON</h3>
+          <p>by ninjamuffin99</p>
+  </a>
+</div>
+
+<script>
+  const unlockTime = "00:00"; // HH:MM format
+  const game = document.getElementById("doki");
+
+  function checkUnlock() {
+    const now = new Date();
+    const currentTime = `${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}`;
+    if (currentTime === unlockTime) {
+      game.classList.remove("coming-soon");
+      game.style.pointerEvents = "auto";
+      game.style.opacity = "1";
+    }
+  }
+
+  setInterval(checkUnlock, 60000); // check every minute
+</script>
+-->
+		
+      <div class="ok">   
+        <a href="library/fridaynightfunkin/index.html" >
+          <img src="library/fridaynightfunkin/funkinlogo.png" onerror="this.src='git.gif';" class="contented">
+          <h3>Friday Night Funkin'</h3>
+          <p>by ninjamuffin99</p>
+        </a>
+      </div>
+
+      <div class="ok">   
+			<a href="library/snowrider3d/index.html" >
+          <img src="library/snowrider3d/snowrider3d.jpeg" onerror="this.src='replace.png';" class="contented">
+          <h3>Snow Rider 3D</h3>
+          <p>by ashima Prabhakar</p>
+        </a>
+      </div>
+      
+      <div class="ok">
+		  <a href="library/1v1lol/index.html" >
+          <img src="library/1v1lol/1v1.png" onerror="this.src='replace.png';" class="contented">
+          <h3>1v1.lol</h3>
+          <p>developed by justplay.lol</p>
+        </a>
+      </div>
+      
+      <div class="ok">
+        <a href="library/retrobowl/index.html" >
+       <img src="library/retrobowl/retro.jpeg" onerror="this.src='replace.png';" class="contented" />
+          <h3>Retro Bowl</h3>
+          <p>Developed by New Star</p>
+        </a>
+      </div>
+		
+      
+      <div class="ok">
+        <a href="library/monkeymart/index.html" >
+       <img src="library/monkeymart/monkeymart.png" onerror="this.src='replace.png';" class="contented" />
+          <h3>Monkey Mart</h3>
+          <p>Made by PRXYBOSS101</p>
+        </a>
+      </div>
+
+      <div class="ok">
+        <a href="library/slope/index.html" >
+       <img src="library/slope/slope.jpg" onerror="this.src='replace.png';" class="contented" />
+          <h3>Slope</h3>
+          <p>Created by Rob Kay</p>
+        </a>
+      </div>
+      
+      <div class="ok">
+        <a href="library/slope2/index.html" >
+       <img src="library/slope2/slope2.jpeg" onerror="this.src='replace.png';" class="contented" />
+          <h3>slope 2</h3>
+          <p>continued by Y8</p>
+        </a>
+      </div>
+		
+		<div class="soon">  
+        <a href="library/omori/index.html" >
+       <img src="library/omori/Omori_cover.jpg" onerror="this.src='replace.png';" class="contented" />
+          <h3>Omori</h3>
+          <p>Created by OmoCat studio</p>
+        </a>
+      </div>
+      
+           
+      <div class="ok">
+        <a href="library/fnaf1/index.html" >
+       <img src="library/fnaf1/fnaf1.png" onerror="this.src='replace.png';" class="contented" />
+          <h3>Five Nights At Freddy's</h3>
+          <p>Made by Scott Cawthon</p>
+        </a>
+      </div>
+
+      <div class="ok">
+        <a href="library/fnaf2/index.html" >
+       <img src="library/fnaf2/fnaf2.png" onerror="this.src='replace.png';" class="contented" />
+          <h3>Five Nights At Freddy's 2</h3>
+          <p>Made by Scott Cawthon</p>
+        </a>
+      </div>
+      
+      <div class="ok">
+        <a href="library/fnaf3/index.html" >
+       <img src="library/fnaf3/fnaf3.png" onerror="this.src='replace.png';" class="contented" />
+          <h3>Five Nights At Freddy's 3</h3>
+          <p>Made by Scott Cawthon</p>
+        </a>
+      </div>
+		
+      <div class="ok">
+        <a href="library/fnaf4/index.html" >
+       <img src="library/fnaf4/fnaf4.png" onerror="this.src='replace.png';" class="contented" />
+          <h3>Five Nights At Freddy's 4</h3>
+          <p>Made by Scott Cawthon</p>
+        </a>
+      </div>
+		
+		
+		<div class="ok">
+        <a href="library/fnaf4halloween/index.html" >
+       <img src="library/fnaf4halloween/fnaf4halloween.png" onerror="this.src='replace.png';" class="contented" />
+          <h3>Five Nights At Freddy's 4 Halloween</h3>
+          <p>Made by Scott Cawthon</p>
+        </a>
+      </div>
+
+      <div class="ok">
+        <a href="library/fnafworld/index.html" >
+       <img src="library/fnafworld/world.png" onerror="this.src='replace.png';" class="contented" />
+          <h3>Five Nights At Freddy's World</h3>
+          <p>Made by Scott Cawthon</p>
+        </a>
+      </div>
+      
+      <div class="ok">
+        <a href="library/pizzasimulator/index.html" >
+       <img src="library/pizzasimulator/pizzasim.png" onerror="this.src='replace.png';" class="contented" />
+          <h3>Five Nights At Freddy's Pizza Simulator</h3>
+          <p>Made by Scott Cawthon</p>
+        </a>
+      </div>
+		
+      <div class="ok">
+        <a href="library/UCN/index.html" >
+       <img src="library/UCN/ucn.png" onerror="this.src='replace.png';" class="contented" />
+          <h3>Five Nights At Freddy's ULTIMATE CUSTOM NIGHT</h3>
+          <p>Made by Scott Cawthon</p>
+        </a>
+      </div>
+		
+
+      <div class="ok">
+        <a href="library/sisterlocation/index.html" >
+       <img src="library/sisterlocation/sisterlocation.png" onerror="this.src='git.gif';" class="contented" />
+          <h3>Five Nights At Freddy's Sister Location</h3>
+          <p>Made by Scott Cawthon</p>
+        </a>
+      </div>
+		
+      <div class="ok">
+        <a href="library/crazycattle3d/index.html" >
+       <img src="library/crazycattle3d/crazycattle3d.jpg" onerror="this.src='git.gif';" class="contented" />
+          <h3>Crazy Cattle 3D</h3>
+          <p>Launched by 4nn4t4t</p>
+        </a>
+      </div>
+		
+		<div class="soon">  
+        <a href="library/cuphead/index.html" >
+       <img src="library/cuphead/cuphead.png" onerror="this.src='git.gif';" class="contented" />
+          <h3>Cuphead</h3>
+          <p>by Studio MDHR</p>
+        </a>
+      </div>
+		
+		<div class="soon">  
+        <a href="library/class-of-09/index.html" >
+       <img src="library/class-of-09/09.png" onerror="this.src='git.gif';" class="contented" />
+          <h3>Class of '09</h3>
+          <p>By SBN3 Published by Wrath Club</p>
+        </a>
+      </div>
+		
+		<div class="FIX">  
+       <img src="library/ddlc/ddlc.png" onerror="this.src='git.gif';" class="contented" />
+	   <a href="downloads/doki-doki-port.zip" onclick="return confirmDownload()">
+       <script>
+       function confirmDownload() {
+       return confirm("⚠️ Warning! You are about to download a port of Doki Doki Literature Club. After downloading, open 'index.html' inside the folder to play. Check port-help.html for extra resources.");
+       }
+       </script>
+          <h3>Doki-Doki Literature Club</h3>
+          <p>by Team Salvato</p>
+        </a>
+      </div>
+		
+      <div class="ok">
+        <a href="library/eaglercraft/index.html" >
+       <img src="library/eaglercraft/eagler.png" onerror="this.src='git.gif';" class="contented" />
+          <h3>EaglerCraft 1.8.8</h3>
+          <p>By Lax1dude Continued by ayunami2000</p>
+        </a>
+      </div>
+		
+		      <div class="FIX">
+        <a href="library/hotline-miami/index.html" >
+       <img src="library/hotline-miami/miami.jpeg" onerror="this.src='git.gif';" class="contented" />
+          <h3>Hotline Miami</h3>
+          <p>Made by Dennation Games</p>
+        </a>
+      </div>
+
+      <div class="ok">
+        <a href="library/geometrydash/index.html" >
+       <img src="library/geometrydash/geometrydash.png" onerror="this.src='git.gif';" class="contented" />
+          <h3>Geometry dash</h3>
+          <p>By RopTop Ported by GriffPatch</p>
+        </a>
+      </div>
+
+      <div class="ok">
+        <a href="library/crossyroad/index.html" >
+       <img src="library/crossyroad/crossy.jpeg" onerror="this.src='git.gif';" class="contented" />
+          <h3>Crossy Roads</h3>
+          <p>By Hipster Whale</p>
+        </a>
+      </div>
+
+      <div class="ok">
+        <a href="library/btd1/index.html" >
+       <img src="library/btd1/btd.jpg" onerror="this.src='git.gif';" class="contented" />
+          <h3>Bloon Tower Defense </h3>
+          <p>Developed by Ninja Kiwi</p>
+        </a>
+      </div>
+		
+      <div class="ok">
+        <a href="library/btd2/index.html" >
+       <img src="library/btd2/btd2.png" onerror="this.src='git.gif';" class="contented" />
+          <h3>Bloon Tower Defense 2</h3>
+          <p>Developed by Ninja Kiwi</p>
+        </a>
+      </div>
+		
+		<div class="soon">  
+        <a href="library/btd3/index.html" >
+       <img src="library/btd3/btd3.jpeg" onerror="this.src='git.gif';" class="contented" />
+          <h3>Bloon Tower Defense 3</h3>
+          <p>Developed by Ninja Kiwi</p>
+        </a>
+      </div>
+		
+      <div class="ok">
+        <a href="library/btd4/index.html" >
+       <img src="library/btd4/btd4.jpeg" onerror="this.src='git.gif';" class="contented" />
+          <h3>Bloon Tower Defense 4</h3>
+          <p>Developed by Ninja Kiwi</p>
+        </a>
+      </div>
+		
+      <div class="FIX">
+        <a href="library/btd5/index.html" >
+       <img src="library/btd5/btd5.jpg" onerror="this.src='git.gif';" class="contented" />
+          <h3>Bloon Tower Defense 5</h3>
+          <p>Developed by Ninja Kiwi</p>
+        </a>
+      </div>
+				
+      <div class="ok">
+        <a href="library/2048/index.html" >
+       <img src="library/2048/2048.png" onerror="this.src='git.gif';" class="contented" />
+          <h3>2048</h3>
+          <p>Made by Gabriele Cirulli</p>
+        </a>
+      </div>	
+		
+      <div class="ok">
+        <a href="library/cookie-clicker/index.html" >
+       <img src="library/cookie-clicker/cookie.jpeg" onerror="this.src='git.gif';" class="contented" />
+          <h3>Cookie Clicker</h3>
+          <p>Made by</p>
+        </a>
+      </div>
+		
+      <div class="ok">
+        <a href="library/ovo/index.html" >
+       <img src="library/ovo/ovo.jpeg" onerror="this.src='git.gif';" class="contented" />
+          <h3>OvO</h3>
+          <p>Created by Dedra Games</p>
+        </a>
+      </div>
+		
+      <div class="ok">
+        <a href="library/raise-a-floppa/index.html" >
+       <img src="library/raise-a-floppa/floppa.jpeg" onerror="this.src='git.gif';" class="contented" />
+          <h3>Raise A Floppa!</h3>
+          <p>Made by</p>
+        </a>
+      </div>
+		
+      <div class="FIX">
+        <a href="library/osu/index.html" >
+       <img src="library/osu/osu.png" onerror="this.src='git.gif';" class="contented" />
+          <h3>OSU!</h3>
+          <p>Made by Dean Herbert</p>
+        </a>
+      </div>
+		
+      <div class="ok">
+        <a href="library/pac-man/index.html" >
+       <img src="library/pac-man/pacman.png" onerror="this.src='git.gif';" class="contented" />
+          <h3>pacman</h3>
+          <p>Made by google</p>
+        </a>
+      </div>
+		
+      <div class="FIX">
+        <a href="library/krunker/index.html" >
+       <img src="library/krunker/krunker.png" onerror="this.src='git.gif';" class="contented" />
+          <h3>krunker.io</h3>
+          <p>Made by</p>
+        </a>
+      </div>		
+      <div class="FIX">
+        <a href="library/surviv/index.html" >
+       <img src="library/surviv/surviv.jpeg" onerror="this.src='git.gif';" class="contented" />
+          <h3>surviv.io</h3>
+          <p>Made by</p>
+        </a>
+      </div>
+		
+      <div class="FIX">
+        <a href="library/venge/index.html" >
+       <img src="library/venge/venge.jpeg" onerror="this.src='git.gif';" class="contented" />
+          <h3>Venge.io</h3>
+          <p>Made by</p>
+        </a>
+      </div>		
+		
+      <div class="ok">
+        <a href="library/moto-3xm/index.html" >
+       <img src="library/moto-3xm/3xm.jpeg" onerror="this.src='git.gif';" class="contented" />
+          <h3>Moto X3M</h3>
+          <p>Made by</p>
+        </a>
+      </div>
+		
+      <div class="ok">
+        <a href="library/chess/index.html" >
+       <img src="library/chess/chess.png" onerror="this.src='git.gif';" class="contented" />
+          <h3>Chess</h3>
+          <p>Made by</p>
+        </a>
+      </div>
+		
+      <div class="ok">
+        <a href="library/checkers/index.html" >
+       <img src="library/checkers/checkers.jpeg" onerror="this.src='git.gif';" class="contented" />
+          <h3>Checkers</h3>
+          <p>Made by</p>
+        </a>
+      </div>
+		
+      <div class="ok">
+        <a href="library/stickman-hook/index.html" >
+       <img src="library/stickman-hook/stickman.jpg" onerror="this.src='git.gif';" class="contented" />
+          <h3>Stickman hook</h3>
+          <p>Made by</p>
+        </a>
+      </div>	
+		
+      <div class="ok">
+        <a href="library/subway-surfers/index.html" >
+       <img src="library/subway-surfers/surfers.jpeg" onerror="this.src='git.gif';" class="contented" />
+          <h3>subway surfers</h3>
+          <p>Made by</p>
+        </a>
+      </div>
+		
+      <div class="ok">
+        <a href="library/temple-run/index.html" >
+       <img src="library/temple-run/temple-run.jpg" onerror="this.src='git.gif';" class="contented" />
+          <h3>temple run</h3>
+          <p>Made by</p>
+        </a>
+      </div>	
+		
+      <div class="ok">
+        <a href="library/drift-boss/index.html" >
+       <img src="library/drift-boss/drift.png" onerror="this.src='git.gif';" class="contented" />
+          <h3>Drift Boss</h3>
+          <p>Made by</p>
+        </a>
+      </div>
+		
+      <div class="soon">
+        <a href="library/laceys-wardrobe/index.html" >
+       <img src="library/laceys-wardrobe/lacey.jpeg" onerror="this.src='git.gif';" class="contented" />
+          <h3>Lacey's Wardrobe</h3>
+          <p>Made by Grace Asop & Roso Yani</p>
+        </a>
+      </div>
+
+      <div class="soon">
+        <a href="library/directory/index.html" >
+       <img src="library/kindergarten/kinder.png" onerror="this.src='git.gif';" class="contented" />
+          <h3>kindergarten</h3>
+          <p>Made by Con Man Games and Sean Young. Published by SmashGames</p>
+        </a>
+      </div>
+		
+      <div class="ok">
+        <a href="library/blumgi/ball/index.html" >
+       <img src="library/blumgi/images/blumgi-ball.jpeg" onerror="this.src='git.gif';" class="contented" />
+          <h3>Blumgi Ball</h3>
+          <p>Made by Studio Blumgi</p>
+        </a>
+      </div>
+		
+      <div class="ok">
+        <a href="library/blumgi/bloom/index.html" >
+       <img src="library/blumgi/images/blumgi-bloom.jpeg" onerror="this.src='git.gif';" class="contented" />
+          <h3>Blumgi Bloom</h3>
+          <p>Made by Studio Blumgi</p>
+        </a>
+      </div>		
+      <div class="ok">
+        <a href="library/blumgi/castle/index.html" >
+       <img src="library/blumgi/images/blumgi-castle.jpeg" onerror="this.src='git.gif';" class="contented" />
+          <h3>Blumgi Castle</h3>
+          <p>Made by Studio Blumgi</p>
+        </a>
+      </div>
+		
+      <div class="ok">
+        <a href="library/blumgi/dragon/index.html" >
+       <img src="library/blumgi/images/blumgi-dragon.jpeg" onerror="this.src='git.gif';" class="contented" />
+          <h3>Blumgi Dragon</h3>
+          <p>Made by Studio Blumgi</p>
+        </a>
+      </div>		
+      <div class="ok">
+        <a href="library/blumgi/rocket/index.html" >
+       <img src="library/blumgi/images/blumgi-rocket.jpeg" onerror="this.src='git.gif';" class="contented" />
+          <h3>Blumgi Rocket</h3>
+          <p>Made by Studio Blumgi</p>
+        </a>
+      </div>
+		
+      <div class="ok">
+        <a href="library/blumgi/slime/index.html" >
+       <img src="library/blumgi/images/blumgi-slime.jpeg" onerror="this.src='git.gif';" class="contented" />
+          <h3>Blumgi Slime</h3>
+          <p>Made by Studio Blumgi</p>
+        </a>
+      </div>		
+      <div class="ok">
+        <a href="library/blumgi/soccer/index.html" >
+       <img src="library/blumgi/images/blumgi-soccer.jpeg" onerror="this.src='git.gif';" class="contented" />
+          <h3>Blumgi Soccer</h3>
+          <p>Made by Studio Blumgi</p>
+        </a>
+      </div>
+		
+		<div class="ok">
+        <a href="library/blumgi/merge/index.html" >
+       <img src="library/blumgi/images/blumgi-merge.png" onerror="this.src='git.gif';" class="contented" />
+          <h3>Blumgi Merge</h3>
+          <p>Made by Studio Blumgi</p>
+        </a>
+      </div>
+		
+      <div class="soon">
+        <a href="library/undertale/index.html" >
+       <img src="library/undertale/undertale.png" onerror="this.src='git.gif';" class="contented" />
+          <h3>Undertale</h3>
+          <p>Made by Toby Fox</p>
+        </a>
+      </div>		
+		
+      <div class="soon">
+        <a href="library/deltarune/index.html" >
+       <img src="library/deltarune/deltarune.png" onerror="this.src='git.gif';" class="contented" />
+          <h3>Deltarune</h3>
+          <p>Made by Toby Fox</p>
+        </a>
+      </div>
+		
+      <div class="soon">
+        <a href="library/undertale-yellow/index.html" >
+       <img src="library/undertale-yellow/yellow.jpeg" onerror="this.src='git.gif';" class="contented" />
+          <h3>Undertale:Yellow</h3>
+          <p>Fanmade version of undertale by Toby Fox</p>
+        </a>
+      </div>
+		
+      <div class="soon">
+        <a href="library/fears-to-fathom/index.html" >
+       <img src="library/fears-to-fathom/fears.jpeg" onerror="this.src='git.gif';" class="contented" />
+          <h3>Fears to fathom</h3>
+          <p>Made by</p>
+        </a>
+      </div>
+
+		<!-- 60 project Mark -->
+		
+		<div class="soon">
+        <a href="library/directory/index.html" >
+       <img src="library/yume-nikki/yume.gif" onerror="this.src='git.gif';" class="contented" />
+          <h3>yume nikki</h3>
+          <p>Made by</p>
+        </a>
+      </div>		
+      
+<div class="ok">
+  <a href="library/sm64/index.html">
+    <img src="library/sm64/sm64.jpg" onerror="this.src='git.gif';" class="contented" />
+    <h3>Super Mario 64</h3>
+    <p>Made By Nintendo</p>
+  </a>
+</div>
+		<div class="ok">
+  <a href="library/bacon-may-die/index.html">
+    <img src="library/bacon-may-die/bacon-may-die.jpeg" onerror="this.src='git.gif';" class="contented" />
+    <h3>Bacon May Die!</h3>
+    <p>Made By SnoutUp</p>
+  </a>
+</div>
+		<div class="ok">
+  <a href="library/bad-piggies/index.html">
+    <img src="library/bad-piggies/bad-piggies.png" onerror="this.src='git.gif';" class="contented" />
+    <h3>Bad Piggies</h3>
+    <p>Made By Rovio Entertainment</p>
+  </a>
+</div>
+
+	
+
+
+	
+		</main>
+	  
+<button id="toTopBtn">⬆ Top</button>
+<footer>
+  <a href="system/pages/sources.html">sources</a> 
+  <a href="system/pages/contributors.html">contribute</a> 
+  <a href="system/pages/discord.html">Discord</a> 
+  <a href="system/pages/bugsNfixes.html">Bugs & fixes</a> 
+  <a href="system/pages/contact.html">Socials</a> 
+  <a href="system/pages/version-log.html">version V0.0.5</a>
+</footer>
+
+<!-- Fixed Dashboard Menu -->
+<div id="dashboardMenu" class="dashboard-menu">
+  <a href="pages.html">Music</a>
+  <a href="settings.html">Themes</a>
+  <a href="info.html">Credits</a>
+  <a href="support.html">Alternative Links</a>
+</div>
+
+
+	  <script>
+document.addEventListener("DOMContentLoaded", () => {
+  const dashboardBtn = document.getElementById("dashboardBtn");
+  const dashboardMenu = document.getElementById("dashboardMenu");
+
+  dashboardBtn.onclick = function () {
+    dashboardMenu.style.display =
+      (dashboardMenu.style.display === "flex") ? "none" : "flex";
+  };
+
+  // Close if clicked outside
+  window.addEventListener("click", function (e) {
+    if (!dashboardBtn.contains(e.target) && !dashboardMenu.contains(e.target)) {
+      dashboardMenu.style.display = "none";
+    }
+  });
+});
+</script>
+
+
+	  
+  <script>
+    const toTopBtn = document.getElementById("toTopBtn");
+
+    // Show button when scrolled down 200px
+    window.onscroll = function () {
+      if (document.body.scrollTop > 200 || document.documentElement.scrollTop > 200) {
+        toTopBtn.style.display = "block";
+      } else {
+        toTopBtn.style.display = "none";
+      }
+    };
+
+    // Scroll smoothly to top on click
+    toTopBtn.onclick = function () {
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+      });
+    };
+  </script>
+	  
+<script>
+  // Prevent browser from restoring old scroll position
+  if ('scrollRestoration' in history) {
+    history.scrollRestoration = 'manual';
+  }
+
+  // Delay scroll-to-top when page loads
+  window.onload = function () {
+    setTimeout(() => {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }, 3000); // 1000ms = 1 second delay
+  }; 
+	// double click to start it
+	toTopBtn.addEventListener("dblclick", () => {
+  window.scrollTo({ top: 0, behavior: "smooth" });
+});
+
+</script>
+
+
+	  <script>
+window.addEventListener("load", () => {
+  document.querySelector(".preloader").style.display = "none";
+});
+</script>
+
+
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  const loader = document.querySelector(".preloader");
+
+  function blockAccess() {
+    document.querySelector("main").style.display = "none";
+    document.querySelector("header").style.display = "none";
+    document.querySelector("footer").style.display = "none";
+    loader.style.display = "flex";
+    loader.querySelector(".loading-text").textContent = "Redirecting...";
+    setTimeout(() => {
+      window.location.href = "index.html";
+    }, 1500);
+  }
+
+  const token = sessionStorage.getItem("authToken");
+  const signature = sessionStorage.getItem("authSignature");
+
+  // ✅ Must have both values to continue
+  if (!token || signature !== "jouyuss-secret") {
+    blockAccess();
+  } else {
+    // Token looks valid, finish loading normally
+    window.addEventListener("load", () => {
+      setTimeout(() => {
+        loader.style.display = "none";
+      }, 1000);
+    });
+  }
+});
+</script>
+  </body>
+</html>
