@@ -1,4 +1,4 @@
-[Banner](preview05.png)
+[Banner](preview-0.5.png)
 # *welcome to* **Jouyuss** 
  - releasing at 60 stratagems!
 **(should probably use json sooner or later lmao)**
