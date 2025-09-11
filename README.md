@@ -1,4 +1,4 @@
-# *welcome to* **Jouyuss** 
+# *welcome to* **bg.uhm** 
  - releasing at 60 stratagems!
 **(should probably use json sooner or later lmao)**
 
