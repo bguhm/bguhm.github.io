@@ -239,26 +239,31 @@ embed {
     left: 0;
 }
 
-    /* Floating button */
-    #toTopBtn {
-      position: fixed;   /* stays in place even when scrolling */
-      bottom: 12px;      /* distance from bottom */
-      right: 40px;       /* distance from right */
-      display: none;     /* hidden by default */
-      padding: 12px 16px;
-      font-size: 16px;
-      border: none;
-      border-radius: 20%; /* round button */
-      background: #5865f2;
-      color: white;
-      cursor: pointer;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-      transition: background 0.3s, opacity 0.3s;
-    }
+/* Floating "Back to Top" Button */
+#toTopBtn {
+  position: fixed;
+  bottom: 12px;          /* distance from bottom */
+  left: 50%;             /* center horizontally */
+  transform: translateX(-50%);
+  display: none;         /* hidden by default */
+  padding: 12px 20px;
+  font-size: 16px;
+  font-family: monospace;
+  border: none;
+  border-radius: 8px;
+  background: #000000;   /* solid black */
+  color: white;
+  cursor: pointer;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.5);
+  opacity: 1;            /* full opacity */
+  transition: color 0.3s, text-decoration 0.3s;
+}
 
-    #toTopBtn:hover {
-      background: #5865f2;
-    }
+#toTopBtn:hover {
+  color: #ff0000;              /* red text */
+  text-decoration: underline;  /* underline */
+  text-decoration-color: #ff0000; /* red underline */
+}
 .search-box {
   display: inline-flex;
   align-items: center;
