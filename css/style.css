@@ -322,5 +322,5 @@ header {
   transition: opacity 0.3s;
 }
 #toTopBtn:hover {
-  opacity: 1;
+  transition: opacity 0.8s;
 }
