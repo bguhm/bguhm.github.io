@@ -112,6 +112,25 @@
 .keypad button:hover { background: #555; }
 
 .keypad .enter { background: green; }
+/* Loading screen */
+.preloader {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: #000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  z-index: 1000;
+}
+
+.preloader img {
+  width: 128px;         /* scale up */
+  height: 128px;        /* keep square */
+  image-rendering: pixelated; /* no anti-aliasing */
+  image-rendering: crisp-edges;
+}
 
   </style>
 </head>
