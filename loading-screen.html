@@ -1,156 +1,170 @@
 <!DOCTYPE html>
 <html>
-  <head> 
-    <title>bg.uhm</title>
-    <link rel="icon" href="system/images/bguhm.png" />
-  </head>
-  <body>
-    <div class="lockscreen">
-      <h2>Enter Passcode</h2>
-      <input type="password" id="passcode" disabled />
-      <div class="keypad">
-        <button onclick="addDigit('1')">1</button>
-        <button onclick="addDigit('2')">2</button>
-        <button onclick="addDigit('3')">3</button>
-        <button onclick="addDigit('4')">4</button>
-        <button onclick="addDigit('5')">5</button>
-        <button onclick="addDigit('6')">6</button>
-        <button onclick="addDigit('7')">7</button>
-        <button onclick="addDigit('8')">8</button>
-        <button onclick="addDigit('9')">9</button>
-        <button onclick="clearPasscode()">⌫</button>
-        <button onclick="addDigit('0')">0</button>
-        <button class="enter" onclick="checkPasscode()">✓</button>
-      </div>
+<head>
+  <title>bg.uhm</title>
+  <link rel="icon" href="system/images/bguhm.png" />
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/themes.css" />
+  <meta name="author" content="jouyuss by waterl3mon">
+  <meta name="keywords" content="fun, stratagem, github, waterlemon">
+  <script src="javascript/main.js" defer></script>
+  <style>
+    /* Loading screen */
+    .preloader {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: #000;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      z-index: 1000;
+    }
+    .hidden { display: none; }
 
-      <!-- ✅ Unlock status message -->
-      <p id="statusMessage" style="margin-top:15px; font-size:1.2em; display:none;"></p>
+    /* Passcode lock */
+    .lockscreen {
+      display: none;
+      text-align: center;
+      color: #fff;
+    }
+    #passcode {
+      font-size: 2em;
+      text-align: center;
+      margin-bottom: 15px;
+      border: none;
+      background: #222;
+      color: white;
+      width: 180px;
+      border-radius: 8px;
+      padding: 8px;
+    }
+    .keypad {
+      display: grid;
+      grid-template-columns: repeat(3, 80px);
+      gap: 10px;
+      justify-content: center;
+    }
+    .keypad button {
+      font-size: 1.8em;
+      padding: 20px;
+      background: #333;
+      color: #fff;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .keypad button:hover { background: #555; }
+    .enter { background: green; }
+  </style>
+</head>
+<body>
+
+  <!-- LOADING SCREEN -->
+  <div class="preloader" id="preloader">
+    <img src="loading.gif" alt="Loading..." />
+    <p style="color:white;margin-top:10px;">Loading...</p>
+  </div>
+
+  <!-- PASSCODE SCREEN -->
+  <div class="lockscreen" id="lockscreen">
+    <h2>Enter Passcode</h2>
+    <input type="password" id="passcode" disabled />
+    <div class="keypad">
+      <button onclick="addDigit('1')">1</button>
+      <button onclick="addDigit('2')">2</button>
+      <button onclick="addDigit('3')">3</button>
+      <button onclick="addDigit('4')">4</button>
+      <button onclick="addDigit('5')">5</button>
+      <button onclick="addDigit('6')">6</button>
+      <button onclick="addDigit('7')">7</button>
+      <button onclick="addDigit('8')">8</button>
+      <button onclick="addDigit('9')">9</button>
+      <button onclick="clearPasscode()">⌫</button>
+      <button onclick="addDigit('0')">0</button>
+      <button class="enter" onclick="checkPasscode()">✓</button>
     </div>
+    <p id="statusMessage" style="margin-top:15px; font-size:1.2em; display:none;"></p>
+  </div>
 
-    <style>
-      body {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 100vh;
-        background: #000;
-        color: #fff;
-        font-family: Arial, sans-serif;
-      }
+  <!-- MAIN CONTENT (locked until passcode) -->
+  <div id="mainContent" class="hidden">
+    <header>
+      <div class="nav-links">
+        <a href="home.html">Home</a>
+        <a href="favorite.html">Favorites</a>
+        <a href="discover.html">Discovery</a>
+        <a href="settings.html">Settings</a>
+        <a href="support.html">Support</a>
+        <a href="info.html">Info</a>
+      </div>
+    </header>
 
-      .lockscreen {
-        text-align: center;
-      }
+    <main>
+      <div id="container">
+        <div class="FIX">
+          <a href="library/fridaynightfunkin/index.html" >
+            <img src="library/images/funkinlogo.png" class="contented">
+            <h3>Friday Night Funkin'</h3>
+            <p>by ninjamuffin99</p>
+          </a>
+        </div>
+        <!-- add the rest of your games here -->
+      </div>
+    </main>
+  </div>
 
-      #passcode {
-        font-size: 2em;
-        text-align: center;
-        margin-bottom: 15px;
-        border: none;
-        background: #222;
-        color: white;
-        width: 180px;
-        border-radius: 8px;
-        padding: 8px;
-      }
-
-      .keypad {
-        display: grid;
-        grid-template-columns: repeat(3, 80px);
-        gap: 10px;
-        justify-content: center;
-      }
-
-      .keypad button {
-        font-size: 1.8em;
-        padding: 20px;
-        background: #333;
-        color: #fff;
-        border: none;
-        border-radius: 10px;
-        cursor: pointer;
-        transition: background 0.2s;
-      }
-
-      .keypad button:hover {
-        background: #555;
-      }
-
-      .enter {
-        background: green;
-      }
-    </style>
-
-    <script>
-      let input = "";
-      const correctPasscode = "2029"; // change passcode if needed
-
-      function addDigit(digit) {
-        if (input.length < 6) { 
-          input += digit;
-          document.getElementById("passcode").value = input.replace(/./g, "•");
-        }
-      }
-
-      function clearPasscode() {
-        input = input.slice(0, -1);
-        document.getElementById("passcode").value = input.replace(/./g, "•");
-      }
-
-      function checkPasscode() {
-        const status = document.getElementById("statusMessage");
-        if (input === correctPasscode) {
-          // ✅ Set session token
-          sessionStorage.setItem("authToken", "granted");
-
-          status.style.display = "block";
-          status.textContent = "Unlocked!";
-          status.style.color = "lightgreen";
-
-          setTimeout(() => {
-            window.location.href = "main.html";
-          }, 1000);
-        } else {
-          status.style.display = "block"; 
-          status.textContent = "Wrong passcode!";
-          status.style.color = "red";
-
-          input = "";
-          document.getElementById("passcode").value = "";
-        }
-      }
-
-      // ✅ Keyboard support
-      document.addEventListener("keydown", function(event) {
-        if (!isNaN(event.key) && event.key !== " ") {
-          addDigit(event.key);
-        } else if (event.key === "Backspace") {
-          clearPasscode();
-        } else if (event.key === "Enter") {
-          checkPasscode();
-        }
-      });
-    </script>
 <script>
-function checkPasscode() {
-  const correct = "2029"; // your passcode
-  if (input === correct) {
-    // 🔑 Generate token (time-based + random)
-    const token = btoa(Date.now().toString() + Math.random().toString());
-    sessionStorage.setItem("authToken", token);
+  // === LOADING SCREEN HANDLER ===
+  window.addEventListener("load", () => {
+    const preloader = document.getElementById("preloader");
+    setTimeout(() => {
+      preloader.style.display = "none";
+      document.getElementById("lockscreen").style.display = "block";
+    }, 1500); // show loading for 1.5s
+  });
 
-    // Optional: also store a small signature so main.html knows it’s legit
-    sessionStorage.setItem("authSignature", "jouyuss-secret");
+  // === PASSCODE HANDLER ===
+  let input = "";
+  const correctPasscode = "2029";
 
-    // Redirect
-    window.location.href = "main.html";
-  } else {
-    alert("Wrong passcode!");
-    input = "";
-    document.getElementById("passcode").value = "";
+  function addDigit(digit) {
+    if (input.length < 6) {
+      input += digit;
+      document.getElementById("passcode").value = input.replace(/./g, "•");
+    }
   }
-}
+  function clearPasscode() {
+    input = input.slice(0, -1);
+    document.getElementById("passcode").value = input.replace(/./g, "•");
+  }
+  function checkPasscode() {
+    const status = document.getElementById("statusMessage");
+    if (input === correctPasscode) {
+      status.style.display = "block";
+      status.textContent = "Unlocked!";
+      status.style.color = "lightgreen";
+
+      setTimeout(() => {
+        document.getElementById("lockscreen").style.display = "none";
+        document.getElementById("mainContent").classList.remove("hidden");
+      }, 800);
+    } else {
+      status.style.display = "block";
+      status.textContent = "Wrong passcode!";
+      status.style.color = "red";
+      input = "";
+      document.getElementById("passcode").value = "";
+    }
+  }
+  document.addEventListener("keydown", (event) => {
+    if (!isNaN(event.key) && event.key !== " ") addDigit(event.key);
+    else if (event.key === "Backspace") clearPasscode();
+    else if (event.key === "Enter") checkPasscode();
+  });
 </script>
 
-  </body>
+</body>
 </html>
