@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>GitHub Raw Link Generator</title>
+  <style>
+    body {
+      font-family: monospace;
+      background: #111;
+      color: #eee;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+    }
+    input, button {
+      padding: 10px;
+      margin: 5px;
+      font-family: monospace;
+      font-size: 14px;
+    }
+    #output {
+      margin-top: 20px;
+      padding: 10px;
+      background: #222;
+      border-radius: 5px;
+      max-width: 80%;
+      word-wrap: break-word;
+    }
+    a {
+      color: #58a6ff;
+    }
+  </style>
+</head>
+<body>
+  <h1>GitHub → Raw Link</h1>
+  <input type="text" id="ghLink" placeholder="Paste GitHub file link here">
+  <button onclick="convert()">Convert</button>
+
+  <div id="output"></div>
+
+  <script>
+    function convert() {
+      const link = document.getElementById("ghLink").value.trim();
+      const output = document.getElementById("output");
+
+      if (!link.includes("github.com")) {
+        output.innerHTML = "❌ Link invalid. Try copying the file link from your repo/fork!";
+        return;
+      }
+
+      let raw = link
+        .replace("github.com", "raw.githubusercontent.com")
+        .replace("/blob/", "/");
+
+      output.innerHTML = `
+        ✅ Raw Link: <a href="${raw}" target="_blank">${raw}</a>
+        <br><br>
+        <img src="${raw}" alt="Preview" style="max-width:300px; margin-top:10px; border:1px solid #444;">
+      `;
+    }
+  </script>
+</body>
+</html>
