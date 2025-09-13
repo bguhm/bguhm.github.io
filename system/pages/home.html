@@ -1,1 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Bguhm GuiHub.io</title>
+<style>
+  body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: url('images/bg-default.jpg') no-repeat center center fixed;
+    background-size: cover;
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+  }
 
+  /* Top Navbar */
+  .navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #111;
+    padding: 10px 20px;
+  }
+  .navbar ul {
+    list-style: none;
+    display: flex;
+    gap: 20px;
+    margin: 0;
+    padding: 0;
+  }
+  .navbar ul li {
+    cursor: pointer;
+  }
+
+  /* Layout wrapper */
+  .layout {
+    display: flex;
+    flex: 1;
+    padding: 20px;
+    gap: 20px;
+  }
+
+  /* Recently Played Sidebar */
+  .sidebar-left {
+    width: 200px;
+  }
+  .sidebar-left h2 {
+    margin-bottom: 10px;
+  }
+  .recent-game {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 12px;
+  }
+  .recent-game img {
+    width: 40px;
+    height: 40px;
+    border-radius: 6px;
+  }
+  .recent-game p {
+    margin: 0;
+    font-size: 14px;
+  }
+
+  /* Center Carousel */
+  .center {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .game-scroll {
+    display: flex;
+    gap: 20px;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    padding-bottom: 15px;
+  }
+  .game-card {
+    flex: 0 0 auto;
+    width: 220px;
+    background: #222;
+    border-radius: 20px;
+    padding: 10px;
+    text-align: center;
+    scroll-snap-align: center;
+    transition: transform 0.3s;
+  }
+  .game-card:hover {
+    transform: scale(1.05);
+  }
+  .game-card img {
+    width: 100%;
+    border-radius: 15px;
+  }
+
+  /* Right Sidebar */
+  .sidebar-right {
+    width: 200px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+  .sidebar-right button {
+    padding: 15px;
+    background: #333;
+    border: none;
+    border-radius: 10px;
+    color: #fff;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background 0.3s;
+  }
+  .sidebar-right button:hover {
+    background: #555;
+  }
+
+  /* Footer */
+  .footer {
+    background: #111;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    gap: 15px;
+  }
+  .footer img {
+    width: 28px;
+    height: 28px;
+    cursor: pointer;
+    transition: transform 0.2s;
+  }
+  .footer img:hover {
+    transform: scale(1.2);
+  }
+
+  /* Project counter */
+  .counter {
+    text-align: center;
+    margin-top: 10px;
+    font-weight: bold;
+  }
+</style>
+</head>
+<body>
+
+<!-- Top Navbar -->
+<div class="navbar">
+  <ul>
+    <li>Home</li>
+    <li>Favorites</li>
+    <li>Discovery</li>
+    <li>Settings</li>
+    <li>Support</li>
+    <li>Info</li>
+  </ul>
+  <div>👤</div>
+</div>
+
+<!-- Main Layout -->
+<div class="layout">
+  <!-- Recently Played -->
+  <div class="sidebar-left">
+    <h2>Recently Played:</h2>
+    <div class="recent-game">
+      <img src="images/firered.png" alt="Pokémon FireRed">
+      <p>Pokémon FireRed</p>
+    </div>
+    <div class="recent-game">
+      <img src="images/venge.png" alt="Venge.io">
+      <p>Venge.io</p>
+    </div>
+    <div class="recent-game">
+      <img src="images/snowrider.png" alt="SnowRider3D">
+      <p>SnowRider3D</p>
+    </div>
+  </div>
+
+  <!-- Center Carousel -->
+  <div class="center">
+    <div class="game-scroll" id="gameScroll">
+      <div class="game-card">
+        <img src="images/crossy.png" alt="Crossy Road">
+        <h3>Crossy Road</h3>
+        <p>By Hipster Whale</p>
+      </div>
+      <div class="game-card">
+        <img src="images/omori.png" alt="Omori">
+        <h3>Omori</h3>
+        <p>Webport by Genizy</p>
+      </div>
+      <div class="game-card">
+        <img src="images/1v1.png" alt="1v1.lol">
+        <h3>1v1.lol</h3>
+        <p>By JustPlay.lol</p>
+      </div>
+    </div>
+    <div class="counter" id="counter"></div>
+  </div>
+
+  <!-- Right Sidebar -->
+  <div class="sidebar-right">
+    <button onclick="changeBackground()">Themes</button>
+    <button>Downloads</button>
+    <button>Credits</button>
+  </div>
+</div>
+
+<!-- Footer -->
+<div class="footer">
+  <img src="icons/spotify.png" alt="Spotify">
+  <img src="icons/youtube.png" alt="YouTube">
+  <img src="icons/tiktok.png" alt="TikTok">
+  <img src="icons/discord.png" alt="Discord">
+</div>
+
+<script>
+  // Project Counter
+  function updateCounter() {
+    const cards = document.querySelectorAll('.game-card').length;
+    document.getElementById('counter').textContent = `Total Projects: ${cards}`;
+  }
+  updateCounter();
+
+  // Background switcher
+  const backgrounds = [
+    'images/bg-default.jpg',
+    'images/bg-alt1.jpg',
+    'images/bg-alt2.jpg'
+  ];
+  let bgIndex = 0;
+  function changeBackground() {
+    bgIndex = (bgIndex + 1) % backgrounds.length;
+    document.body.style.backgroundImage = `url('${backgrounds[bgIndex]}')`;
+  }
+</script>
+
+</body>
+</html>
