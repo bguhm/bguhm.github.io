@@ -26,7 +26,7 @@
     background: #222;
     border: 1px solid #444;
     color: #eee;
-    border-radius: 8px;   /* consistent rounded corners */
+    border-radius: 8px;
     box-sizing: border-box;
   }
 
@@ -69,14 +69,14 @@
   width: 16px;
   height: 16px;
   margin-left: 6px;
-  border-radius: 50%;   /* <-- circle now */
+  border-radius: 50%;
   border: 2px solid #444;
   cursor: pointer;
   flex-shrink: 0;
 }
-  .ok { background: #7CFC00; }   /* light green */
-  .FIX { background: #FFD700; }  /* golden yellow */
-  .soon { background: #FF6F61; } /* pinkish red */
+  .ok { background: #7CFC00; }
+  .FIX { background: #FFD700; }
+  .soon { background: #FF6F61; }
 
   /* Remove button (X) */
   .file-entry button {
@@ -111,7 +111,6 @@
 <body>
 <h1>🎮 Batch Game Card Generator</h1>
 
-<!-- GitHub config -->
 <label>GitHub Username:</label>
 <input type="text" id="githubUser" placeholder="e.g. bguhm">
 
@@ -121,7 +120,6 @@
 <label>Image Folder Path:</label>
 <input type="text" id="folderPath" placeholder="e.g. library/images/">
 
-<!-- Upload + defaults -->
 <label>Upload Images:</label>
 <input type="file" id="imageUpload" multiple accept="image/*">
 
@@ -135,10 +133,8 @@
   <option value="soon">soon</option>
 </select>
 
-<!-- File list -->
 <div id="fileList"></div>
 
-<!-- Generate -->
 <button class="generateBtn" onclick="generateAll()">Generate All Divs</button>
 
 <h2>Generated Code:</h2>
@@ -185,6 +181,7 @@ function displayFiles() {
     const titleInput = document.createElement('input');
     titleInput.type = 'text';
     titleInput.value = file.name.replace(/\.[^/.]+$/, "");
+    titleInput.dataset.originalFile = file.name; // Add original file name as a data attribute
 
     // Description / credits field
     const descInput = document.createElement('input');
@@ -213,22 +210,21 @@ function displayFiles() {
 function generateAll() {
   let output = '';
 
-  const githubUser = document.getElementById('githubUser').value.trim();
-  const repoName = document.getElementById('repoName').value.trim();
-  const folderPath = document.getElementById('folderPath').value.trim();
+  const username = document.getElementById('githubUser').value.trim();
+  const repo = document.getElementById('repoName').value.trim();
+  const folder = document.getElementById('folderPath').value.trim();
 
   document.querySelectorAll('.file-entry').forEach(div => {
-    const img = div.querySelector('img');
     const urlInput = div.querySelectorAll('input')[0];
     const titleInput = div.querySelectorAll('input')[1];
     const descInput = div.querySelectorAll('input')[2];
     const statusBtn = div.querySelector('.status-btn');
     const status = statusBtn.classList[1] || "ok";
 
-    const fileName = img.dataset.filename;
-    const rawURL = (githubUser && repoName && folderPath && fileName)
-      ? `https://raw.githubusercontent.com/${githubUser}/${repoName}/main/${folderPath}${fileName}`
-      : img.src;
+    const fileName = titleInput.dataset.originalFile;
+    const rawURL = (username && repo && folder && fileName)
+      ? `https://raw.githubusercontent.com/${username}/${repo}/main/${folder}${fileName}`
+      : div.querySelector('img').src;
 
     const gameTitle = titleInput.value || fileName.replace(/\.[^/.]+$/, "");
     const gameURL = urlInput.value || "#";
