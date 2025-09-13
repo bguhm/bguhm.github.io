@@ -7,31 +7,30 @@
   body { font-family: Arial, sans-serif; background: #111; color: #eee; padding: 20px; }
   label { display: block; margin-top: 10px; }
   input, select, button, textarea { margin-top: 5px; padding: 6px; }
-  input, select { width: 100%; }
   
   #fileList { margin-top: 20px; }
-  .file-entry { display: flex; align-items: center; margin: 5px 0; }
-  .file-entry img { height: 40px; margin-right: 10px; background: #222; border: 1px solid #444; }
+  .file-entry { display: flex; align-items: center; margin: 5px 0; gap: 5px; }
+  .file-entry img { height: 40px; width: auto; background: #222; border: 1px solid #444; }
+  
+  .file-entry input { background: #222; border-radius: 20%; border: 1px solid #444; color: #eee; padding: 4px; }
   
   .file-entry button { 
     width: 30px; height: 30px; border-radius: 50%; 
     border: none; background: #444; color: #eee; cursor: pointer; 
-    font-weight: bold; margin-left: 10px;
+    font-weight: bold; 
   }
   
   textarea { width: 100%; height: 250px; margin-top: 15px; background: #222; color: #ccc; border-radius: 20%; border: 1px solid #444; padding: 10px; font-family: monospace; }
   
-  #baseURL, #defaultDev, #defaultStatus, button.generateBtn { 
-    background: #222; border-radius: 20%; border: 1px solid #444; color: #eee; 
+  button.generateBtn { 
+    cursor: pointer; padding: 10px; width: 100%; margin-top: 15px; 
+    background: #222; border-radius: 20%; border: 1px solid #444; color: #eee;
   }
-  
-  button.generateBtn { cursor: pointer; padding: 10px; width: 100%; margin-top: 15px; }
   
   .status-btn {
     width: 16px; height: 16px;  /* 80% size */
     border-radius: 50%;
     border: 2px solid #444;
-    margin-left: 10px;
     cursor: pointer;
     flex-shrink: 0;
   }
@@ -43,15 +42,12 @@
 <body>
 <h1>🎮 Batch Game Card Generator</h1>
 
-<label>GitHub Folder URL (where images will live):</label>
-<input type="text" id="baseURL" placeholder="https://raw.githubusercontent.com/user/repo/main/library/images/">
-
 <label>Upload Images:</label>
 <input type="file" id="imageUpload" multiple accept="image/*">
 
 <div id="fileList"></div>
 
-<label>Default Developer:</label>
+<label>Default Developer / Description:</label>
 <input type="text" id="defaultDev" placeholder="Made by ...">
 
 <label>Default Status:</label>
@@ -82,14 +78,7 @@ function displayFiles() {
     const div = document.createElement('div');
     div.classList.add('file-entry');
 
-    const img = document.createElement('img');
-    img.src = URL.createObjectURL(file);
-
-    const nameInput = document.createElement('input');
-    nameInput.type = 'text';
-    nameInput.value = file.name.replace(/\.[^/.]+$/, "");
-    nameInput.style.flex = '1';
-
+    // Status button
     const statusBtn = document.createElement('div');
     let status = document.getElementById('defaultStatus').value;
     statusBtn.classList.add('status-btn', status);
@@ -100,6 +89,26 @@ function displayFiles() {
       statusBtn.className = "status-btn " + status;
     };
 
+    // Image preview
+    const img = document.createElement('img');
+    img.src = URL.createObjectURL(file);
+
+    // URL field
+    const urlInput = document.createElement('input');
+    urlInput.type = 'text';
+    urlInput.placeholder = 'Game link URL';
+
+    // Title field
+    const titleInput = document.createElement('input');
+    titleInput.type = 'text';
+    titleInput.value = file.name.replace(/\.[^/.]+$/, "");
+
+    // Description / credits field
+    const descInput = document.createElement('input');
+    descInput.type = 'text';
+    descInput.placeholder = 'Description / Credits (optional)';
+
+    // Remove button
     const removeBtn = document.createElement('button');
     removeBtn.textContent = "X";
     removeBtn.onclick = () => {
@@ -109,33 +118,35 @@ function displayFiles() {
 
     div.appendChild(statusBtn);
     div.appendChild(img);
-    div.appendChild(nameInput);
+    div.appendChild(urlInput);
+    div.appendChild(titleInput);
+    div.appendChild(descInput);
     div.appendChild(removeBtn);
+
     fileList.appendChild(div);
   });
 }
 
 function generateAll() {
-  const baseURL = document.getElementById('baseURL').value;
-  const defaultDev = document.getElementById('defaultDev').value;
-
   let output = '';
   document.querySelectorAll('.file-entry').forEach(div => {
     const img = div.querySelector('img');
-    const nameInput = div.querySelector('input');
+    const urlInput = div.querySelectorAll('input')[0];
+    const titleInput = div.querySelectorAll('input')[1];
+    const descInput = div.querySelectorAll('input')[2];
     const statusBtn = div.querySelector('.status-btn');
     const status = statusBtn.classList[1] || "ok";
 
-    const gameName = nameInput.value || img.src.split('/').pop().replace(/\.[^/.]+$/, "");
-    const rawURL = baseURL + img.src.split('/').pop();
-    const folderPath = `library/${gameName.toLowerCase().replace(/\s+/g, '')}/index.html`;
+    const gameTitle = titleInput.value || img.src.split('/').pop().replace(/\.[^/.]+$/, "");
+    const gameURL = urlInput.value || `#`;
+    const gameDesc = descInput.value || document.getElementById('defaultDev').value || '';
 
     const divBlock = `
 <div class="${status}">
-  <a href="${folderPath}">
-    <img src="${rawURL}" onerror="this.src='replace.png';"/>
-    <h3>${gameName}</h3>
-    ${defaultDev ? `<p>${defaultDev}</p>` : ''}
+  <a href="${gameURL}">
+    <img src="${img.src}" onerror="this.src='replace.png';"/>
+    <h3>${gameTitle}</h3>
+    ${gameDesc ? `<p>${gameDesc}</p>` : ''}
   </a>
 </div>`;
     output += divBlock + "\n\n";
