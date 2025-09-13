@@ -8,20 +8,19 @@
     label { display: block; margin-top: 10px; }
     input, select, button { margin-top: 5px; padding: 6px; width: 100%; }
     #fileList { margin-top: 20px; }
-    .file-entry { display: flex; align-items: center; margin: 5px 0; }
-    .file-entry img { height: 40px; margin-right: 10px; background: #222; border: 1px solid #444; }
+    .file-entry { display: flex; align-items: center; margin: 5px 0; gap: 10px; }
+    .file-entry img { height: 40px; background: #222; border: 1px solid #444; }
     .file-entry button { margin-left: auto; }
     textarea { width: 100%; height: 250px; margin-top: 15px; }
-      .status-btn {
-    width: 20px; height: 20px;
-    border-radius: 50%;
-    border: 2px solid #444;
-    margin-left: 10px;
-    cursor: pointer;
-  }
-  .ok { background: green; }
-  .FIX { background: orange; }
-  .soon { background: red; }
+    .status-btn {
+      width: 20px; height: 20px;
+      border-radius: 50%;
+      border: 2px solid #444;
+      cursor: pointer;
+    }
+    .ok { background: green; }
+    .FIX { background: orange; }
+    .soon { background: red; }
   </style>
 </head>
 <body>
@@ -38,13 +37,6 @@
   <label>Default Developer:</label>
   <input type="text" id="defaultDev" placeholder="Made by ...">
 
-  <label>Default Status:</label>
-  <select id="defaultStatus">
-    <option value="ok">ok</option>
-    <option value="FIX">FIX</option>
-    <option value="soon">soon</option>
-  </select>
-
   <button onclick="generateAll()">Generate All Divs</button>
 
   <h2>Generated Code:</h2>
@@ -54,7 +46,10 @@
     let files = [];
 
     document.getElementById('imageUpload').addEventListener('change', (event) => {
-      files = Array.from(event.target.files);
+      files = Array.from(event.target.files).map(file => ({
+        file,
+        status: "ok" // default per file
+      }));
       displayFiles();
     });
 
@@ -62,15 +57,24 @@
       const fileList = document.getElementById('fileList');
       fileList.innerHTML = '';
 
-      files.forEach((file, index) => {
+      files.forEach((f, index) => {
         const div = document.createElement('div');
         div.classList.add('file-entry');
 
         const img = document.createElement('img');
-        img.src = URL.createObjectURL(file);
+        img.src = URL.createObjectURL(f.file);
 
         const span = document.createElement('span');
-        span.textContent = file.name;
+        span.textContent = f.file.name;
+
+        const statusBtn = document.createElement("div");
+        statusBtn.classList.add("status-btn", f.status);
+        statusBtn.onclick = () => {
+          if (f.status === "ok") f.status = "FIX";
+          else if (f.status === "FIX") f.status = "soon";
+          else f.status = "ok";
+          statusBtn.className = "status-btn " + f.status;
+        };
 
         const removeBtn = document.createElement('button');
         removeBtn.textContent = "X";
@@ -81,6 +85,7 @@
 
         div.appendChild(img);
         div.appendChild(span);
+        div.appendChild(statusBtn);
         div.appendChild(removeBtn);
         fileList.appendChild(div);
       });
@@ -89,30 +94,17 @@
     function generateAll() {
       const baseURL = document.getElementById('baseURL').value;
       const defaultDev = document.getElementById('defaultDev').value;
-      const defaultStatus = document.getElementById('defaultStatus').value;
 
       let output = '';
 
-      files.forEach(file => {
-        const fileName = file.name;
+      files.forEach(f => {
+        const fileName = f.file.name;
         const gameName = fileName.replace(/\.[^/.]+$/, ""); // strip extension
         const rawURL = baseURL + fileName;
         const folderPath = `library/${gameName.toLowerCase().replace(/\s+/g, '')}/index.html`;
-        let status = "ok"; // default
 
-const statusBtn = document.createElement("div");
-statusBtn.classList.add("status-btn", status);
-
-statusBtn.onclick = () => {
-  if (status === "ok") status = "FIX";
-  else if (status === "FIX") status = "soon";
-  else status = "ok";
-  statusBtn.className = "status-btn " + status;
-};
-
-div.appendChild(statusBtn);
         const divBlock = `
-<div class="${status}">
+<div class="${f.status}">
   <a href="${folderPath}">
     <img src="${rawURL}" onerror="this.src='replace.png';"/>
     <h3>${gameName}</h3>
@@ -124,7 +116,6 @@ div.appendChild(statusBtn);
 
       document.getElementById('output').value = output;
     }
-    
   </script>
 </body>
 </html>
