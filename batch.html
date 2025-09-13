@@ -61,7 +61,34 @@ textarea {
   height: 30px;
   border-radius: 50%;    /* perfect circle */
 }
-  
+  .file-entry {
+  display: flex;
+  align-items: center; /* vertically centers everything */
+  gap: 6px;            /* space between items like img, fields, status, X */
+  margin: 5px 0;
+}
+
+.file-entry input {
+  flex: 1;             /* fields take up remaining space nicely */
+}
+
+.status-btn {
+  width: 16px;
+  height: 16px;
+  margin-left: 6px;
+  border-radius: 50%;
+  border: 2px solid #444;
+  cursor: pointer;
+  flex-shrink: 0;       /* ensures it doesn't shrink when field is long */
+}
+
+.file-entry button {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  font-size: 14px;
+  flex-shrink: 0;       /* same as above, stays circular */
+}
 </style>
 </head>
 <body>
