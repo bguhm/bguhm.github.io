@@ -2,131 +2,128 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Batch Game Card Generator</title>
+<title>🎮 Batch Game Card Generator</title>
 <style>
-  body { font-family: Arial, sans-serif; background: #111; color: #eee; padding: 20px; }
-  label { display: block; margin-top: 10px; }
-  input, select, button, textarea { margin-top: 5px; padding: 6px; }
-  
-  #fileList { margin-top: 20px; }
-  .file-entry { display: flex; align-items: center; margin: 5px 0; gap: 5px; }
-  .file-entry img { height: 40px; width: auto; background: #222; border: 1px solid #444; }
-  
-  .file-entry input { background: #222; border-radius: 20%; border: 1px solid #444; color: #eee; padding: 4px; }
-  
-  .file-entry button { 
-    width: 30px; height: 30px; border-radius: 50%; 
-    border: none; background: #444; color: #eee; cursor: pointer; 
-    font-weight: bold; 
+  body {
+    font-family: Arial, sans-serif;
+    background: #111;
+    color: #eee;
+    padding: 20px;
   }
-  
-  textarea { width: 100%; height: 250px; margin-top: 15px; background: #222; color: #ccc; border-radius: 20%; border: 1px solid #444; padding: 10px; font-family: monospace; }
-  
-  button.generateBtn { 
-    cursor: pointer; padding: 10px; width: 20%; margin-top: 15px; 
-    background: #222; border-radius: 10%; border: 1px solid #444; color: #eee;
+
+  h1, h2 {
+    margin-bottom: 10px;
   }
-  
+
+  label {
+    display: block;
+    margin-top: 10px;
+  }
+
+  input, select, button, textarea {
+    margin-top: 5px;
+    padding: 6px 10px;
+    background: #222;
+    border: 1px solid #444;
+    color: #eee;
+    border-radius: 8px;   /* consistent rounded corners */
+    box-sizing: border-box;
+  }
+
+  input, select {
+    height: 35px;
+  }
+
+  textarea {
+    width: 100%;
+    height: 250px;
+    font-family: monospace;
+    border-radius: 8px;
+    margin-top: 15px;
+  }
+
+  #fileList {
+    margin-top: 20px;
+  }
+
+  .file-entry {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin: 5px 0;
+  }
+
+  .file-entry img {
+    height: 40px;
+    width: auto;
+    background: #222;
+    border: 1px solid #444;
+  }
+
+  .file-entry input {
+    flex: 1;
+  }
+
+  /* Status buttons */
   .status-btn {
-    width: 16px; height: 16px;  /* 80% size */
-    border-radius: 50%;
+    width: 16px;
+    height: 16px;
+    margin-left: 6px;
+    border-radius: 4px;
     border: 2px solid #444;
     cursor: pointer;
     flex-shrink: 0;
   }
-  .ok { background: #7CFC00; }         /* light green */
-  .FIX { background: #FFD700; }        /* light yellow/golden */
-  .soon { background: #FF6F61; }   
-  /* light pinkish red */
-  input, textarea {
-  background: #222;
-  border: 1px solid #444;
-  color: #eee;
-  border-radius: 12px;       /* nice rounded corners */
-  padding: 6px 10px;
-  height: 35px;              /* consistent height for inputs */
-  box-sizing: border-box;    /* includes padding in height */
-}
+  .ok { background: #7CFC00; }   /* light green */
+  .FIX { background: #FFD700; }  /* golden yellow */
+  .soon { background: #FF6F61; } /* pinkish red */
 
-textarea {
-  height: 250px;
-  border-radius: 15px;
-}button.generateBtn {
-  border-radius: 12px;   /* rounded rectangle */
-  padding: 10px;
-}
-
-.file-entry button {
-  width: 30px;
-  height: 30px;
-  border-radius: 50%;    /* perfect circle */
-}
-  .file-entry {
-  display: flex;
-  align-items: center; /* vertically centers everything */
-  gap: 6px;            /* space between items like img, fields, status, X */
-  margin: 5px 0;
-}
-
-.file-entry input {
-  flex: 1;             /* fields take up remaining space nicely */
-}
-
-.status-btn {
-  width: 16px;
-  height: 16px;
-  margin-left: 6px;
-  border-radius: 50%;
-  border: 2px solid #444;
-  cursor: pointer;
-  flex-shrink: 0;       /* ensures it doesn't shrink when field is long */
-}
-
-.file-entry button {
-  width: 24px;
-  height: 24px;
-  border-radius: 50%;
-  font-size: 14px;
-  flex-shrink: 0;       /* same as above, stays circular */
-}
-  input, textarea, select, button {
-  border-radius: 50%;
-}
-
-.file-entry button, .status-btn {
-  border-radius: 50%; /* keep these perfectly circular */
-}
+  /* Remove button (X) */
   .file-entry button {
-  width: 20px;
-  height: 20px;
-  font-size: 14px;
-  border-radius: 10%;
-  border: 1px solid #444;
-  background: #333;
-  color: #eee;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-    input, textarea, select, button.generateBtn {
-  border-radius: 8px;  /* fixed rounded corners */
-}
-}
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    border: 1px solid #444;
+    background: #333;
+    color: #eee;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 14px;
+    flex-shrink: 0;
+  }
+
+  /* Generate button */
+  .generateBtn {
+    display: block;
+    margin: 20px 0 10px 0;
+    padding: 10px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    background: #222;
+    border: 1px solid #444;
+    color: #eee;
+    width: fit-content;
+  }
 </style>
 </head>
 <body>
- <label>GitHub Username:</label>
-<input type="text" id="githubUser" placeholder="e.g. bguhm">
-<label>Repository Name:</label>
-<input type="text" id="repoName" placeholder="e.g. bguhm.github.io">
-<label>Image Folder Path:</label>
-<input type="text" id="folderPath" placeholder="library/images/"> 
 <h1>🎮 Batch Game Card Generator</h1>
 
+<!-- GitHub config -->
+<label>GitHub Username:</label>
+<input type="text" id="githubUser" placeholder="e.g. bguhm">
+
+<label>Repository Name:</label>
+<input type="text" id="repoName" placeholder="e.g. bguhm.github.io">
+
+<label>Image Folder Path:</label>
+<input type="text" id="folderPath" placeholder="e.g. library/images/">
+
+<!-- Upload + defaults -->
 <label>Upload Images:</label>
 <input type="file" id="imageUpload" multiple accept="image/*">
-
-<div id="fileList"></div>
 
 <label>Default Developer / Description:</label>
 <input type="text" id="defaultDev" placeholder="Made by ...">
@@ -138,6 +135,10 @@ textarea {
   <option value="soon">soon</option>
 </select>
 
+<!-- File list -->
+<div id="fileList"></div>
+
+<!-- Generate -->
 <button class="generateBtn" onclick="generateAll()">Generate All Divs</button>
 
 <h2>Generated Code:</h2>
@@ -173,6 +174,7 @@ function displayFiles() {
     // Image preview
     const img = document.createElement('img');
     img.src = URL.createObjectURL(file);
+    img.dataset.filename = file.name; // keep original name for GitHub URL
 
     // URL field
     const urlInput = document.createElement('input');
@@ -210,6 +212,11 @@ function displayFiles() {
 
 function generateAll() {
   let output = '';
+
+  const githubUser = document.getElementById('githubUser').value.trim();
+  const repoName = document.getElementById('repoName').value.trim();
+  const folderPath = document.getElementById('folderPath').value.trim();
+
   document.querySelectorAll('.file-entry').forEach(div => {
     const img = div.querySelector('img');
     const urlInput = div.querySelectorAll('input')[0];
@@ -218,14 +225,19 @@ function generateAll() {
     const statusBtn = div.querySelector('.status-btn');
     const status = statusBtn.classList[1] || "ok";
 
-    const gameTitle = titleInput.value || img.src.split('/').pop().replace(/\.[^/.]+$/, "");
-    const gameURL = urlInput.value || `#`;
+    const fileName = img.dataset.filename;
+    const rawURL = (githubUser && repoName && folderPath && fileName)
+      ? `https://raw.githubusercontent.com/${githubUser}/${repoName}/main/${folderPath}${fileName}`
+      : img.src;
+
+    const gameTitle = titleInput.value || fileName.replace(/\.[^/.]+$/, "");
+    const gameURL = urlInput.value || "#";
     const gameDesc = descInput.value || document.getElementById('defaultDev').value || '';
 
     const divBlock = `
 <div class="${status}">
   <a href="${gameURL}">
-    <img src="${img.src}" onerror="this.src='replace.png';"/>
+    <img src="${rawURL}" onerror="this.src='replace.png';"/>
     <h3>${gameTitle}</h3>
     ${gameDesc ? `<p>${gameDesc}</p>` : ''}
   </a>
