@@ -1,153 +1,148 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Batch Game Card Generator</title>
-  <style>
-    body { font-family: Arial, sans-serif; background: #111; color: #eee; padding: 20px; }
-    label { display: block; margin-top: 10px; }
-    input, select, button { margin-top: 5px; padding: 6px; }
-    #fileList { margin-top: 20px; }
-    .file-entry { display: flex; align-items: center; margin: 5px 0; gap: 10px; }
-    .file-entry img { height: 40px; background: #222; border: 1px solid #444; }
-    .file-entry input { 
-      background: #222; 
-      color: #eee; 
-      border: 1px solid #444; 
-      padding: 4px; 
-    }
-    .name-field { flex: 1; }
-    .link-field { flex: 1; }
-    .dev-field { flex: 1; }
-    .file-entry button { margin-left: auto; }
-    textarea { width: 100%; height: 250px; margin-top: 15px; }
-    .status-btn {
-      width: 20px; height: 20px;
-      border-radius: 50%;
-      border: 2px solid #444;
-      cursor: pointer;
-    }
-    .ok { background: green; }
-    .FIX { background: orange; }
-    .soon { background: red; }
-  </style>
+<meta charset="UTF-8">
+<title>Batch Game Card Generator</title>
+<style>
+  body { font-family: Arial, sans-serif; background: #111; color: #eee; padding: 20px; }
+  label { display: block; margin-top: 10px; }
+  input, select, button, textarea { margin-top: 5px; padding: 6px; }
+  input, select { width: 100%; }
+  
+  #fileList { margin-top: 20px; }
+  .file-entry { display: flex; align-items: center; margin: 5px 0; }
+  .file-entry img { height: 40px; margin-right: 10px; background: #222; border: 1px solid #444; }
+  
+  .file-entry button { 
+    width: 30px; height: 30px; border-radius: 50%; 
+    border: none; background: #444; color: #eee; cursor: pointer; 
+    font-weight: bold; margin-left: 10px;
+  }
+  
+  textarea { width: 100%; height: 250px; margin-top: 15px; background: #222; color: #ccc; border-radius: 20%; border: 1px solid #444; padding: 10px; font-family: monospace; }
+  
+  #baseURL, #defaultDev, #defaultStatus, button.generateBtn { 
+    background: #222; border-radius: 20%; border: 1px solid #444; color: #eee; 
+  }
+  
+  button.generateBtn { cursor: pointer; padding: 10px; width: 100%; margin-top: 15px; }
+  
+  .status-btn {
+    width: 16px; height: 16px;  /* 80% size */
+    border-radius: 50%;
+    border: 2px solid #444;
+    margin-left: 10px;
+    cursor: pointer;
+    flex-shrink: 0;
+  }
+  .ok { background: #7CFC00; }         /* light green */
+  .FIX { background: #FFD700; }        /* light yellow/golden */
+  .soon { background: #FF6F61; }       /* light pinkish red */
+</style>
 </head>
 <body>
-  <h1>🎮 Batch Game Card Generator</h1>
+<h1>🎮 Batch Game Card Generator</h1>
 
-  <label>GitHub Folder URL (where images will live):</label>
-  <input type="text" id="baseURL" placeholder="https://raw.githubusercontent.com/user/repo/main/library/images/">
+<label>GitHub Folder URL (where images will live):</label>
+<input type="text" id="baseURL" placeholder="https://raw.githubusercontent.com/user/repo/main/library/images/">
 
-  <label>Upload Images:</label>
-  <input type="file" id="imageUpload" multiple accept="image/*">
+<label>Upload Images:</label>
+<input type="file" id="imageUpload" multiple accept="image/*">
 
-  <div id="fileList"></div>
+<div id="fileList"></div>
 
-  <button onclick="generateAll()">Generate All Divs</button>
+<label>Default Developer:</label>
+<input type="text" id="defaultDev" placeholder="Made by ...">
 
-  <h2>Generated Code:</h2>
-  <textarea id="output" readonly></textarea>
+<label>Default Status:</label>
+<select id="defaultStatus">
+  <option value="ok">ok</option>
+  <option value="FIX">FIX</option>
+  <option value="soon">soon</option>
+</select>
 
-  <script>
-    let files = [];
+<button class="generateBtn" onclick="generateAll()">Generate All Divs</button>
 
-    document.getElementById('imageUpload').addEventListener('change', (event) => {
-      files = Array.from(event.target.files).map(file => ({
-        file,
-        status: "ok", 
-        gameName: file.name.replace(/\.[^/.]+$/, ""), 
-        linkName: file.name.replace(/\.[^/.]+$/, "").toLowerCase().replace(/\s+/g, ''),
-        developer: "" // optional per file
-      }));
+<h2>Generated Code:</h2>
+<textarea id="output" readonly></textarea>
+
+<script>
+let files = [];
+
+document.getElementById('imageUpload').addEventListener('change', (event) => {
+  files = Array.from(event.target.files);
+  displayFiles();
+});
+
+function displayFiles() {
+  const fileList = document.getElementById('fileList');
+  fileList.innerHTML = '';
+
+  files.forEach((file, index) => {
+    const div = document.createElement('div');
+    div.classList.add('file-entry');
+
+    const img = document.createElement('img');
+    img.src = URL.createObjectURL(file);
+
+    const nameInput = document.createElement('input');
+    nameInput.type = 'text';
+    nameInput.value = file.name.replace(/\.[^/.]+$/, "");
+    nameInput.style.flex = '1';
+
+    const statusBtn = document.createElement('div');
+    let status = document.getElementById('defaultStatus').value;
+    statusBtn.classList.add('status-btn', status);
+    statusBtn.onclick = () => {
+      if (status === "ok") status = "FIX";
+      else if (status === "FIX") status = "soon";
+      else status = "ok";
+      statusBtn.className = "status-btn " + status;
+    };
+
+    const removeBtn = document.createElement('button');
+    removeBtn.textContent = "X";
+    removeBtn.onclick = () => {
+      files.splice(index, 1);
       displayFiles();
-    });
+    };
 
-    function displayFiles() {
-      const fileList = document.getElementById('fileList');
-      fileList.innerHTML = '';
+    div.appendChild(statusBtn);
+    div.appendChild(img);
+    div.appendChild(nameInput);
+    div.appendChild(removeBtn);
+    fileList.appendChild(div);
+  });
+}
 
-      files.forEach((f, index) => {
-        const div = document.createElement('div');
-        div.classList.add('file-entry');
+function generateAll() {
+  const baseURL = document.getElementById('baseURL').value;
+  const defaultDev = document.getElementById('defaultDev').value;
 
-        // Status button
-        const statusBtn = document.createElement("div");
-        statusBtn.classList.add("status-btn", f.status);
-        statusBtn.onclick = () => {
-          if (f.status === "ok") f.status = "FIX";
-          else if (f.status === "FIX") f.status = "soon";
-          else f.status = "ok";
-          statusBtn.className = "status-btn " + f.status;
-        };
+  let output = '';
+  document.querySelectorAll('.file-entry').forEach(div => {
+    const img = div.querySelector('img');
+    const nameInput = div.querySelector('input');
+    const statusBtn = div.querySelector('.status-btn');
+    const status = statusBtn.classList[1] || "ok";
 
-        // Preview
-        const img = document.createElement('img');
-        img.src = URL.createObjectURL(f.file);
+    const gameName = nameInput.value || img.src.split('/').pop().replace(/\.[^/.]+$/, "");
+    const rawURL = baseURL + img.src.split('/').pop();
+    const folderPath = `library/${gameName.toLowerCase().replace(/\s+/g, '')}/index.html`;
 
-        // Game name input
-        const nameField = document.createElement('input');
-        nameField.type = "text";
-        nameField.classList.add("name-field");
-        nameField.value = f.gameName;
-        nameField.oninput = () => { f.gameName = nameField.value; };
-
-        // Link name input
-        const linkField = document.createElement('input');
-        linkField.type = "text";
-        linkField.classList.add("link-field");
-        linkField.value = f.linkName;
-        linkField.oninput = () => { f.linkName = linkField.value; };
-
-        // Developer input (optional)
-        const devField = document.createElement('input');
-        devField.type = "text";
-        devField.classList.add("dev-field");
-        devField.placeholder = "Developer (optional)";
-        devField.value = f.developer;
-        devField.oninput = () => { f.developer = devField.value; };
-
-        // Remove button
-        const removeBtn = document.createElement('button');
-        removeBtn.textContent = "X";
-        removeBtn.onclick = () => {
-          files.splice(index, 1);
-          displayFiles();
-        };
-
-        div.appendChild(statusBtn);
-        div.appendChild(img);
-        div.appendChild(nameField);
-        div.appendChild(linkField);
-        div.appendChild(devField);
-        div.appendChild(removeBtn);
-        fileList.appendChild(div);
-      });
-    }
-
-    function generateAll() {
-      const baseURL = document.getElementById('baseURL').value;
-      let output = '';
-
-      files.forEach(f => {
-        const fileName = f.file.name;
-        const rawURL = baseURL + fileName;
-        const folderPath = `library/${f.linkName}/index.html`;
-
-        let devLine = f.developer ? `<p>${f.developer}</p>` : "";
-
-        const divBlock = `
-<div class="${f.status}">
+    const divBlock = `
+<div class="${status}">
   <a href="${folderPath}">
     <img src="${rawURL}" onerror="this.src='replace.png';"/>
-    <h3>${f.gameName}</h3>
-    ${devLine}
+    <h3>${gameName}</h3>
+    ${defaultDev ? `<p>${defaultDev}</p>` : ''}
   </a>
 </div>`;
-        output += divBlock + "\n\n";
-      });
+    output += divBlock + "\n\n";
+  });
 
-      document.getElementById('output').value = output;
-    }
-  </script>
+  document.getElementById('output').value = output;
+}
+</script>
 </body>
 </html>
