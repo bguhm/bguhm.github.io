@@ -36,7 +36,32 @@
   }
   .ok { background: #7CFC00; }         /* light green */
   .FIX { background: #FFD700; }        /* light yellow/golden */
-  .soon { background: #FF6F61; }       /* light pinkish red */
+  .soon { background: #FF6F61; }   
+  /* light pinkish red */
+  input, textarea {
+  background: #222;
+  border: 1px solid #444;
+  color: #eee;
+  border-radius: 12px;       /* nice rounded corners */
+  padding: 6px 10px;
+  height: 35px;              /* consistent height for inputs */
+  box-sizing: border-box;    /* includes padding in height */
+}
+
+textarea {
+  height: 250px;
+  border-radius: 15px;
+}button.generateBtn {
+  border-radius: 12px;   /* rounded rectangle */
+  padding: 10px;
+}
+
+.file-entry button {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;    /* perfect circle */
+}
+  
 </style>
 </head>
 <body>
