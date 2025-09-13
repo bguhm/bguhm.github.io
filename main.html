@@ -978,5 +978,224 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 });
 </script>
+
+
+	<style>
+/* Floating Utilities Button */
+#utilities-btn {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 60px;
+  height: 60px;
+  background: #444;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #eee;
+  font-size: 28px;
+  cursor: grab;
+  transition: background 0.3s;
+  z-index: 1000;
+  user-select: none;
+}
+#utilities-btn:active {
+  cursor: grabbing;
+  background: #555;
+}
+
+/* Dropdown Menu */
+#utilities-menu {
+  position: absolute;
+  display: none;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 10px;
+  z-index: 999;
+}
+
+.utility-item {
+  background: #222;
+  color: #eee;
+  padding: 8px 12px;
+  border-radius: 8px;
+  font-size: 14px;
+  cursor: pointer;
+  border: 1px solid #444;
+  transition: background 0.2s;
+}
+.utility-item:hover {
+  background: #333;
+}
+
+/* Modal dashboard */
+#utility-dashboard {
+  display: none;
+  position: absolute;
+  width: 400px;
+  height: 300px;
+  background: #1a1a1a;
+  border: 2px solid #444;
+  border-radius: 12px;
+  padding: 15px;
+  color: #eee;
+  overflow-y: auto;
+  z-index: 1500;
+}
+#utility-dashboard h2 {
+  margin-top: 0;
+  font-size: 18px;
+}
+#utility-dashboard .close-btn {
+  position: absolute;
+  top: 8px;
+  right: 12px;
+  cursor: pointer;
+  font-size: 18px;
+  background: #333;
+  border-radius: 50%;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+#utility-dashboard .close-btn:hover {
+  background: #555;
+}
+</style>
+
+<!-- Floating Button -->
+<div id="utilities-btn">⚙️</div>
+
+<!-- Dropdown Menu -->
+<div id="utilities-menu">
+  <div class="utility-item" onclick="openUtility('raw')">Raw File Linker</div>
+  <div class="utility-item" onclick="openUtility('batch')">Batch Container Maker</div>
+  <div class="utility-item" onclick="openUtility('cloak')">Cloak Tool</div>
+</div>
+
+<!-- Dashboard Modal -->
+<div id="utility-dashboard">
+  <div class="close-btn" onclick="closeDashboard()">✖</div>
+  <h2 id="dashboard-title">Utility</h2>
+  <div id="dashboard-content">Select a utility to load here...</div>
+</div>
+
+<!-- Sounds -->
+<audio id="success-sound" src="success.mp3" preload="auto"></audio>
+<audio id="fail-sound" src="fail.mp3" preload="auto"></audio>
+
+<script>
+const btn = document.getElementById("utilities-btn");
+const menu = document.getElementById("utilities-menu");
+const dashboard = document.getElementById("utility-dashboard");
+const dashboardTitle = document.getElementById("dashboard-title");
+const dashboardContent = document.getElementById("dashboard-content");
+
+const successSound = document.getElementById("success-sound");
+const failSound = document.getElementById("fail-sound");
+
+// Track button position
+let btnX = window.innerWidth - 80;
+let btnY = window.innerHeight - 80;
+
+function updatePositions() {
+  btn.style.left = btnX + "px";
+  btn.style.top = btnY + "px";
+
+  menu.style.left = (btnX - 80) + "px";
+  menu.style.top = (btnY - 70) + "px";
+
+  dashboard.style.left = (btnX - 420) + "px";
+  dashboard.style.top = (btnY - 320) + "px";
+}
+updatePositions();
+
+// Toggle dropdown
+btn.addEventListener("click", () => {
+  if (!dragging) {
+    menu.style.display = menu.style.display === "flex" ? "none" : "flex";
+  }
+});
+
+// Open utility
+function openUtility(type) {
+  dashboard.style.display = "block";
+  menu.style.display = "none";
+  successSound.play();
+
+  if (type === "raw") {
+    dashboardTitle.textContent = "Raw File Linker";
+    dashboardContent.innerHTML = `<p>Here you can generate raw file links from GitHub repos.</p>`;
+  } else if (type === "batch") {
+    dashboardTitle.textContent = "Batch Container Maker";
+    dashboardContent.innerHTML = `<p>Here you can create multiple game divs at once.</p>`;
+  } else if (type === "cloak") {
+    dashboardTitle.textContent = "Cloak Tool";
+    dashboardContent.innerHTML = `<p>Disguise your tab with a different name/icon.</p>`;
+  }
+}
+
+function closeDashboard() {
+  dashboard.style.display = "none";
+}
+
+// Dragging logic
+let dragging = false;
+let offsetX, offsetY;
+
+btn.addEventListener("mousedown", (e) => {
+  dragging = true;
+  offsetX = e.clientX - btnX;
+  offsetY = e.clientY - btnY;
+});
+
+document.addEventListener("mousemove", (e) => {
+  if (dragging) {
+    btnX = e.clientX - offsetX;
+    btnY = e.clientY - offsetY;
+
+    // Constrain inside viewport
+    btnX = Math.max(0, Math.min(window.innerWidth - 60, btnX));
+    btnY = Math.max(0, Math.min(window.innerHeight - 60, btnY));
+
+    updatePositions();
+  }
+});
+
+document.addEventListener("mouseup", () => {
+  dragging = false;
+});
+
+// Keyboard commands
+document.addEventListener("keydown", function(e) {
+  if (e.target.tagName === "INPUT" || e.target.tagName === "TEXTAREA") return;
+
+  if (e.key === "Enter") {
+    let command = prompt("Enter command:");
+    if (!command) return;
+
+    switch (command.toLowerCase()) {
+      case "home":
+        successSound.play();
+        window.location.href = "home.html";
+        break;
+      case "die":
+        successSound.play();
+        window.close();
+        break;
+      case "devutilities":
+        successSound.play();
+        openUtility("raw");
+        break;
+      default:
+        failSound.play();
+        alert("Unknown command: " + command);
+    }
+  }
+});
+</script>
   </body>
 </html>
