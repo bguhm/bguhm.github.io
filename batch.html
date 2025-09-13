@@ -12,6 +12,16 @@
     .file-entry img { height: 40px; margin-right: 10px; background: #222; border: 1px solid #444; }
     .file-entry button { margin-left: auto; }
     textarea { width: 100%; height: 250px; margin-top: 15px; }
+      .status-btn {
+    width: 20px; height: 20px;
+    border-radius: 50%;
+    border: 2px solid #444;
+    margin-left: 10px;
+    cursor: pointer;
+  }
+  .ok { background: green; }
+  .FIX { background: orange; }
+  .soon { background: red; }
   </style>
 </head>
 <body>
@@ -88,9 +98,21 @@
         const gameName = fileName.replace(/\.[^/.]+$/, ""); // strip extension
         const rawURL = baseURL + fileName;
         const folderPath = `library/${gameName.toLowerCase().replace(/\s+/g, '')}/index.html`;
+        let status = "ok"; // default
 
+const statusBtn = document.createElement("div");
+statusBtn.classList.add("status-btn", status);
+
+statusBtn.onclick = () => {
+  if (status === "ok") status = "FIX";
+  else if (status === "FIX") status = "soon";
+  else status = "ok";
+  statusBtn.className = "status-btn " + status;
+};
+
+div.appendChild(statusBtn);
         const divBlock = `
-<div class="${defaultStatus}">
+<div class="${status}">
   <a href="${folderPath}">
     <img src="${rawURL}" onerror="this.src='replace.png';"/>
     <h3>${gameName}</h3>
@@ -102,6 +124,7 @@
 
       document.getElementById('output').value = output;
     }
+    
   </script>
 </body>
 </html>
