@@ -26,9 +26,15 @@
       border-radius: 5px;
       max-width: 80%;
       word-wrap: break-word;
+      text-align: center;
     }
     a {
       color: #58a6ff;
+    }
+    img {
+      margin-top: 10px;
+      border: 1px solid #444;
+      max-width: 300px;
     }
   </style>
 </head>
@@ -53,11 +59,21 @@
         .replace("github.com", "raw.githubusercontent.com")
         .replace("/blob/", "/");
 
+      // Build image with error handling
       output.innerHTML = `
         ✅ Raw Link: <a href="${raw}" target="_blank">${raw}</a>
         <br><br>
-        <img src="${raw}" alt="Preview" style="max-width:300px; margin-top:10px; border:1px solid #444;">
+        <img id="preview" src="${raw}" alt="Preview">
+        <p id="status"></p>
       `;
+
+      const img = document.getElementById("preview");
+      const status = document.getElementById("status");
+
+      img.onerror = function() {
+        img.src = "404.png"; // your custom placeholder image
+        status.textContent = "⚠️ Hmm, it seems this image doesn’t exist. The link was valid, but the file is empty or not found.";
+      };
     }
   </script>
 </body>
