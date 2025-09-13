@@ -29,7 +29,7 @@
   
   .status-btn {
     width: 16px; height: 16px;  /* 80% size */
-    border-radius: 10%;
+    border-radius: 50%;
     border: 2px solid #444;
     cursor: pointer;
     flex-shrink: 0;
@@ -59,7 +59,7 @@ textarea {
 .file-entry button {
   width: 30px;
   height: 30px;
-  border-radius: 10%;    /* perfect circle */
+  border-radius: 50%;    /* perfect circle */
 }
   .file-entry {
   display: flex;
@@ -76,7 +76,7 @@ textarea {
   width: 16px;
   height: 16px;
   margin-left: 6px;
-  border-radius: 10%;
+  border-radius: 50%;
   border: 2px solid #444;
   cursor: pointer;
   flex-shrink: 0;       /* ensures it doesn't shrink when field is long */
@@ -85,16 +85,16 @@ textarea {
 .file-entry button {
   width: 24px;
   height: 24px;
-  border-radius: 10%;
+  border-radius: 50%;
   font-size: 14px;
   flex-shrink: 0;       /* same as above, stays circular */
 }
   input, textarea, select, button {
-  border-radius: 10%;
+  border-radius: 50%;
 }
 
 .file-entry button, .status-btn {
-  border-radius: 10%; /* keep these perfectly circular */
+  border-radius: 50%; /* keep these perfectly circular */
 }
   .file-entry button {
   width: 20px;
@@ -108,10 +108,19 @@ textarea {
   align-items: center;
   justify-content: center;
   cursor: pointer;
+    input, textarea, select, button.generateBtn {
+  border-radius: 8px;  /* fixed rounded corners */
+}
 }
 </style>
 </head>
 <body>
+ <label>GitHub Username:</label>
+<input type="text" id="githubUser" placeholder="e.g. bguhm">
+<label>Repository Name:</label>
+<input type="text" id="repoName" placeholder="e.g. bguhm.github.io">
+<label>Image Folder Path:</label>
+<input type="text" id="folderPath" placeholder="library/images/"> 
 <h1>🎮 Batch Game Card Generator</h1>
 
 <label>Upload Images:</label>
