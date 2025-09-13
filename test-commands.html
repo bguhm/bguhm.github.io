@@ -37,13 +37,34 @@
   let buffer = "";
   const maxLen = 20;
 
+  // Sound library
+  const sounds = {
+    success: new Audio("success.mp3"),
+    fail: new Audio("fail.mp3"),
+    home: new Audio("home.mp3"),
+    die: new Audio("die.mp3"),
+    admin: new Audio("admin.mp3"),
+    safemode: new Audio("safemode.mp3"),
+    debugplz: new Audio("debug.mp3"),
+    devutilities: new Audio("utilities.mp3")
+  };
+
   // Create toast function
-  function showToast(message) {
+  function showToast(message, type="success", cmdName=null) {
     const container = document.getElementById("toast-container");
     const toast = document.createElement("div");
     toast.className = "toast";
     toast.textContent = message;
     container.appendChild(toast);
+
+    // Play sound
+    if (cmdName && sounds[cmdName]) {
+      sounds[cmdName].play();
+    } else if (type === "success") {
+      sounds.success.play();
+    } else if (type === "fail") {
+      sounds.fail.play();
+    }
 
     // Auto remove after animation
     setTimeout(() => {
@@ -53,26 +74,26 @@
 
   const commands = {
     home: () => {
-      showToast("Redirecting to Home...");
+      showToast("Redirecting to Home...", "success", "home");
       window.location.href = "home.html";
     },
     die: () => {
-      showToast("Closing this tab...");
+      showToast("Closing this tab...", "success", "die");
       window.close();
     },
     admin: () => {
-      showToast("Admin mode unlocked!");
+      showToast("Admin mode unlocked!", "success", "admin");
     },
     safemode: () => {
-      showToast("Redirecting to Google Safe Mode...");
+      showToast("Redirecting to Google Safe Mode...", "success", "safemode");
       window.location.href = "https://www.google.com";
     },
     debugplz: () => {
       console.log("Debug tools enabled");
-      showToast("Debug mode active! Check console.");
+      showToast("Debug mode active! Check console.", "success", "debugplz");
     },
     devutilities: () => {
-      showToast("Redirecting to Developer Utilities...");
+      showToast("Redirecting to Developer Utilities...", "success", "devutilities");
       window.location.href = "utilities.html";
     }
   };
@@ -82,12 +103,20 @@
       buffer += e.key.toLowerCase();
       if (buffer.length > maxLen) buffer = buffer.slice(-maxLen);
 
+      let found = false;
       for (let cmd in commands) {
         if (buffer.endsWith(cmd)) {
           commands[cmd]();
           buffer = ""; // reset after running
+          found = true;
           break;
         }
+      }
+
+      if (!found && buffer.length > 5 && buffer.endsWith(" ")) {
+        // fail sound if user types nonsense ending with space
+        showToast("Unknown command: " + buffer.trim(), "fail");
+        buffer = "";
       }
     } else if (e.key === "Escape") {
       buffer = "";
