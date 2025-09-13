@@ -1,0 +1,97 @@
+<style>
+/* Toast container */
+#toast-container {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* Individual toast */
+.toast {
+  background: rgba(40, 40, 40, 0.95);
+  color: #eee;
+  padding: 10px 16px;
+  border-radius: 6px;
+  font-size: 14px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+  animation: fadeInOut 3s forwards;
+}
+
+/* Fade in/out animation */
+@keyframes fadeInOut {
+  0% { opacity: 0; transform: translateY(20px); }
+  10% { opacity: 1; transform: translateY(0); }
+  90% { opacity: 1; transform: translateY(0); }
+  100% { opacity: 0; transform: translateY(-20px); }
+}
+</style>
+
+<div id="toast-container"></div>
+
+<script>
+(function() {
+  let buffer = "";
+  const maxLen = 20;
+
+  // Create toast function
+  function showToast(message) {
+    const container = document.getElementById("toast-container");
+    const toast = document.createElement("div");
+    toast.className = "toast";
+    toast.textContent = message;
+    container.appendChild(toast);
+
+    // Auto remove after animation
+    setTimeout(() => {
+      toast.remove();
+    }, 3000);
+  }
+
+  const commands = {
+    home: () => {
+      showToast("Redirecting to Home...");
+      window.location.href = "home.html";
+    },
+    die: () => {
+      showToast("Closing this tab...");
+      window.close();
+    },
+    admin: () => {
+      showToast("Admin mode unlocked!");
+    },
+    safemode: () => {
+      showToast("Redirecting to Google Safe Mode...");
+      window.location.href = "https://www.google.com";
+    },
+    debugplz: () => {
+      console.log("Debug tools enabled");
+      showToast("Debug mode active! Check console.");
+    },
+    devutilities: () => {
+      showToast("Redirecting to Developer Utilities...");
+      window.location.href = "utilities.html";
+    }
+  };
+
+  document.addEventListener("keydown", (e) => {
+    if (e.key.length === 1) {
+      buffer += e.key.toLowerCase();
+      if (buffer.length > maxLen) buffer = buffer.slice(-maxLen);
+
+      for (let cmd in commands) {
+        if (buffer.endsWith(cmd)) {
+          commands[cmd]();
+          buffer = ""; // reset after running
+          break;
+        }
+      }
+    } else if (e.key === "Escape") {
+      buffer = "";
+    }
+  });
+})();
+</script>
