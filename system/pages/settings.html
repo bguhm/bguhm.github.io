@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Settings</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #1e1e1e;
+      color: #f4f4f4;
+      text-align: center;
+      padding: 20px;
+      transition: background 0.3s ease, color 0.3s ease;
+    }
+
+    h1 {
+      margin-bottom: 20px;
+      font-size: 2rem;
+    }
+
+    .setting {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: #2a2a2a;
+      padding: 12px 20px;
+      margin: 10px auto;
+      border-radius: 12px;
+      max-width: 500px;
+    }
+
+    .setting span {
+      font-size: 1.1rem;
+    }
+
+    /* Circular toggle button */
+    .toggle {
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      background: #ff4d4d; /* off = red */
+      cursor: pointer;
+      transition: background 0.3s ease;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 0.8rem;
+      user-select: none;
+    }
+
+    .toggle.on {
+      background: #4dff4d; /* on = green */
+    }
+  </style>
+</head>
+<body>
+  <h1>⚙️ Settings</h1>
+
+  <div class="setting">
+    <span>Cloak Mode</span>
+    <div class="toggle" id="cloakToggle">OFF</div>
+  </div>
+
+  <div class="setting">
+    <span>Dark Theme</span>
+    <div class="toggle on" id="themeToggle">ON</div>
+  </div>
+
+  <div class="setting">
+    <span>Custom Backgrounds</span>
+    <div class="toggle" id="bgToggle">OFF</div>
+  </div>
+
+  <script>
+    // Helper: set favicon
+    function setFavicon(url) {
+      let link = document.querySelector("link[rel~='icon']");
+      if (!link) {
+        link = document.createElement("link");
+        link.rel = "icon";
+        document.head.appendChild(link);
+      }
+      link.href = url;
+    }
+
+    // Generic toggle setup with localStorage
+    function setupToggle(id, callback) {
+      const el = document.getElementById(id);
+
+      // Restore saved state
+      const saved = localStorage.getItem(id);
+      if (saved === "on") {
+        el.classList.add("on");
+        el.textContent = "ON";
+      }
+
+      // Apply initial state
+      if (callback) callback(el.classList.contains("on"));
+
+      el.addEventListener("click", () => {
+        el.classList.toggle("on");
+        const isOn = el.classList.contains("on");
+        el.textContent = isOn ? "ON" : "OFF";
+
+        // Save state
+        localStorage.setItem(id, isOn ? "on" : "off");
+
+        // Run feature change
+        if (callback) callback(isOn);
+      });
+    }
+
+    // Cloak Mode toggle
+    setupToggle("cloakToggle", (active) => {
+      if (active) {
+        document.title = "Google Docs";
+        setFavicon("icons/docs.png");
+      } else {
+        document.title = "Bguhm.GuiHub.io";
+        setFavicon("icons/default.png");
+      }
+    });
+
+    // Dark Theme toggle
+    setupToggle("themeToggle", (active) => {
+      if (active) {
+        document.body.style.background = "#1e1e1e";
+        document.body.style.color = "#f4f4f4";
+      } else {
+        document.body.style.background = "#f4f4f4";
+        document.body.style.color = "#111";
+      }
+    });
+
+    // Background Image toggle
+    setupToggle("bgToggle", (active) => {
+      document.body.style.backgroundImage = active 
+        ? "url('images/bg1.jpg')" 
+        : "none";
+    });
+  </script>
+</body>
+</html>
