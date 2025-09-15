@@ -24,7 +24,8 @@
 </p>
 
 # credits
-- @skysethelimit for the library (400+ projects) CHECK OUT SELENITE HERE: [selenite.cc](https://selenite.cc)
+- @skysethelimit for the library (400+ projects) \
+  CHECK OUT SELENITE HERE: [selenite.cc](https://selenite.cc)
   Join their [discord server](https://discord.gg/WDZhkdFyF4) to support selenite :)
 - @genizy for the ports <3 
 - @WilardzySenpai for the loading screen
