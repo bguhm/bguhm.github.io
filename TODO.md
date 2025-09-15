@@ -1,14 +1,14 @@
 # Daily TODO
 
-- subway surfers
-- eaglercraft
+- subway surfers ✅
+- - eaglercraft
 - hotline maimi
 - geometry dash
-- cookie clicker
+- cookie clicker ✅
 - raise a floppa
-- moto x3m
-- stickman hook
-- pacman
-- chess
+- moto x3m ✅
+- stickman hook ✅
+- pacman ✅
+- chess ✅
 - checkers
 - temple run
