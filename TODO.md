@@ -26,6 +26,7 @@
 - profile.html
 - user log in/sign up
 - re-add disc widget
+- re-add the loading screen / fix loading screen issues.
 - music player
 - fullscreen/like favorite comment page
 - home.html
