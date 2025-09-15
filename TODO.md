@@ -1,36 +1,42 @@
-# Daily TODO
+📅 Tomorrow [ Sept. 16 ] — v0.7 Goals
+Games (12 total target)
 
-- subway surfers ✅
-- eaglercraft ✅
-- hotline maimi
-- geometry dash ✅
-- cookie clicker ✅
-- raise a floppa ✅
-- moto x3m ✅
-- stickman hook ✅
-- pacman ✅
-- chess ✅
-- checkers
-- temple run2 ✅
+✅ Replace Venge, Krunker, Surviv with 3 existing library picks (easy wins)
 
-## Tomorrow [ Sept. 16 ]
-### v0.7
+Checkers
 
-- checkers
-- hotline-miami
-- krunker.io ✅
-- surviv.io ✅
-- venge.io ✅
-- Header spacing fix
-- versions.html
-- profile.html
-- user log in/sign up
-- re-add disc widget
-- re-add the loading screen / fix loading screen issues.
-- file organization, re-location, etc.
-- marquee quote fix + re-added
-- fix pokemon emulator issue, re-add all pokemon emulators
-- music player
-- fullscreen/like favorite comment page
-- home.html
-- alternative links
+Hotline Miami
+
+7 more from your backlog (any solid ones already in your library that don’t need much fixing)
+
+Pages / UI
+
+Header spacing fix
+
+versions.html
+
+profile.html
+
+home.html
+
+Features
+
+User login / sign up
+
+Re-add Discord widget
+
+Re-add loading screen & fix issues
+
+Music player
+
+Fullscreen / like / favorite / comment page
+
+Alternative links
+
+Fixes / Maintenance
+
+File organization + relocation
+
+Marquee quote fix + re-add
+
+Pokémon emulator fix + re-add
