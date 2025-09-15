@@ -283,7 +283,6 @@ embed {
   display: inline-flex;
   align-items: center;
   gap: 5px;
-  margin-left: 120px; /*how far right you want this to be!*/
 }
 
 .search-box input {
@@ -311,57 +310,74 @@ footer {
     text-align: center;
     padding: 40px;
 }
+/* Header layout */
 header {
-    display: flex;
-    justify-content: space-between; /* space between left side links & right side controls */
-    align-items: center;
-    background-color: #111;
-    padding: 10px 20px;
+  display: flex;
+  justify-content: space-between; /* left + right sides */
+  align-items: center;
+  background-color: #111;
+  padding: 10px 20px;
 }
 
-/* Group dashboard button + search */
+/* Left nav (anchors) */
+.nav-links {
+  display: flex;
+  gap: 15px; /* control spacing between links */
+}
+.nav-links a {
+  color: white;
+  text-decoration: none;
+  font-family: monospace;
+  font-weight: bold;
+}
+.nav-links a:hover {
+  color: #ff4444;
+  text-decoration: underline;
+}
+
+/* Right side controls */
 .header-controls {
-    display: flex;
-    align-items: center;
-    gap: 0px; /* space between dashboard and search */
+  display: flex;
+  align-items: center;
+  gap: 8px; /* control tightness */
 }
 
+/* Dashboard button */
+#dashboardBtn {
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
+  background: none;
+  border: none;
+  color: white;
+  font-size: 20px;
+  transition: transform 0.25s ease;
+}
+#dashboardBtn:hover {
+  transform: scale(1.15);
+}
+
+/* Search box */
 .search-box {
-    display: flex;
-    align-items: center;
-    gap: 5px;
-    margin-left: 0; /* remove the hacky push */
+  display: flex;
+  align-items: center;
+  gap: 5px;
 }
-#toTopBtn {
-  opacity: 0.6;
-  transition: opacity 0.3s;
+.search-box input {
+  padding: 6px 8px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
 }
-#toTopBtn:hover {
-  transition: opacity 0.8s;
+.search-box button {
+  padding: 6px 10px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  background: #333;
+  color: #fff;
 }
-/* Header links: tighter spacing */
-header a, footer a {
-    margin: 0 8px;            /* even spacing */
-    color: white;
-    text-decoration: none;
-    font-family: monospace;
-    font-weight: bold;
-    text-align: center;
-}
-
-/* Header controls: search + icons grouped together */
-.header-controls {
-    display: flex;
-    align-items: center;
-    gap: 10px;                /* small natural spacing */
-}
-
-/* Search box sits flush without huge push */
-.search-box {
-    display: flex;
-    align-items: center;
-    gap: 5px;
-    margin-left: 0;           /* removed artificial offset */
+.search-box button:hover {
+  background: #555;
 }
 
 /* Profile picture */
@@ -371,10 +387,10 @@ header a, footer a {
   cursor: pointer;
   transition: transform 0.25s ease;
 }
-
 #pfp:hover {
-  transform: scale(1.2);      /* smoother growth */
+  transform: scale(1.2);
 }
+
 
 /* Dashboard button */
 #dashboardBtn {
