@@ -12,6 +12,10 @@ html, body {
     flex-direction: column;    /* stack header, content, footer */
 }
 /* Dashboard button (your existing icon) */
+#pfp {
+  width: 50px;
+  cursor: pointer;
+}
 #dashboardBtn {
   width: 50px;
   cursor: pointer;
