@@ -339,3 +339,50 @@ header {
 #toTopBtn:hover {
   transition: opacity 0.8s;
 }
+/* Header links: tighter spacing */
+header a, footer a {
+    margin: 0 8px;            /* even spacing */
+    color: white;
+    text-decoration: none;
+    font-family: monospace;
+    font-weight: bold;
+    text-align: center;
+}
+
+/* Header controls: search + icons grouped together */
+.header-controls {
+    display: flex;
+    align-items: center;
+    gap: 10px;                /* small natural spacing */
+}
+
+/* Search box sits flush without huge push */
+.search-box {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    margin-left: 0;           /* removed artificial offset */
+}
+
+/* Profile picture */
+#pfp {
+  width: 30px;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: transform 0.25s ease;
+}
+
+#pfp:hover {
+  transform: scale(1.2);      /* smoother growth */
+}
+
+/* Dashboard button */
+#dashboardBtn {
+  width: 30px;
+  cursor: pointer;
+  transition: transform 0.25s ease;
+}
+
+#dashboardBtn:hover {
+  transform: scale(1.15);
+}
