@@ -18,10 +18,13 @@
 
 - checkers
 - hotline-miami
-- krunker.io
-- surviv.io
-- venge.io
-- UI update
+- krunker.io ✅
+- surviv.io ✅
+- venge.io ✅
+- Header spacing fix
+- versions.html
+- profile.html
+- user log in/sign up
 - re-add disc widget
 - music player
 - fullscreen/like favorite comment page
