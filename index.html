@@ -15,32 +15,72 @@
           channel: '1329289920845713471' // #channels
       })
     </script>
-    <style>
-      /* Loading screen */
-      .preloader {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: #000;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        flex-direction: column;
-        z-index: 1000;
-      }
-      .hidden {
-        display: none;
-      }
+	  <style>
+  /* Loading screen */
+  .preloader {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: #000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    z-index: 1000;
+    transition: opacity 1.5s ease, transform 1.5s ease; /* fade + slide */
+  }
 
-      .preloader img {
-        width: 128px; /* scale up */
-        height: 128px; /* keep square */
-        image-rendering: pixelated; /* no anti-aliasing */
-        image-rendering: crisp-edges;
+  .preloader.fade { 
+    opacity: 0; 
+    pointer-events: none; /* no clicks */
+  }
+
+  /* optional slide AFTER fade */
+  .preloader.slide {
+    transform: translateY(-100vh);
+  }
+
+  .counter {
+    color: #fff;
+    font-size: 4em;
+    font-family: monospace;
+  }
+</style>
+
+<div class="preloader" id="preloader">
+  <div class="counter" id="counter">0%</div>
+</div>
+
+<script>
+  function startCounter() {
+    const counterEl = document.getElementById("counter");
+    let c = 0;
+    const interval = setInterval(() => {
+      c++;
+      counterEl.textContent = c + "%";
+      if (c === 100) {
+        clearInterval(interval);
+
+        const preloader = document.getElementById("preloader");
+
+        // step 1: fade out
+        preloader.classList.add("fade");
+
+        // step 2: optional slide AFTER fade
+        setTimeout(() => {
+          preloader.classList.add("slide");
+        }, 1500);
+
+        // step 3: remove from flow completely
+        setTimeout(() => {
+          preloader.style.display = "none";
+        }, 3000);
       }
-    </style>
+    }, 30); // adjust speed
+  }
+
+  window.addEventListener("load", startCounter);
+</script>
   </head>
   <body>
 <header>
@@ -818,6 +858,5 @@
        return confirm("⚠️ Warning! You are about to download a port of Doki Doki Literature Club. After downloading, open 'index.html' inside the folder to play. Check port-help.html for extra resources.");
        }
        </script>
-	</div>
   </body>
 </html>
