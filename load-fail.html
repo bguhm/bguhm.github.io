@@ -1,66 +1,103 @@
-<style>
-  /* Loading screen */
-  .preloader {
-    position: fixed;
-    top: 0; left: 0;
-    width: 100%; height: 100%;
-    background: #000;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    z-index: 1000;
-    transition: opacity 1.5s ease, transform 1.5s ease; /* fade + slide */
-  }
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>bg.uhm</title>
+  <link rel="icon" href="system/images/bguhm.png" />
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/themes.css" />
+  <script src="javascript/main.js" defer></script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@600&display=swap');
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
 
-  .preloader.fade { 
-    opacity: 0; 
-    pointer-events: none; /* no clicks */
-  }
+    .preloader {
+      position: fixed;
+      top: 0; left: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      height: 100vh;
+      background: #000 url('load-bg.png') center/cover no-repeat;
+      z-index: 100000000;
+      transition: opacity 1.5s ease;
+    }
 
-  /* optional slide AFTER fade */
-  .preloader.slide {
-    transform: translateY(-100vh);
-  }
+    .loader-gif img {
+      width: 300px;
+      image-rendering: pixelated;
+      height: auto;
+    }
 
-  .counter {
-    color: #fff;
-    font-size: 4em;
-    font-family: monospace;
-  }
-</style>
+    .fade {
+      opacity: 0;
+      pointer-events: none;
+    }
 
-<div class="preloader" id="preloader">
-  <div class="counter" id="counter">0%</div>
-</div>
+    /* hidden but still running counter */
+    .counter, .loading-text {
+      color: #000;
+      font-size: 0.1em;
+      font-weight: 700;
+      margin-top: 10px;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <!-- Preloader -->
+  <div class="preloader" id="preloader">
+    <div class="loader-gif">
+      <img src="loading.gif" alt="Loading..." id="loaderImage"/>
+    </div>
+    <div class="counter" id="counter">0%</div>
+    <div class="loading-text">Loading...</div>
+  </div>
 
-<script>
-  function startCounter() {
-    const counterEl = document.getElementById("counter");
-    let c = 0;
-    const interval = setInterval(() => {
-      c++;
-      counterEl.textContent = c + "%";
-      if (c === 100) {
-        clearInterval(interval);
+  <!-- Main Content -->
+  <div id="mainContent" style="display:none;">
+    <h1>Site Content</h1>
+    <p>Everything here loads after preloader ends.</p>
+  </div>
 
-        const preloader = document.getElementById("preloader");
+  <script>
+    function startCounter() {
+      const counterEl = document.getElementById("counter");
+      const loaderImg = document.getElementById("loaderImage");
+      let c = 0;
 
-        // step 1: fade out
-        preloader.classList.add("fade");
+      const interval = setInterval(() => {
+        c++;
+        counterEl.textContent = c + "%";
 
-        // step 2: optional slide AFTER fade
-        setTimeout(() => {
-          preloader.classList.add("slide");
-        }, 1500);
+        if (c === 100) {
+          clearInterval(interval);
 
-        // step 3: remove from flow completely
-        setTimeout(() => {
-          preloader.style.display = "none";
-        }, 3000);
-      }
-    }, 30); // adjust speed
-  }
+          // Step 1: swap GIF
+          loaderImg.src = "fire.gif"; // your 2nd gif
 
-  window.addEventListener("load", startCounter);
-</script>
+          // Step 2: fade out entire preloader after fire gif plays a bit
+          setTimeout(() => {
+            document.getElementById("preloader").classList.add("fade");
+          }, 1500); // fire shows for 1.5s
+
+          // Step 3: remove preloader & show main content
+          setTimeout(() => {
+            document.getElementById("preloader").style.display = "none";
+            document.getElementById("mainContent").style.display = "block";
+          }, 3000);
+        }
+      }, 30); // counter speed
+    }
+
+    window.addEventListener("load", startCounter);
+  </script>
+</body>
+</html>
