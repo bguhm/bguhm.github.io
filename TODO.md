@@ -1,9 +1,9 @@
 # Daily TODO
 
 - subway surfers ✅
-- eaglercraft
+- eaglercraft ✅
 - hotline maimi
-- geometry dash
+- geometry dash ✅
 - cookie clicker ✅
 - raise a floppa
 - moto x3m ✅
