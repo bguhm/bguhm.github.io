@@ -16,7 +16,9 @@ html, body {
   width: 60px;
   border-radius:50%;
   cursor: pointer;
-  transform: scale(1.05);
+}
+#pfp:hover {
+      transform: scale(1.05);
 }
 #dashboardBtn {
   width: 50px;
