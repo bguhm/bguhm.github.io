@@ -11,20 +11,27 @@ html, body {
     height: 100%;              /* full height page */
     flex-direction: column;    /* stack header, content, footer */
 }
-/* Dashboard button (your existing icon) */
+/* Profile picture (closer & grows smoothly on hover) */
 #pfp {
-  width: 60px;
-  border-radius:50%;
+  width: 50px;              /* slightly smaller so it tucks in nicely */
+  border-radius: 50%;
   cursor: pointer;
+  margin-left: 5px;         /* reduce distance from dashboard */
+  transition: transform 0.25s ease; /* smooth grow/shrink */
 }
 #pfp:hover {
-      transform: scale(1.05);
+  transform: scale(1.2);    /* grows more when hovered */
 }
+/* Dashboard button aligned tightly with PFP */
 #dashboardBtn {
-  width: 50px;
+  width: 45px;
   cursor: pointer;
+  margin-right: 5px;        /* optional fine-tuning */
+  transition: transform 0.25s ease;
 }
-
+#dashboardBtn:hover {
+  transform: scale(1.15);   /* add hover effect too if you like */
+}
 /* Fixed dropdown menu */
 .dashboard-menu {
   position: fixed;
