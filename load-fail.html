@@ -1,102 +1,66 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <title>bg.uhm</title>
-  <link rel="icon" href="system/images/bguhm.png" />
-  <link rel="stylesheet" href="css/style.css" />
-  <link rel="stylesheet" href="css/themes.css" />
-  <meta name="author" content="jouyuss by waterl3mon">
-  <meta name="keywords" content="fun, stratagem, github, waterlemon">
-  <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-  <style>
-    /* Preloader */
-    .preloader {
-      position: fixed;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      background: #000;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      flex-direction: column;
-      z-index: 1000;
-      transition: transform 2s ease-in-out;
-    }
-    .preloader.hide {
-      transform: translateY(-100vh);
-    }
+<style>
+  /* Loading screen */
+  .preloader {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: #000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    z-index: 1000;
+    transition: opacity 1.5s ease, transform 1.5s ease; /* fade + slide */
+  }
 
-    .preloader img {
-      width: 128px;
-      height: 128px;
-      image-rendering: pixelated;
-      image-rendering: crisp-edges;
-    }
+  .preloader.fade { 
+    opacity: 0; 
+    pointer-events: none; /* no clicks */
+  }
 
-    .counter {
-      margin-top: 15px;
-      font-size: 2em;
-      font-weight: bold;
-      color: white;
-    }
+  /* optional slide AFTER fade */
+  .preloader.slide {
+    transform: translateY(-100vh);
+  }
 
-    /* Passcode lock */
-    .lockscreen {
-      display: none;
-      position: fixed;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      background: #111;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      gap: 20px;
-      color: white;
-    }
+  .counter {
+    color: #fff;
+    font-size: 4em;
+    font-family: monospace;
+  }
+</style>
 
-    .hidden { display: none; }
-  </style>
-</head>
-<body>
-
-  <!-- LOADING SCREEN -->
-  <div class="preloader" id="preloader">
-    <img src="loading.gif" alt="Loading..." />
-    <div class="counter">0%</div>
-  </div>
-
-  <!-- PASSCODE SCREEN -->
-  <div class="lockscreen" id="lockscreen">
-    <h2>Enter Passcode</h2>
-    <input type="password" id="passcode" disabled />
-    <!-- keypad goes here -->
-  </div>
-
-  <!-- MAIN CONTENT -->
-  <div id="mainContent" class="hidden">
-    <h1 style="color:white;">Main Content Here</h1>
-  </div>
+<div class="preloader" id="preloader">
+  <div class="counter" id="counter">0%</div>
+</div>
 
 <script>
-  // === COUNTER ANIMATION ===
   function startCounter() {
+    const counterEl = document.getElementById("counter");
     let c = 0;
-    const counter = document.querySelector(".counter");
     const interval = setInterval(() => {
       c++;
-      counter.textContent = c + "%";
+      counterEl.textContent = c + "%";
       if (c === 100) {
         clearInterval(interval);
-        document.getElementById("preloader").classList.add("hide");
+
+        const preloader = document.getElementById("preloader");
+
+        // step 1: fade out
+        preloader.classList.add("fade");
+
+        // step 2: optional slide AFTER fade
         setTimeout(() => {
-          document.getElementById("lockscreen").style.display = "flex";
-        }, 2000); // wait for slide animation
+          preloader.classList.add("slide");
+        }, 1500);
+
+        // step 3: remove from flow completely
+        setTimeout(() => {
+          preloader.style.display = "none";
+        }, 3000);
       }
-    }, 30); // speed (30ms = ~3s total)
+    }, 30); // adjust speed
   }
+
   window.addEventListener("load", startCounter);
 </script>
-
-</body>
-</html>
