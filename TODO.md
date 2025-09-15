@@ -29,6 +29,7 @@
 - re-add the loading screen / fix loading screen issues.
 - file organization, re-location, etc.
 - marquee quote fix + re-added
+- fix pokemon emulator issue, re-add all pokemon emulators
 - music player
 - fullscreen/like favorite comment page
 - home.html
