@@ -37,48 +37,28 @@
     </style>
   </head>
   <body>
-    <header>
-      <div class="nav-links">
-        <a href="system/pages/home.html">Home</a>
-        <a href="system/pages/favorite.html">Favorites</a>
-        <a href="system/pages/discover.html">Discovery</a>
-        <a href="system/pages/settings.html">Settings</a>
-        <a href="system/pages/support.html">Support</a>
-        <a href="system/pages/info.html">Info</a>
-      </div>
+<header>
+  <!-- Nav anchors / links -->
+  <nav class="nav-links">
+    <a href="system/pages/home.html">Home</a>
+    <a href="system/pages/favorite.html">Favorites</a>
+    <a href="system/pages/discover.html">Discovery</a>
+    <a href="system/pages/settings.html">Settings</a>
+    <a href="system/pages/support.html">Support</a>
+    <a href="system/pages/info.html">Info</a>
+  </nav>
 
-      <div class="search-box">
-        <input type="text" id="searchInputHeader" placeholder="Search games..." />
-        <button id="searchBtnHeader">🔍</button>
-      </div>
+  <!-- Search / profile / dashboard grouped -->
+  <div class="header-controls">
+    <div class="search-box">
+      <input type="text" id="searchInputHeader" placeholder="Search games..." />
+      <button id="searchBtnHeader">🔍</button>
+    </div>
 
-      <script>
-        function filterGames(query) {
-          const input = query.toLowerCase();
-          const games = document.querySelectorAll("#container > div");
-
-          games.forEach((game) => {
-            const title = game.querySelector("h3")?.textContent.toLowerCase() || "";
-            const author = game.querySelector("p")?.textContent.toLowerCase() || "";
-            game.style.display = title.includes(input) || author.includes(input) ? "block" : "none";
-          });
-        }
-
-        // live search while typing
-        document.getElementById("searchInputHeader").addEventListener("keyup", function () {
-          filterGames(this.value);
-        });
-
-        // search when clicking button
-        document.getElementById("searchBtnHeader").addEventListener("click", function () {
-          const query = document.getElementById("searchInputHeader").value;
-          filterGames(query);
-        });
-      </script>
-
-      <img src="profile.png" alt="profile" id="pfp" />
-      <img src="dashboard.png" alt="Dashboard" id="dashboardBtn" />
-    </header>
+    <img src="profile.png" alt="profile" id="pfp" />
+    <img src="dashboard.png" alt="Dashboard" id="dashboardBtn" />
+  </div>
+</header>
 
     <marquee id="quote" behavior="scroll" direction="left" scrollamount="5">
 8 games will be added everyday until sept 26th. sit down, be humble.
@@ -254,11 +234,6 @@
 		<div class="soon">  
        <img src="https://raw.githubusercontent.com/bguhm/bguhm.github.io/main/library/images/ddlc.png" onerror="this.src='git.gif';" class="contented" />
 	   <a href="downloads/doki-doki-port.zip" onclick="return confirmDownload()">
-       <script>
-       function confirmDownload() {
-       return confirm("⚠️ Warning! You are about to download a port of Doki Doki Literature Club. After downloading, open 'index.html' inside the folder to play. Check port-help.html for extra resources.");
-       }
-       </script>
           <h3>Doki-Doki Literature Club</h3>
           <p>by Team Salvato</p>
         </a>
@@ -809,5 +784,34 @@
         window.scrollTo({ top: 0, behavior: "smooth" });
       });
     </script>
+		<script>
+  function filterGames(query) {
+    const input = query.toLowerCase();
+    const games = document.querySelectorAll("#container > div");
+
+    games.forEach((game) => {
+      const title = game.querySelector("h3")?.textContent.toLowerCase() || "";
+      const author = game.querySelector("p")?.textContent.toLowerCase() || "";
+      game.style.display = title.includes(input) || author.includes(input) ? "block" : "none";
+    });
+  }
+  // live search while typing
+  document.getElementById("searchInputHeader").addEventListener("keyup", function () {
+    filterGames(this.value);
+  });
+
+  // search when clicking button
+  document.getElementById("searchBtnHeader").addEventListener("click", function () {
+    const query = document.getElementById("searchInputHeader").value;
+    filterGames(query);
+  });
+</script>
+		<!--ddlc-->
+		       <script>
+       function confirmDownload() {
+       return confirm("⚠️ Warning! You are about to download a port of Doki Doki Literature Club. After downloading, open 'index.html' inside the folder to play. Check port-help.html for extra resources.");
+       }
+       </script>
+	</div>
   </body>
 </html>
