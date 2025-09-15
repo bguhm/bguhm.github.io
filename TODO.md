@@ -1,7 +1,7 @@
 # Daily TODO
 
 - subway surfers ✅
-- - eaglercraft
+- eaglercraft
 - hotline maimi
 - geometry dash
 - cookie clicker ✅
