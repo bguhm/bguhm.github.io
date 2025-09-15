@@ -27,6 +27,8 @@
 - user log in/sign up
 - re-add disc widget
 - re-add the loading screen / fix loading screen issues.
+- file organization, re-location, etc.
+- marquee quote fix + re-added
 - music player
 - fullscreen/like favorite comment page
 - home.html
