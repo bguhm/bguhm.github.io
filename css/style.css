@@ -13,7 +13,7 @@ html, body {
 }
 /* Dashboard button (your existing icon) */
 #pfp {
-  width: 80px;
+  width: 60px;
   border-radius:50%;
   cursor: pointer;
   transform: scale(1.05);
