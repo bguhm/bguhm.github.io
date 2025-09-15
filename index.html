@@ -1,45 +1,92 @@
 <!DOCTYPE html>
 <html>
-  <head> 
-    <title>[ Early Access ]</title>
+  <head>
+    <title>bg.uhm</title>
     <link rel="icon" href="system/images/bguhm.png" />
-  </head>
-  <body>
-    <div class="lockscreen">
-      <h2>Enter Passcode</h2>
-      <input type="password" id="passcode" disabled />
-      <div class="keypad">
-        <button onclick="addDigit('1')">1</button>
-        <button onclick="addDigit('2')">2</button>
-        <button onclick="addDigit('3')">3</button>
-        <button onclick="addDigit('4')">4</button>
-        <button onclick="addDigit('5')">5</button>
-        <button onclick="addDigit('6')">6</button>
-        <button onclick="addDigit('7')">7</button>
-        <button onclick="addDigit('8')">8</button>
-        <button onclick="addDigit('9')">9</button>
-        <button onclick="clearPasscode()">⌫</button>
-        <button onclick="addDigit('0')">0</button>
-        <button class="enter" onclick="checkPasscode()">✓</button>
-      </div>
-
-      <!-- ✅ Unlock status message -->
-      <p id="statusMessage" style="margin-top:15px; font-size:1.2em; display:none;"></p>
-    </div>
-
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/themes.css" />
+    <meta name="author" content="jouyuss by waterl3mon" />
+    <meta name="keywords" content="fun, stratagem, github, waterlemon" />
+    <script src="javascript/main.js" defer></script>
+    <script src="javascript/main.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@widgetbot/crate@3" async defer>
+      new Crate({
+        server: "1273329263923302430", // server
+        channel: "1329289920845713471", // #channels
+      });
+    </script>
     <style>
-      body {
+      /* Loading screen */
+      .preloader {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: #000;
         display: flex;
         justify-content: center;
         align-items: center;
-        height: 100vh;
-        background: #000;
-        color: #fff;
-        font-family: Arial, sans-serif;
+        flex-direction: column;
+        z-index: 1000;
+      }
+      .hidden {
+        display: none;
       }
 
-      .lockscreen {
+      /* Passcode lock */
+      #passcode {
+        font-size: 2em;
         text-align: center;
+        margin-bottom: 15px;
+        border: none;
+        background: #222;
+        color: white;
+        width: 180px;
+        border-radius: 8px;
+        padding: 8px;
+      }
+      .keypad {
+        display: grid;
+        grid-template-columns: repeat(3, 80px);
+        gap: 10px;
+        justify-content: center;
+      }
+      .keypad button {
+        font-size: 1.8em;
+        padding: 20px;
+        background: #333;
+        color: #fff;
+        border: none;
+        border-radius: 10px;
+        cursor: pointer;
+        transition: background 0.2s;
+      }
+      .keypad button:hover {
+        background: #555;
+      }
+      .enter {
+        background: green;
+      }
+      /* Make passcode screen centered */
+      .lockscreen {
+        display: none; /* hidden until preloader finishes */
+        position: fixed; /* cover whole screen */
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: #111; /* dark background (optional) */
+        display: flex; /* flexbox for centering */
+        flex-direction: column;
+        justify-content: center; /* vertical center */
+        align-items: center; /* horizontal center */
+        gap: 20px; /* space between elements */
+      }
+
+      .lockscreen h2 {
+        font-family: monospace;
+        margin-bottom: 10px;
       }
 
       #passcode {
@@ -52,6 +99,7 @@
         width: 180px;
         border-radius: 8px;
         padding: 8px;
+        font-family: monospace;
       }
 
       .keypad {
@@ -70,87 +118,1014 @@
         border-radius: 10px;
         cursor: pointer;
         transition: background 0.2s;
+        font-family: monospace;
       }
 
       .keypad button:hover {
         background: #555;
       }
 
-      .enter {
+      .keypad .enter {
         background: green;
       }
+      /* Loading screen */
+      .preloader {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: #000;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        z-index: 1000;
+      }
+
+      .preloader img {
+        width: 128px; /* scale up */
+        height: 128px; /* keep square */
+        image-rendering: pixelated; /* no anti-aliasing */
+        image-rendering: crisp-edges;
+      }
     </style>
+  </head>
+  <body>
+    <header>
+      <div class="nav-links">
+        <a href="system/pages/home.html">Home</a>
+        <a href="system/pages/favorite.html">Favorites</a>
+        <a href="system/pages/discover.html">Discovery</a>
+        <a href="system/pages/settings.html">Settings</a>
+        <a href="system/pages/support.html">Support</a>
+        <a href="system/pages/info.html">Info</a>
+      </div>
+
+      <div class="search-box">
+        <input type="text" id="searchInputHeader" placeholder="Search games..." />
+        <button id="searchBtnHeader">🔍</button>
+      </div>
+
+      <script>
+        function filterGames(query) {
+          const input = query.toLowerCase();
+          const games = document.querySelectorAll("#container > div");
+
+          games.forEach((game) => {
+            const title = game.querySelector("h3")?.textContent.toLowerCase() || "";
+            const author = game.querySelector("p")?.textContent.toLowerCase() || "";
+            game.style.display = title.includes(input) || author.includes(input) ? "block" : "none";
+          });
+        }
+
+        // live search while typing
+        document.getElementById("searchInputHeader").addEventListener("keyup", function () {
+          filterGames(this.value);
+        });
+
+        // search when clicking button
+        document.getElementById("searchBtnHeader").addEventListener("click", function () {
+          const query = document.getElementById("searchInputHeader").value;
+          filterGames(query);
+        });
+      </script>
+
+      <img src="dashboard.png" alt="Dashboard" id="dashboardBtn" />
+    </header>
+
+    <marquee id="quote" behavior="scroll" direction="left" scrollamount="5">
+      76 projects will be on this website on full release, sorry for it not working for a few days T-T
+    </marquee>
+
+    <main>
+      <div id="container">
+        <div class="ok">
+          <a href="library/fridaynightfunkin/index.html">
+            <img
+              src="https://raw.githubusercontent.com/bguhm/bguhm.github.io/main/library/images/funkinlogo.png"
+              class="contented"
+
+            />
+            <h3>Friday Night Funkin'</h3>
+            <p>by ninjamuffin99</p>
+          </a>
+        </div>
+
+        <div class="ok">
+          <a href="library/snowrider3d/index.html">
+            <img
+              src="https://raw.githubusercontent.com/bguhm/bguhm.github.io/main/library/images/snowrider3d.jpeg"
+              class="contented"
+
+            />
+            <h3>Snow Rider 3D</h3>
+            <p>by ashima Prabhakar</p>
+          </a>
+        </div>
+
+        <div class="ok">
+          <a href="library/1v1lol/index.html">
+            <img
+              src="https://raw.githubusercontent.com/bguhm/bguhm.github.io/main/library/images/1v1.png"
+              onerror="this.src='replace.png';"
+              class="contented"
+
+            />
+            <h3>1v1.lol</h3>
+            <p>developed by justplay.lol</p>
+          </a>
+        </div>
+
+        <div class="ok">
+          <a href="library/retrobowl/index.html">
+            <img
+              src="https://raw.githubusercontent.com/bguhm/bguhm.github.io/main/library/images/retro.jpeg"
+              onerror="this.src='replace.png';"
+
+            />
+            <h3>Retro Bowl</h3>
+            <p>Developed by New Star</p>
+          </a>
+        </div>
+
+        <div class="ok">
+          <a href="https://bguhm.github.io/library/monkeymart/">
+            <img
+              src="https://raw.githubusercontent.com/bguhm/bguhm.github.io/main/library/images/monkeymart.png"
+              onerror="this.src='replace.png';"
+
+            />
+            <h3>Monkey Mart</h3>
+            <p>Made by PRXYBOSS101</p>
+          </a>
+        </div>
+
+        <div class="ok">
+          <a href="library/slope/index.html">
+            <img
+              src="https://raw.githubusercontent.com/bguhm/bguhm.github.io/main/library/images/slope.jpg"
+              onerror="this.src='replace.png';"
+
+            />
+            <h3>Slope</h3>
+            <p>Created by Rob Kay</p>
+          </a>
+        </div>
+
+        <div class="ok">
+          <a href="library/slope2/index.html">
+            <img
+              src="https://raw.githubusercontent.com/bguhm/bguhm.github.io/main/library/images/slope2.jpeg"
+              onerror="this.src='replace.png';"
+
+            />
+            <h3>slope 2</h3>
+            <p>continued by Y8</p>
+          </a>
+        </div>
+
+        <div class="ok">
+          <a href="library/omori/index.html">
+            <img
+              src="https://raw.githubusercontent.com/bguhm/bguhm.github.io/main/library/images/Omori_cover.jpg"
+              onerror="this.src='replace.png';"
+
+            />
+            <h3>Omori</h3>
+            <p>Created by OmoCat studio</p>
+          </a>
+        </div>
+
+        <div class="ok">
+          <a href="library/fnaf1/index.html">
+            <img
+              src="https://raw.githubusercontent.com/bguhm/bguhm.github.io/main/library/images/fnaf1.png"
+              onerror="this.src='replace.png';"
+
+            />
+            <h3>Five Nights At Freddy's</h3>
+            <p>Made by Scott Cawthon</p>
+          </a>
+        </div>
+
+        <div class="ok">
+          <a href="library/fnaf2/index.html">
+            <img
+              src="https://raw.githubusercontent.com/bguhm/bguhm.github.io/main/library/images/fnaf2.png"
+              onerror="this.src='replace.png';"
+
+            />
+            <h3>Five Nights At Freddy's 2</h3>
+            <p>Made by Scott Cawthon</p>
+          </a>
+        </div>
+
+        <div class="ok">
+          <a href="library/fnaf3/index.html">
+            <img
+              src="https://raw.githubusercontent.com/bguhm/bguhm.github.io/main/library/images/fnaf3.png"
+              onerror="this.src='replace.png';"
+
+            />
+            <h3>Five Nights At Freddy's 3</h3>
+            <p>Made by Scott Cawthon</p>
+          </a>
+        </div>
+
+        <div class="ok">
+          <a href="library/fnaf4/index.html">
+            <img
+              src="https://raw.githubusercontent.com/bguhm/bguhm.github.io/main/library/images/fnaf4.png"
+              onerror="this.src='replace.png';"
+
+            />
+            <h3>Five Nights At Freddy's 4</h3>
+            <p>Made by Scott Cawthon</p>
+          </a>
+        </div>
+
+        <div class="ok">
+          <a href="library/fnaf4halloween/index.html">
+            <img
+              src="https://raw.githubusercontent.com/bguhm/bguhm.github.io/main/library/images/fnaf4halloween.png"
+              onerror="this.src='replace.png';"
+
+            />
+            <h3>Five Nights At Freddy's 4 Halloween</h3>
+            <p>Made by Scott Cawthon</p>
+          </a>
+        </div>
+
+        <div class="ok">
+          <a href="library/fnafworld/index.html">
+            <img
+              src="https://raw.githubusercontent.com/bguhm/bguhm.github.io/main/library/images/world.png"
+              onerror="this.src='replace.png';"
+
+            />
+            <h3>Five Nights At Freddy's World</h3>
+            <p>Made by Scott Cawthon</p>
+          </a>
+        </div>
+
+        <div class="ok">
+          <a href="library/pizzasimulator/index.html">
+            <img
+              src="https://raw.githubusercontent.com/bguhm/bguhm.github.io/main/library/images/pizzasim.png"
+              onerror="this.src='replace.png';"
+
+            />
+            <h3>Five Nights At Freddy's Pizza Simulator</h3>
+            <p>Made by Scott Cawthon</p>
+          </a>
+        </div>
+
+        <div class="ok">
+          <a href="library/UCN/index.html">
+            <img
+              src="https://raw.githubusercontent.com/bguhm/bguhm.github.io/main/library/images/ucn.png"
+              onerror="this.src='replace.png';"
+
+            />
+            <h3>Five Nights At Freddy's ULTIMATE CUSTOM NIGHT</h3>
+            <p>Made by Scott Cawthon</p>
+          </a>
+        </div>
+
+        <div class="ok">
+          <a href="library/sisterlocation/index.html">
+            <img
+              src="https://raw.githubusercontent.com/bguhm/bguhm.github.io/main/library/images/sisterlocation.png"
+
+            />
+            <h3>Five Nights At Freddy's Sister Location</h3>
+            <p>Made by Scott Cawthon</p>
+          </a>
+        </div>
+
+        <div class="ok">
+          <a href="library/crazycattle3d/index.html">
+            <img
+              src="https://raw.githubusercontent.com/bguhm/bguhm.github.io/main/library/images/crazycattle3d.jpg"
+
+            />
+            <h3>Crazy Cattle 3D</h3>
+            <p>Launched by 4nn4t4t</p>
+          </a>
+        </div>
+
+        <div class="ok">
+          <a href="library/cuphead/index.html">
+            <img
+              src="https://raw.githubusercontent.com/bguhm/bguhm.github.io/main/library/images/cuphead.png"
+
+            />
+            <h3>Cuphead</h3>
+            <p>by Studio MDHR</p>
+          </a>
+        </div>
+
+        <div class="ok">
+          <a href="library/class-of-09/index.html">
+            <img
+              src="https://raw.githubusercontent.com/bguhm/bguhm.github.io/main/library/images/09.png"
+
+            />
+            <h3>Class of '09</h3>
+            <p>By SBN3 Published by Wrath Club</p>
+          </a>
+        </div>
+
+        <div class="FIX">
+          <img
+            src="https://raw.githubusercontent.com/bguhm/bguhm.github.io/main/library/images/ddlc.png"
+            loading="lazy"
+          />
+          <a href="downloads/doki-doki-port.zip" onclick="return confirmDownload()">
+            <script>
+              function confirmDownload() {
+                return confirm(
+                  "⚠️ Warning! You are about to download a port of Doki Doki Literature Club. After downloading, open 'index.html' inside the folder to play. Check port-help.html for extra resources."
+                );
+              }
+            </script>
+            <h3>Doki-Doki Literature Club</h3>
+            <p>by Team Salvato</p>
+          </a>
+        </div>
+
+        <div class="ok">
+          <a href="library/eaglercraft/index.html">
+            <img
+              src="https://raw.githubusercontent.com/bguhm/bguhm.github.io/main/library/images/eagler.png"
+
+            />
+            <h3>EaglerCraft 1.8.8</h3>
+            <p>By Lax1dude Continued by ayunami2000</p>
+          </a>
+        </div>
+
+        <div class="ok">
+          <a href="library/hotline-miami/index.html">
+            <img
+              src="https://raw.githubusercontent.com/bguhm/bguhm.github.io/main/library/images/miami.jpeg"
+
+            />
+            <h3>Hotline Miami</h3>
+            <p>Made by Dennation Games</p>
+          </a>
+        </div>
+
+        <div class="ok">
+          <a href="library/geometrydash/index.html">
+            <img
+              src="https://raw.githubusercontent.com/bguhm/bguhm.github.io/main/library/images/geometrydash.png"
+
+            />
+            <h3>Geometry dash</h3>
+            <p>By RopTop Ported by GriffPatch</p>
+          </a>
+        </div>
+
+        <div class="ok">
+          <a href="https://bguhm.github.io/library/btd/">
+            <img
+              src="https://raw.githubusercontent.com/bguhm/bguhm.github.io/main/library/images/crossy.jpeg"
+
+            />
+            <h3>Crossy Roads</h3>
+            <p>By Hipster Whale</p>
+          </a>
+        </div>
+
+        <div class="ok">
+          <a href="https://bguhm.github.io/library/btd2/">
+            <img
+              src="https://raw.githubusercontent.com/bguhm/bguhm.github.io/main/library/images/btd.jpg"
+
+            />
+            <h3>Bloon Tower Defense</h3>
+            <p>Developed by Ninja Kiwi</p>
+          </a>
+        </div>
+
+        <div class="ok">
+          <a href="https://bguhm.github.io/library/btd3/">
+            <img
+              src="https://raw.githubusercontent.com/bguhm/bguhm.github.io/main/library/images/btd2.png"
+
+            />
+            <h3>Bloon Tower Defense 2</h3>
+            <p>Developed by Ninja Kiwi</p>
+          </a>
+        </div>
+
+        <div class="ok">
+          <a href="https://bguhm.github.io/library/btd4/">
+            <img
+              src="https://raw.githubusercontent.com/bguhm/bguhm.github.io/main/library/images/btd3.jpeg"
+
+            />
+            <h3>Bloon Tower Defense 3</h3>
+            <p>Developed by Ninja Kiwi</p>
+          </a>
+        </div>
+
+        <div class="ok">
+          <a href="https://bguhm.github.io/library/btd4/">
+            <img
+              src="https://raw.githubusercontent.com/bguhm/bguhm.github.io/main/library/images/btd4.jpeg"
+
+            />
+            <h3>Bloon Tower Defense 4</h3>
+            <p>Developed by Ninja Kiwi</p>
+          </a>
+        </div>
+
+        <div class="ok">
+          <a href="library/btd5/index.html">
+            <img
+              src="https://raw.githubusercontent.com/bguhm/bguhm.github.io/main/library/images/btd5.jpg"
+
+            />
+            <h3>Bloon Tower Defense 5</h3>
+            <p>Developed by Ninja Kiwi</p>
+          </a>
+        </div>
+
+        <div class="ok">
+          <a href="https://bguhm.github.io/library/btd6/">
+            <img
+              src="https://raw.githubusercontent.com/bguhm/library/main/btd6/uwu.png"
+
+            />
+            <h3>Bloon Tower Defense 6</h3>
+            <p>Developed by Ninja Kiwi</p>
+          </a>
+        </div>
+
+        <div class="ok">
+          <a href="https://bguhm.github.io/library/2048/">
+            <img
+              src="https://raw.githubusercontent.com/bguhm/bguhm.github.io/main/library/images/2048.png"
+
+            />
+            <h3>2048</h3>
+            <p>Made by Gabriele Cirulli</p>
+          </a>
+        </div>
+
+        <div class="ok">
+          <a href="library/cookie-clicker/index.html">
+            <img
+              src="https://raw.githubusercontent.com/bguhm/bguhm.github.io/main/library/images/cookie.jpeg"
+
+            />
+            <h3>Cookie Clicker</h3>
+            <p>Made by</p>
+          </a>
+        </div>
+
+        <div class="ok">
+          <a href="library/ovo/index.html">
+            <img
+              src="https://raw.githubusercontent.com/bguhm/bguhm.github.io/main/library/images/ovo.jpeg"
+
+            />
+            <h3>OvO</h3>
+            <p>Created by Dedra Games</p>
+          </a>
+        </div>
+
+        <div class="ok">
+          <a href="library/raise-a-floppa/index.html">
+            <img
+              src="https://raw.githubusercontent.com/bguhm/bguhm.github.io/main/library/images/floppa.jpeg"
+
+            />
+            <h3>Raise A Floppa!</h3>
+            <p>Made by</p>
+          </a>
+        </div>
+
+        <div class="ok">
+          <a href="library/osu/index.html">
+            <img
+              src="https://raw.githubusercontent.com/bguhm/bguhm.github.io/main/library/images/osu.png"
+
+            />
+            <h3>OSU!</h3>
+            <p>Made by Dean Herbert</p>
+          </a>
+        </div>
+
+        <div class="ok">
+          <a href="library/pac-man/index.html">
+            <img
+              src="https://raw.githubusercontent.com/bguhm/bguhm.github.io/main/library/images/pacman.png"
+
+            />
+            <h3>pacman</h3>
+            <p>Made by google</p>
+          </a>
+        </div>
+
+        <div class="ok">
+          <a href="library/krunker/index.html">
+            <img
+              src="https://raw.githubusercontent.com/bguhm/bguhm.github.io/main/library/images/krunker.png"
+
+            />
+            <h3>krunker.io</h3>
+            <p>Made by</p>
+          </a>
+        </div>
+        <div class="ok">
+          <a href="library/surviv/index.html">
+            <img
+              src="https://raw.githubusercontent.com/bguhm/bguhm.github.io/main/library/images/surviv.jpeg"
+
+            />
+            <h3>surviv.io</h3>
+            <p>Made by</p>
+          </a>
+        </div>
+
+        <div class="ok">
+          <a href="library/venge/index.html">
+            <img
+              src="https://raw.githubusercontent.com/bguhm/bguhm.github.io/main/library/images/venge.jpeg"
+
+            />
+            <h3>Venge.io</h3>
+            <p>Made by</p>
+          </a>
+        </div>
+
+        <div class="ok">
+          <a href="library/moto-3xm/index.html">
+            <img
+              src="https://raw.githubusercontent.com/bguhm/bguhm.github.io/main/library/images/3xm.jpeg"
+
+            />
+            <h3>Moto X3M</h3>
+            <p>Made by</p>
+          </a>
+        </div>
+
+        <div class="ok">
+          <a href="library/chess/index.html">
+            <img
+              src="https://raw.githubusercontent.com/bguhm/bguhm.github.io/main/library/images/chess.png"
+
+            />
+            <h3>Chess</h3>
+            <p>Made by</p>
+          </a>
+        </div>
+
+        <div class="ok">
+          <a href="library/checkers/index.html">
+            <img
+              src="https://raw.githubusercontent.com/bguhm/bguhm.github.io/main/library/images/checkers.jpeg"
+
+            />
+            <h3>Checkers</h3>
+            <p>Made by</p>
+          </a>
+        </div>
+
+        <div class="ok">
+          <a href="library/stickman-hook/index.html">
+            <img
+              src="https://raw.githubusercontent.com/bguhm/bguhm.github.io/main/library/images/stickman.jpg"
+
+            />
+            <h3>Stickman hook</h3>
+            <p>Made by</p>
+          </a>
+        </div>
+
+        <div class="ok">
+          <a href="library/subway-surfers/index.html">
+            <img
+              src="https://raw.githubusercontent.com/bguhm/bguhm.github.io/main/library/images/surfers.jpeg"
+
+            />
+            <h3>subway surfers</h3>
+            <p>Made by</p>
+          </a>
+        </div>
+
+        <div class="ok">
+          <a href="library/temple-run/index.html">
+            <img
+              src="https://raw.githubusercontent.com/bguhm/bguhm.github.io/main/library/images/temple-run.jpg"
+
+            />
+            <h3>temple run</h3>
+            <p>Made by</p>
+          </a>
+        </div>
+
+        <div class="ok">
+          <a href="library/drift-boss/index.html">
+            <img
+              src="https://raw.githubusercontent.com/bguhm/bguhm.github.io/main/library/images/drift.png"
+
+            />
+            <h3>Drift Boss</h3>
+            <p>Made by</p>
+          </a>
+        </div>
+
+        <div class="ok">
+          <a href="library/directory/index.html">
+            <img
+              src="https://raw.githubusercontent.com/bguhm/bguhm.github.io/main/library/images/kinder.png"
+
+            />
+            <h3>kindergarten</h3>
+            <p>Made by Con Man Games and Sean Young. Published by SmashGames</p>
+          </a>
+        </div>
+
+        <div class="ok">
+          <a href="library/blumgi/ball/index.html">
+            <img
+              src="https://raw.githubusercontent.com/bguhm/bguhm.github.io/main/library/images/blumgi-ball.jpeg"
+
+            />
+            <h3>Blumgi Ball</h3>
+            <p>Made by Studio Blumgi</p>
+          </a>
+        </div>
+
+        <div class="ok">
+          <a href="library/blumgi/bloom/index.html">
+            <img
+              src="https://raw.githubusercontent.com/bguhm/bguhm.github.io/main/library/images/blumgi-bloom.jpeg"
+
+            />
+            <h3>Blumgi Bloom</h3>
+            <p>Made by Studio Blumgi</p>
+          </a>
+        </div>
+        <div class="ok">
+          <a href="library/blumgi/castle/index.html">
+            <img
+              src="https://raw.githubusercontent.com/bguhm/bguhm.github.io/main/library/images/blumgi-castle.jpeg"
+
+            />
+            <h3>Blumgi Castle</h3>
+            <p>Made by Studio Blumgi</p>
+          </a>
+        </div>
+
+        <div class="ok">
+          <a href="library/blumgi/dragon/index.html">
+            <img
+              src="https://raw.githubusercontent.com/bguhm/bguhm.github.io/main/library/images/blumgi-dragon.jpeg"
+
+            />
+            <h3>Blumgi Dragon</h3>
+            <p>Made by Studio Blumgi</p>
+          </a>
+        </div>
+        <div class="ok">
+          <a href="library/blumgi/rocket/index.html">
+            <img
+              src="https://raw.githubusercontent.com/bguhm/bguhm.github.io/main/library/images/blumgi-rocket.jpeg"
+
+            />
+            <h3>Blumgi Rocket</h3>
+            <p>Made by Studio Blumgi</p>
+          </a>
+        </div>
+
+        <div class="ok">
+          <a href="library/blumgi/slime/index.html">
+            <img
+              src="https://raw.githubusercontent.com/bguhm/bguhm.github.io/main/library/images/blumgi-slime.jpeg"
+
+            />
+            <h3>Blumgi Slime</h3>
+            <p>Made by Studio Blumgi</p>
+          </a>
+        </div>
+        <div class="ok">
+          <a href="library/blumgi/soccer/index.html">
+            <img
+              src="https://raw.githubusercontent.com/bguhm/bguhm.github.io/main/library/images/blumgi-soccer.jpeg"
+
+            />
+            <h3>Blumgi Soccer</h3>
+            <p>Made by Studio Blumgi</p>
+          </a>
+        </div>
+
+        <div class="ok">
+          <a href="library/blumgi/merge/index.html">
+            <img
+              src="https://raw.githubusercontent.com/bguhm/bguhm.github.io/main/library/images/blumgi-merge.png"
+
+            />
+            <h3>Blumgi Merge</h3>
+            <p>Made by Studio Blumgi</p>
+          </a>
+        </div>
+
+        <div class="ok">
+          <a href="library/undertale/index.html">
+            <img
+              src="https://raw.githubusercontent.com/bguhm/bguhm.github.io/main/library/images/undertale.png"
+
+            />
+            <h3>Undertale</h3>
+            <p>Made by Toby Fox</p>
+          </a>
+        </div>
+
+        <div class="ok">
+          <a href="library/deltarune/index.html">
+            <img
+              src="https://raw.githubusercontent.com/bguhm/bguhm.github.io/main/library/images/deltarune.png"
+
+            />
+            <h3>Deltarune</h3>
+            <p>Made by Toby Fox</p>
+          </a>
+        </div>
+
+        <div class="ok">
+          <a href="library/undertale-yellow/index.html">
+            <img
+              src="https://raw.githubusercontent.com/bguhm/bguhm.github.io/main/library/images/yellow.jpeg"
+
+            />
+            <h3>Undertale:Yellow</h3>
+            <p>Fanmade version of undertale by Toby Fox</p>
+          </a>
+        </div>
+
+        <div class="ok">
+          <a href="library/laceys-wardrobe/index.html">
+            <img
+              src="https://raw.githubusercontent.com/bguhm/bguhm.github.io/main/library/images/lacey.jpeg"
+
+            />
+                          <div id="container">
+        <div class="ok">
+          <a href="library/arcade/kongstudios-gorillaz/index.html">
+            <img
+              src="https://raw.githubusercontent.com/bguhm/bguhm.github.io/main/library/images/gorillaz.png"
+              class="contented"
+
+            />
+            <h3>Kong Studios Gorillaz</h3>
+            <p>Created By Damon Albarn & Jamie Hewlett</p>
+          </a>
+        </div>
+        </div>
+            <h3>Lacey's Wardrobe</h3>
+            <p>Made by Grace Asop & Roso Yani</p>
+          </a>
+        </div>
+        <div class="ok">
+          <a href="library/sm64/index.html">
+            <img
+              src="https://raw.githubusercontent.com/bguhm/bguhm.github.io/main/library/images/sm64.jpg"
+
+            />
+            <h3>Super Mario 64</h3>
+            <p>Made By Nintendo</p>
+          </a>
+        </div>
+        <div class="ok">
+          <a href="library/bacon-may-die/index.html">
+            <img
+              src="https://raw.githubusercontent.com/bguhm/bguhm.github.io/main/library/images/bacon-may-die.jpeg"
+
+            />
+            <h3>Bacon May Die!</h3>
+            <p>Made By SnoutUp</p>
+          </a>
+        </div>
+        <div class="ok">
+          <a href="library/bad-piggies/index.html">
+            <img
+              src="https://raw.githubusercontent.com/bguhm/bguhm.github.io/main/library/images/bad-piggies.png"
+
+            />
+            <h3>Bad Piggies</h3>
+            <p>Made By Rovio Entertainment</p>
+          </a>
+        </div>
+
+        <div class="ok">
+          <a href="https://bguhm.github.io/library/pokemon/red/index.html">
+            <img
+              src="https://raw.githubusercontent.com/bguhm/bguhm.github.io/main/library/images/pokemon-red.png"
+
+            />
+            <h3>Pokemon Red</h3>
+            <p>Made By Nintendo</p>
+          </a>
+        </div>
+
+        <div class="ok">
+          <a href="">
+            <img
+              src="https://raw.githubusercontent.com/bguhm/bguhm.github.io/main/library/images/pokemon-green.png"
+
+            />
+            <h3>Pokemon Green</h3>
+            <p>Made By Nintendo</p>
+          </a>
+        </div>
+        <div class="ok">
+          <a href="https://bguhm.github.io/library/pokemon/blue/index.html">
+            <img
+              src="https://raw.githubusercontent.com/bguhm/bguhm.github.io/main/library/images/pokemon-blue.png"
+
+            />
+            <h3>Pokemon Blue</h3>
+            <p>Made By Nintendo</p>
+          </a>
+        </div>
+
+        <div class="ok">
+          <a href="https://bguhm.github.io/library/pokemon/yellow/index.html">
+            <img
+              src="https://raw.githubusercontent.com/bguhm/bguhm.github.io/main/library/images/pokemon-yellow.png"
+
+            />
+            <h3>Pokemon yellow</h3>
+            <p>Made By Nintendo</p>
+          </a>
+        </div>
+        <div class="ok">
+          <a href="https://bguhm.github.io/library/pokemon/firered/index.html">
+            <img
+              src="https://raw.githubusercontent.com/bguhm/bguhm.github.io/main/library/images/pokemon-firered.png"
+
+            />
+            <h3>Pokemon FireRed</h3>
+            <p>Made By Nintendo</p>
+          </a>
+        </div>
+        <div class="ok">
+          <a href="https://bguhm.github.io/library/pokemon/leafgreen/index.html">
+            <img
+              src="https://raw.githubusercontent.com/bguhm/bguhm.github.io/main/library/images/pokemon-leafgreen.png"
+
+            />
+            <h3>Pokemon LeafGreen</h3>
+            <p>Made By Nintendo</p>
+          </a>
+        </div>
+        <div class="ok">
+          <a href="https://bguhm.github.io/library/pokemon/gold/index.html">
+            <img
+              src="https://raw.githubusercontent.com/bguhm/bguhm.github.io/main/library/images/pokemon-gold.png"
+
+            />
+            <h3>Pokemon Gold</h3>
+            <p>Made By Nintendo</p>
+          </a>
+        </div>
+        <div class="ok">
+          <a href="https://bguhm.github.io/library/pokemon/silver/index.html">
+            <img
+              src="https://raw.githubusercontent.com/bguhm/bguhm.github.io/main/library/images/pokemon-silver.png"
+
+            />
+            <h3>Pokemon Silver</h3>
+            <p>Made By Nintendo</p>
+          </a>
+        </div>
+        <div class="ok">
+          <a href="https://bguhm.github.io/library/pokemon/sapphire/index.html">
+            <img
+              src="https://raw.githubusercontent.com/bguhm/bguhm.github.io/main/library/images/pokemon-sapphire.png"
+
+            />
+            <h3>Pokemon sapphire</h3>
+            <p>Made By Nintendo</p>
+          </a>
+        </div>
+        <div class="ok">
+          <a href="https://bguhm.github.io/library/pokemon/ruby/index.html">
+            <img
+              src="https://raw.githubusercontent.com/bguhm/bguhm.github.io/main/library/images/pokemon-ruby.png"
+
+            />
+            <h3>Pokemon Ruby</h3>
+            <p>Made By Nintendo</p>
+          </a>
+        </div>
+        <div class="ok">
+          <a href="https://bguhm.github.io/library/pokemon/emerald/index.html">
+            <img
+              src="https://raw.githubusercontent.com/bguhm/bguhm.github.io/main/library/images/pokemon-emerald.png"
+
+            />
+            <h3>Pokemon Emerald</h3>
+            <p>Made By Nintendo</p>
+          </a>
+        </div>
+        <div class="ok">
+          <a href="https://bguhm.github.io/library/pokemon/crystal/index.html">
+            <img
+              src="https://raw.githubusercontent.com/bguhm/bguhm.github.io/main/library/images/pokemon-crystal.png"
+
+            />
+            <h3>Pokemon Crystal</h3>
+            <p>Made By Nintendo</p>
+          </a>
+        </div>
+    </main>
+
+    <button id="toTopBtn">⬆ Top</button>
+    <footer>
+      <a href="system/pages/sources.html">sources</a>
+      <a href="system/pages/contributors.html">contribute</a>
+      <a href="system/pages/discord.html">Discord</a>
+      <a href="system/pages/bugsNfixes.html">Bugs & fixes</a>
+      <a href="system/pages/contact.html">Socials</a>
+      <a href="system/pages/version-log.html">version V0.0.5</a>
+    </footer>
+
+    <div id="dashboardMenu" class="dashboard-menu">
+      <a href="system/pages/pages.html">Music</a>
+      <a href="system/pages/settings.html">Themes</a>
+      <a href="system/pages/info.html">Credits</a>
+      <a href="system/pages/support.html">Alternative Links</a>
+    </div>
 
     <script>
-      let input = "";
-      const correctPasscode = "2029"; // change passcode if needed
+      document.addEventListener("DOMContentLoaded", () => {
+        const dashboardBtn = document.getElementById("dashboardBtn");
+        const dashboardMenu = document.getElementById("dashboardMenu");
 
-      function addDigit(digit) {
-        if (input.length < 6) { 
-          input += digit;
-          document.getElementById("passcode").value = input.replace(/./g, "•");
-        }
-      }
+        dashboardBtn.onclick = function () {
+          dashboardMenu.style.display = dashboardMenu.style.display === "flex" ? "none" : "flex";
+        };
 
-      function clearPasscode() {
-        input = input.slice(0, -1);
-        document.getElementById("passcode").value = input.replace(/./g, "•");
-      }
-
-      function checkPasscode() {
-        const status = document.getElementById("statusMessage");
-        if (input === correctPasscode) {
-          // ✅ Set session token
-          sessionStorage.setItem("authToken", "granted");
-
-          status.style.display = "block";
-          status.textContent = "Unlocked!";
-          status.style.color = "lightgreen";
-
-          setTimeout(() => {
-            window.location.href = "main.html";
-          }, 1000);
-        } else {
-          status.style.display = "block"; 
-          status.textContent = "Wrong passcode!";
-          status.style.color = "red";
-
-          input = "";
-          document.getElementById("passcode").value = "";
-        }
-      }
-
-      // ✅ Keyboard support
-      document.addEventListener("keydown", function(event) {
-        if (!isNaN(event.key) && event.key !== " ") {
-          addDigit(event.key);
-        } else if (event.key === "Backspace") {
-          clearPasscode();
-        } else if (event.key === "Enter") {
-          checkPasscode();
-        }
+        // Close if clicked outside
+        window.addEventListener("click", function (e) {
+          if (!dashboardBtn.contains(e.target) && !dashboardMenu.contains(e.target)) {
+            dashboardMenu.style.display = "none";
+          }
+        });
       });
     </script>
-<script>
-function checkPasscode() {
-  const correct = "2029"; // your passcode
-  if (input === correct) {
-    // 🔑 Generate token (time-based + random)
-    const token = btoa(Date.now().toString() + Math.random().toString());
-    sessionStorage.setItem("authToken", token);
 
-    // Optional: also store a small signature so main.html knows it’s legit
-    sessionStorage.setItem("authSignature", "jouyuss-secret");
+    <script>
+      const toTopBtn = document.getElementById("toTopBtn");
 
-    // Redirect
-    window.location.href = "main.html";
-  } else {
-    alert("Wrong passcode!");
-    input = "";
-    document.getElementById("passcode").value = "";
-  }
-}
-</script>
+      // Show button when scrolled down 200px
+      window.onscroll = function () {
+        if (document.body.scrollTop > 200 || document.documentElement.scrollTop > 200) {
+          toTopBtn.style.display = "block";
+        } else {
+          toTopBtn.style.display = "none";
+        }
+      };
+
+      // Scroll smoothly to top on click
+      toTopBtn.onclick = function () {
+        window.scrollTo({
+          top: 0,
+          behavior: "smooth",
+        });
+      };
+    </script>
+
+    <script>
+      // Prevent browser from restoring old scroll position
+      if ("scrollRestoration" in history) {
+        history.scrollRestoration = "manual";
+      }
+
+      // Delay scroll-to-top when page loads
+      window.onload = function () {
+        setTimeout(() => {
+          window.scrollTo({ top: 0, behavior: "smooth" });
+        }, 3000); // 1000ms = 1 second delay
+      };
+      // double click to start it
+      toTopBtn.addEventListener("dblclick", () => {
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      });
+    </script>
+
+    <script>
+      window.addEventListener("load", () => {
+        document.querySelector(".preloader").style.display = "none";
+      });
+    </script>
 
   </body>
 </html>
