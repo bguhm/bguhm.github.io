@@ -1,42 +1,39 @@
-📅 Tomorrow [ Sept. 16 ] — v0.7 Goals
-Games (12 total target)
+# 📅 Tomorrow [ Sept. 16 ] — v0.7 Goals
 
-✅ Replace Venge, Krunker, Surviv with 3 existing library picks (easy wins)
+- Replace Venge, Krunker, Surviv with 3 existing library projects
 
-Checkers
+- Checkers
 
-Hotline Miami
+- Hotline Miami
 
-7 more from your backlog (any solid ones already in your library that don’t need much fixing)
+- Pages / UI
 
-Pages / UI
+- Header spacing fix
 
-Header spacing fix
+- versions.html
 
-versions.html
+- profile.html
 
-profile.html
+- home.html
 
-home.html
+## Features
 
-Features
+- **User login / sign up**
 
-User login / sign up
+- *Re-add Discord widget*
 
-Re-add Discord widget
+- *Re-add loading screen* & **fix issues**
 
-Re-add loading screen & fix issues
+- **Music player**
 
-Music player
+- Fullscreen / like / favorite / comment page
 
-Fullscreen / like / favorite / comment page
+- Alternative links
 
-Alternative links
+## Fixes / Maintenance
 
-Fixes / Maintenance
+- File organization + relocation
 
-File organization + relocation
+- **Marquee quote fix** + re-add
 
-Marquee quote fix + re-add
-
-Pokémon emulator fix + re-add
+- **Pokémon emulator fix** + re-add
