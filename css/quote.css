@@ -5,17 +5,14 @@
       height: 25px;
       overflow: hidden;
       background: #1D201F;
-      font-family:monospace;
-    color: white;
-    margin-right: 18px;
-    text-decoration: none;
-    font-family: monospace;
-    font-weight: bold;
-    text-align: center;      user-select: none; /* stop text highlighting while dragging/holding */
+      text-align: center;      user-select: none; /* stop text highlighting while dragging/holding */
     }
     #quoteBox {
       position: absolute;
       white-space: nowrap;
-      font-size: 1.2em;
+      font-size: 1.0em;
       color: white;
+      text-decoration: none;
+      font-family: monospace;
+      font-weight: bold;
     }
