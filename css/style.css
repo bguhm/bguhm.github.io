@@ -331,3 +331,55 @@ footer {
   text-decoration: underline;
   text-decoration-color: #ff4444;
 }
+/* Search Box Styling */
+.search-box {
+  display: flex;
+  align-items: center;
+  background: #f0f0f0; /* light background like your cards */
+  border-radius: 25px;
+  padding: 4px 10px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.15);
+  transition: box-shadow 0.2s ease-in-out;
+}
+
+.search-box:focus-within {
+  box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+}
+
+.search-box input {
+  border: none;
+  outline: none;
+  background: transparent;
+  font-size: 15px;
+  flex: 1;
+  padding: 8px;
+  font-family: inherit;
+  color: #333;
+}
+
+.search-box input::placeholder {
+  color: #888;
+}
+
+.search-box button {
+  background: #333; /* matches your header vibe */
+  border: none;
+  border-radius: 50%;
+  padding: 8px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.2s ease, background 0.2s ease;
+}
+
+.search-box button img {
+  width: 16px;
+  height: 16px;
+  filter: invert(1); /* makes black icons white */
+}
+
+.search-box button:hover {
+  background: #555;
+  transform: scale(1.1);
+}
