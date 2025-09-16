@@ -13,7 +13,7 @@ html, body {
 }
 /* Profile picture (closer & grows smoothly on hover) */
 #pfp {
-  width: 40px;              /* slightly smaller so it tucks in nicely */
+  width: 35px;              /* slightly smaller so it tucks in nicely */
   border-radius: 50%;
   cursor: pointer;
   margin-left: 5px;         /* reduce distance from dashboard */
@@ -24,13 +24,13 @@ html, body {
 }
 /* Dashboard button aligned tightly with PFP */
 #dashboardBtn {
-  width: 80px;
+  width: 100px;
   cursor: pointer;
   margin-right: 5px;        /* optional fine-tuning */
   transition: transform 0.25s ease;
 }
 #dashboardBtn:hover {
-  transform: scale(1.0.5);   /* add hover effect too if you like */
+  transform: scale(1.1);   /* add hover effect too if you like */
 }
 /* Fixed dropdown menu */
 .dashboard-menu {
