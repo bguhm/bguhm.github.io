@@ -62,20 +62,19 @@ header img {
 
 /* Profile picture */
 #pfp {
-  width: 35px;
+  width: 30px;
   border-radius: 50%;
   cursor: pointer;
   margin-left: 5px;
   transition: transform 0.25s ease;
 }
 #pfp:hover {
-  transform: scale(1.05);
+  transform: scale(1.1);
 }
 
 /* Dashboard button */
 #dashboardBtn {
-  width: 30px;
-  height: 30px;
+  width: 60px;
   cursor: pointer;
   background: none;
   border: none;
@@ -84,7 +83,7 @@ header img {
   transition: transform 0.25s ease;
 }
 #dashboardBtn:hover {
-  transform: scale(1.15);
+  transform: scale(1.1);
 }
 
 /* Fixed dropdown menu */
