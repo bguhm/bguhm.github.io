@@ -22,6 +22,7 @@
 - **Music player**
 - Fullscreen / like / favorite / comment page
 - Alternative links
+- search error gifs
 
 ## Fixes / Maintenance
 
