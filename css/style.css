@@ -46,7 +46,6 @@ header a:hover, footer a:hover {
 header img {
   width: 30px;
   height: auto;
-  /*image-rendering: pixelated;*/
 }
 
 /* Left nav (anchors) */
@@ -376,7 +375,6 @@ footer {
 .search-box button img {
   width: 16px;
   height: 16px;
-  /*filter: invert(1); /* makes black icons white */
 }
 
 .search-box button:hover {
