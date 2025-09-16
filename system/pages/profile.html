@@ -21,7 +21,7 @@
       background: #222;
       border-radius: 16px;
       padding: 20px;
-      width: 300px;
+      width: 320px;
       text-align: center;
       box-shadow: 0 4px 15px rgba(0,0,0,0.5);
     }
@@ -40,24 +40,34 @@
       margin-bottom: 20px;
     }
 
-    .edit-btn {
+    /* Buttons */
+    .edit-btn,
+    .return-btn,
+    .follow-btn,
+    .like-btn {
       display: inline-block;
-      padding: 12px 24px;
+      padding: 10px 18px;
       font-size: 16px;
       font-weight: bold;
       color: white;
-      background: #ff4444;
       border: none;
       border-radius: 8px;
       cursor: pointer;
-      text-decoration: none;
+      margin: 5px;
       transition: transform 0.2s, background 0.2s;
     }
+    .edit-btn { background: #ff4444; text-decoration: none; }
+    .edit-btn:hover { transform: scale(1.05); background: #ff6666; }
 
-    .edit-btn:hover {
-      transform: scale(1.05);
-      background: #ff6666;
-    }
+    .follow-btn { background: #ff4444; }
+    .follow-btn.following { background: #555; color: #ccc; cursor: default; }
+
+    .like-btn { background: #004400; display: flex; justify-content: center; align-items: center; gap: 6px; }
+    .like-btn .heart { color: white; transition: color 0.2s; }
+    .like-btn.liked .heart { color: red; }
+
+    .return-btn { background: #ff0000; display: block; margin: 10px auto 0; }
+    .return-btn:hover { transform: scale(1.05); background: #ff3333; }
   </style>
 </head>
 <body>
@@ -65,26 +75,49 @@
     <img src="profile.png" alt="Profile Picture" id="profilePic">
     <div class="username" id="username">Nickname</div>
     <a href="editprofile.html" class="edit-btn">Edit Profile</a>
+
+    <div class="button-group">
+      <button class="follow-btn" id="followBtn">Follow</button>
+      <button class="like-btn" id="likeBtn"><span class="heart">♥</span> Like</button>
+    </div>
+
+    <button class="return-btn" onclick="window.location.href='index.html'">Return to Page</button>
   </div>
-  <script>
-  const savedName = localStorage.getItem("nickname");
-  const savedPic = localStorage.getItem("profilePic");
 
-  if (savedName) {
-    document.getElementById("username").textContent = savedName;
-  }
-  if (savedPic) {
-    document.getElementById("profilePic").src = savedPic;
-  }
-</script>
   <script>
-  function setProfile(src) {
-    // Save chosen profile picture in localStorage
-    localStorage.setItem("profilePic", src);
+    // Load saved username + profile picture
+    const savedName = localStorage.getItem("nickname");
+    const savedPic = localStorage.getItem("profilePic");
+    if (savedName) document.getElementById("username").textContent = savedName;
+    if (savedPic) document.getElementById("profilePic").src = savedPic;
 
-    // Update preview on profile.html instantly
-    document.getElementById("profilePreview").src = src;
-  }
-</script>
+    // Follow / Like buttons
+    const followBtn = document.getElementById("followBtn");
+    const likeBtn = document.getElementById("likeBtn");
+
+    // Load state
+    if (localStorage.getItem("isFollowing") === "true") {
+      followBtn.textContent = "Following";
+      followBtn.classList.add("following");
+    }
+    if (localStorage.getItem("isLiked") === "true") {
+      likeBtn.classList.add("liked");
+    }
+
+    // Follow button click
+    followBtn.addEventListener("click", () => {
+      if (!followBtn.classList.contains("following")) {
+        followBtn.textContent = "Following";
+        followBtn.classList.add("following");
+        localStorage.setItem("isFollowing", "true");
+      }
+    });
+
+    // Like button toggle
+    likeBtn.addEventListener("click", () => {
+      likeBtn.classList.toggle("liked");
+      localStorage.setItem("isLiked", likeBtn.classList.contains("liked"));
+    });
+  </script>
 </body>
 </html>
