@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Edit Profile</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: #111;
+      font-family: monospace;
+      color: white;
+    }
+
+    .edit-card {
+      background: #222;
+      border-radius: 16px;
+      padding: 20px;
+      width: 400px;
+      text-align: center;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+    }
+
+    input[type="file"] {
+      margin: 15px 0;
+      color: white;
+    }
+
+    input[type="text"] {
+      padding: 10px;
+      width: 80%;
+      border-radius: 6px;
+      border: none;
+      margin-bottom: 15px;
+      font-size: 16px;
+    }
+
+    button {
+      padding: 12px 24px;
+      font-size: 16px;
+      font-weight: bold;
+      color: white;
+      background: #ff4444;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: transform 0.2s, background 0.2s;
+    }
+
+    button:hover {
+      transform: scale(1.05);
+      background: #ff6666;
+    }
+  </style>
+</head>
+<body>
+  <div class="edit-card">
+    <h2>Edit Profile</h2>
+    <form id="editForm">
+      <label for="profilePicInput">Change Profile Picture:</label><br>
+      <input type="file" id="profilePicInput" accept="image/*"><br>
+
+      <label for="usernameInput">Change Username:</label><br>
+      <input type="text" id="usernameInput" placeholder="Enter nickname"><br>
+
+      <button type="submit">Save Changes</button>
+    </form>
+  </div>
+
+  <script>
+    const form = document.getElementById("editForm");
+
+    form.addEventListener("submit", function(e) {
+      e.preventDefault();
+
+      const username = document.getElementById("usernameInput").value;
+      const fileInput = document.getElementById("profilePicInput");
+
+      if (username) {
+        localStorage.setItem("nickname", username);
+      }
+
+      if (fileInput.files && fileInput.files[0]) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+          localStorage.setItem("profilePic", e.target.result);
+        }
+        reader.readAsDataURL(fileInput.files[0]);
+      }
+
+      // Redirect back to profile
+      window.location.href = "profile.html";
+    });
+  </script>
+</body>
+</html>
