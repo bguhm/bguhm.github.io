@@ -14,7 +14,7 @@
   }
   #quoteWrapper {
     position: relative;
-    width: 100%;
+    width: 100vw;
     height: 40px; /* adjust height */
     overflow: hidden;
     background: transparent; /* keep it clean */
@@ -26,7 +26,7 @@
     white-space: nowrap;
     font-size: 1.2em;
     color: white; /* change to fit your theme */
-    animation: scroll-left 12s linear infinite;
+    animation: scroll-left 6s linear infinite;
   }
 
   @keyframes scroll-left {
@@ -47,6 +47,7 @@
     "all for one.",
     "24 songs, 76 projects.",
     "i make music too!",
+    "cloak is gonna be fixed soon...",
     "OFWGKTA!"
   ];
 
@@ -60,7 +61,7 @@
   // Set first quote
   setRandomQuote();
 
-  // After each scroll cycle (12s), replace with a new random quote
+  // After each scroll cycle, replace with a new random quote
   quoteBox.addEventListener("animationiteration", setRandomQuote);
 </script>
 </body>
