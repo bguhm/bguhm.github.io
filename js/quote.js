@@ -16,7 +16,7 @@
     const wrapper = document.getElementById("quoteWrapper");
     const quoteBox = document.getElementById("quoteBox");
 
-    let baseSpeed = 6; // px per second
+    let baseSpeed = 20; // px per second
     let targetMultiplier = 1; // where we WANT to go
     let currentMultiplier = 1; // where we ARE now
     let position;
@@ -53,11 +53,11 @@
       requestAnimationFrame(animate);
     }
 
-    // Hover effects
-    wrapper.addEventListener("mouseenter", () => { targetMultiplier = 1.8; });
-    wrapper.addEventListener("mouseleave", () => { targetMultiplier = 2; });
-    quoteBox.addEventListener("mouseenter", () => { targetMultiplier = 1.2; });
-    quoteBox.addEventListener("mouseleave", () => { targetMultiplier = 2; });
+// Hover effects
+wrapper.addEventListener("mouseenter", () => { targetMultiplier = 0.8; }); // 20% slower
+wrapper.addEventListener("mouseleave", () => { targetMultiplier = 1; });   // normal
+quoteBox.addEventListener("mouseenter", () => { targetMultiplier = 0.2; }); // 80% slower
+quoteBox.addEventListener("mouseleave", () => { targetMultiplier = 1; });   // back to normal
 
     // Pause on hold (mousedown/up)
     function pause() { paused = true; }
