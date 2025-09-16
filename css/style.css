@@ -376,7 +376,7 @@ footer {
 .search-box button img {
   width: 16px;
   height: 16px;
-  filter: invert(1); /* makes black icons white */
+  /*filter: invert(1); /* makes black icons white */
 }
 
 .search-box button:hover {
