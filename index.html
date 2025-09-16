@@ -837,5 +837,13 @@
 
     window.addEventListener("load", startCounter);
   </script>
+	  <script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const savedPic = localStorage.getItem("profilePic");
+    if (savedPic) {
+      document.getElementById("pfp").src = savedPic;
+    }
+  });
+</script>
   </body>
 </html>
