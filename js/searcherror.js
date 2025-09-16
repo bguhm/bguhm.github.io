@@ -15,9 +15,9 @@
 
     if (!found) {
       if (isGibberish(query)) {
-        feedback.innerHTML = `<img src="realfunny.gif" alt="Funny gif" style="max-width:200px; border-radius:10%;">`;
+        feedback.innerHTML = `<img src="realfunny.gif" alt="Funny gif" style="max-width:200px; border-radius:10%;image-rendering: pixelated;">`;
       } else {
-        feedback.innerHTML = `<img src="notfound.gif" alt="Not found gif" style="max-width:200px; border-radius:10%;">`;
+        feedback.innerHTML = `<img src="notfound.gif" alt="Not found gif" style="max-width:200px; border-radius:10%; image-rendering: pixelated;">`;
       }
     } else {
       feedback.innerHTML = "";
