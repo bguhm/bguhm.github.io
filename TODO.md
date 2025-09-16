@@ -3,6 +3,9 @@
 - add bad ice cream 1 ✅
 - add bad ice cream 2 ✅
 - add bad ice cream 3 ✅
+- pokemon blue ✅
+- pokemon yellow ✅
+- pokemon red fixed template ✅
 - Checkers 
 - Hotline Miami 
 - Pages / UI 
