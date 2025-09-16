@@ -1,0 +1,48 @@
+<div id="quoteWrapper">
+  <p id="quoteBox"></p>
+</div>
+
+<style>
+  #quoteWrapper {
+    position: relative;
+    width: 100%;
+    height: 40px; /* adjust height */
+    overflow: hidden;
+    background: transparent; /* keep it clean */
+  }
+
+  #quoteBox {
+    position: absolute;
+    white-space: nowrap;
+    font-size: 1.2em;
+    color: white; /* change to fit your theme */
+    animation: scroll-left 12s linear infinite;
+  }
+
+  @keyframes scroll-left {
+    0%   { transform: translateX(100%); }
+    100% { transform: translateX(-100%); }
+  }
+</style>
+
+<script>
+  const quotes = [
+    "The world isn't perfect. But it's there for us, doing the best it can.",
+    "Sometimes you just need to relax and let things flow.",
+    "Every mistake is a step toward progress.",
+    "Dreams don’t work unless you do."
+  ];
+
+  const quoteBox = document.getElementById("quoteBox");
+
+  function setRandomQuote() {
+    const randomQuote = quotes[Math.floor(Math.random() * quotes.length)];
+    quoteBox.textContent = randomQuote;
+  }
+
+  // Set first quote
+  setRandomQuote();
+
+  // After each scroll cycle (12s), replace with a new random quote
+  quoteBox.addEventListener("animationiteration", setRandomQuote);
+</script>
