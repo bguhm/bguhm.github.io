@@ -47,11 +47,8 @@
   </button>
 </div>
 
-<!-- search detector -->
-<div id="gifContainer" style="display:none; position:fixed; top:50%; left:50%;
-  transform:translate(-50%, -50%); z-index:9999;">
-  <img id="notFoundGif" src="notfound.gif" alt="Not found" style="max-width:300px; border-radius:10px;">
-</div>
+<!-- Placeholder for gifs -->
+<div id="searchFeedback" style="margin-top:20px; text-align:center;"></div>
 
 	  
     <img src="profile.png" alt="profile" id="pfp" />
@@ -844,36 +841,35 @@
 
     window.addEventListener("load", startCounter);
   </script>
-	  <!--search detector js -->  
+<!-- searching error -->
 <script>
-  const games = ["pokemon red", "pokemon yellow", "bad ice cream", "hotline miami"]; // example
-  const gifContainer = document.getElementById("gifContainer");
-  const notFoundGif = document.getElementById("notFoundGif");
+  const searchBtn = document.getElementById("searchBtnHeader");
+  const searchInput = document.getElementById("searchInputHeader");
+  const feedback = document.getElementById("searchFeedback");
 
-  function isGibberish(input) {
-    // Super simple "gibberish detector"
-    return input.length > 4 && !/[aeiou]/i.test(input); 
+  function isGibberish(str) {
+    // Basic gibberish check: no vowels or too many consonants in a row
+    return !/[aeiou]/i.test(str) || str.length > 3 && /^[^aeiou]+$/i.test(str);
   }
 
-  function searchGame() {
-    const input = document.getElementById("searchInputHeader").value.toLowerCase();
-    const results = games.filter(game => game.includes(input));
+  searchBtn.addEventListener("click", () => {
+    const query = searchInput.value.trim();
 
-    if (results.length === 0) {
-      gifContainer.style.display = "block";
-      notFoundGif.src = isGibberish(input) ? "realfunny.gif" : "notfound.gif";
+    // --- This is where you’d normally check your games list ---
+    let found = false; // pretend no results for now
 
-      // Hide after a few seconds
-      setTimeout(() => {
-        gifContainer.style.display = "none";
-      }, 3000);
+    if (!found) {
+      if (isGibberish(query)) {
+        feedback.innerHTML = `<img src="realfunny.gif" alt="Funny gif" style="max-width:200px; border-radius:10%;">`;
+      } else {
+        feedback.innerHTML = `<img src="notfound.gif" alt="Not found gif" style="max-width:200px; border-radius:10%;">`;
+      }
     } else {
-      gifContainer.style.display = "none";
-      console.log("Found:", results);
+      feedback.innerHTML = "";
     }
-  }
-
-  document.getElementById("searchBtnHeader").addEventListener("click", searchGame);
+  });
 </script>
+
+	  
   </body>
 </html>
