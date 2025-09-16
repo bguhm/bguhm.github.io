@@ -46,7 +46,7 @@ header a:hover, footer a:hover {
 header img {
   width: 30px;
   height: auto;
-  image-rendering: pixelated;
+  /*image-rendering: pixelated;*/
 }
 
 /* Left nav (anchors) */
