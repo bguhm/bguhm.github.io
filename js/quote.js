@@ -16,7 +16,7 @@
     const wrapper = document.getElementById("quoteWrapper");
     const quoteBox = document.getElementById("quoteBox");
 
-    let baseSpeed = 80; // px per second
+    let baseSpeed = 120; // px per second
     let targetMultiplier = 1; // where we WANT to go
     let currentMultiplier = 1; // where we ARE now
     let position;
