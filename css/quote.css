@@ -6,8 +6,12 @@
       overflow: hidden;
       background: #1D201F;
       font-family:monospace;
-      color: white;
-      user-select: none; /* stop text highlighting while dragging/holding */
+    color: white;
+    margin-right: 18px;
+    text-decoration: none;
+    font-family: monospace;
+    font-weight: bold;
+    text-align: center;      user-select: none; /* stop text highlighting while dragging/holding */
     }
     #quoteBox {
       position: absolute;
