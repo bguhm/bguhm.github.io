@@ -47,6 +47,13 @@
   </button>
 </div>
 
+<!-- search detector -->
+<div id="gifContainer" style="display:none; position:fixed; top:50%; left:50%;
+  transform:translate(-50%, -50%); z-index:9999;">
+  <img id="notFoundGif" src="" alt="Not found" style="max-width:300px; border-radius:10px;">
+</div>
+
+	  
     <img src="profile.png" alt="profile" id="pfp" />
     <img src="dashboard.png" alt="Dashboard" id="dashboardBtn" />
   </div>
@@ -837,5 +844,36 @@
 
     window.addEventListener("load", startCounter);
   </script>
+	  <!--search detector js -->  
+<script>
+  const games = ["pokemon red", "pokemon yellow", "bad ice cream", "hotline miami"]; // example
+  const gifContainer = document.getElementById("gifContainer");
+  const notFoundGif = document.getElementById("notFoundGif");
+
+  function isGibberish(input) {
+    // Super simple "gibberish detector"
+    return input.length > 4 && !/[aeiou]/i.test(input); 
+  }
+
+  function searchGame() {
+    const input = document.getElementById("searchInputHeader").value.toLowerCase();
+    const results = games.filter(game => game.includes(input));
+
+    if (results.length === 0) {
+      gifContainer.style.display = "block";
+      notFoundGif.src = isGibberish(input) ? "realfunny.gif" : "notfound.gif";
+
+      // Hide after a few seconds
+      setTimeout(() => {
+        gifContainer.style.display = "none";
+      }, 3000);
+    } else {
+      gifContainer.style.display = "none";
+      console.log("Found:", results);
+    }
+  }
+
+  document.getElementById("searchBtnHeader").addEventListener("click", searchGame);
+</script>
   </body>
 </html>
