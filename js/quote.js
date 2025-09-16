@@ -56,7 +56,7 @@
 // Hover effects
 wrapper.addEventListener("mouseenter", () => { targetMultiplier = 0.8; }); // 20% slower
 wrapper.addEventListener("mouseleave", () => { targetMultiplier = 1; });   // normal
-quoteBox.addEventListener("mouseenter", () => { targetMultiplier = 0.2; }); // 80% slower
+quoteBox.addEventListener("mouseenter", () => { targetMultiplier = 0.4; }); // 80% slower
 quoteBox.addEventListener("mouseleave", () => { targetMultiplier = 1; });   // back to normal
 
     // Pause on hold (mousedown/up)
