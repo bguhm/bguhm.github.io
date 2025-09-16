@@ -13,7 +13,7 @@ html, body {
 }
 /* Profile picture (closer & grows smoothly on hover) */
 #pfp {
-  width: 30px;              /* slightly smaller so it tucks in nicely */
+  width: 40px;              /* slightly smaller so it tucks in nicely */
   border-radius: 50%;
   cursor: pointer;
   margin-left: 5px;         /* reduce distance from dashboard */
@@ -24,7 +24,7 @@ html, body {
 }
 /* Dashboard button aligned tightly with PFP */
 #dashboardBtn {
-  width: 45px;
+  width: 60px;
   cursor: pointer;
   margin-right: 5px;        /* optional fine-tuning */
   transition: transform 0.25s ease;
