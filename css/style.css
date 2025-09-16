@@ -381,3 +381,17 @@ footer {
   background: #555;
   transform: scale(1.1);
 }
+#searchFeedback {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 300px; /* space to show gif */
+  width: 100%;
+  text-align: center;
+}
+
+#searchFeedback img {
+  max-width: 250px;
+  border-radius: 10%; /* not pill shaped */
+  image-rendering: pixelated;
+}
