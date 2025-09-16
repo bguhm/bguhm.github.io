@@ -387,9 +387,11 @@ footer {
   align-items: center;
   width: 100%;
   text-align: center;
+  margin-top: 20px;
 }
 
 #searchFeedback img {
   max-width: 250px;
-  image-rendering: pixelated;
+  border-radius: 10px; /* optional for smoother edges */
+  image-rendering: pixelated; /* keeps retro style if your gif is pixel art */
 }
