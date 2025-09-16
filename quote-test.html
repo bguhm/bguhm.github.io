@@ -1,15 +1,24 @@
-<div id="quoteWrapper">
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Test Quotes</title>
+  </head>
+  <body>
+  <div id="quoteWrapper">
   <p id="quoteBox"></p>
 </div>
 
 <style>
+  body{
+      background-color:black;
+  }
   #quoteWrapper {
     position: relative;
     width: 100%;
     height: 40px; /* adjust height */
     overflow: hidden;
     background: transparent; /* keep it clean */
-    color:black;
+    color:white;
   }
 
   #quoteBox {
@@ -54,3 +63,5 @@
   // After each scroll cycle (12s), replace with a new random quote
   quoteBox.addEventListener("animationiteration", setRandomQuote);
 </script>
+</body>
+</html>
