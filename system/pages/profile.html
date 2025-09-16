@@ -77,5 +77,14 @@
     document.getElementById("profilePic").src = savedPic;
   }
 </script>
+  <script>
+  function setProfile(src) {
+    // Save chosen profile picture in localStorage
+    localStorage.setItem("profilePic", src);
+
+    // Update preview on profile.html instantly
+    document.getElementById("profilePreview").src = src;
+  }
+</script>
 </body>
 </html>
