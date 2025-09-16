@@ -15,6 +15,7 @@
       background: #111;
       font-family: monospace;
       color: white;
+      flex-direction: column;
     }
 
     .profile-card {
@@ -42,7 +43,6 @@
 
     /* Buttons */
     .edit-btn,
-    .return-btn,
     .follow-btn,
     .like-btn {
       display: inline-block;
@@ -56,18 +56,59 @@
       margin: 5px;
       transition: transform 0.2s, background 0.2s;
     }
-    .edit-btn { background: #ff4444; text-decoration: none; }
-    .edit-btn:hover { transform: scale(1.05); background: #ff6666; }
 
-    .follow-btn { background: #ff4444; }
-    .follow-btn.following { background: #555; color: #ccc; cursor: default; }
+    .edit-btn {
+      background: #ff4444;
+      text-decoration: none;
+    }
+    .edit-btn:hover {
+      transform: scale(1.05);
+      background: #ff6666;
+    }
 
-    .like-btn { background: #004400; display: flex; justify-content: center; align-items: center; gap: 6px; }
-    .like-btn .heart { color: white; transition: color 0.2s; }
-    .like-btn.liked .heart { color: red; }
+    .follow-btn {
+      background: #ff4444;
+    }
+    .follow-btn.following {
+      background: #555;
+      color: #ccc;
+    }
 
-    .return-btn { background: #ff0000; display: block; margin: 10px auto 0; }
-    .return-btn:hover { transform: scale(1.05); background: #ff3333; }
+    .like-btn {
+      background: #555;
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      gap: 6px;
+    }
+    .like-btn .heart {
+      color: white;
+      transition: color 0.2s;
+    }
+    .like-btn.liked .heart {
+      color: red;
+    }
+
+    /* Return button fixed bottom */
+    .return-btn {
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #ff0000;
+      padding: 12px 24px;
+      font-size: 16px;
+      font-weight: bold;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: transform 0.2s, background 0.2s;
+    }
+    .return-btn:hover {
+      transform: translateX(-50%) scale(1.05);
+      background: #ff3333;
+    }
   </style>
 </head>
 <body>
@@ -80,9 +121,9 @@
       <button class="follow-btn" id="followBtn">Follow</button>
       <button class="like-btn" id="likeBtn"><span class="heart">♥</span> Like</button>
     </div>
-
-    <button class="return-btn" onclick="window.location.href='index.html'">Return to Page</button>
   </div>
+
+  <button class="return-btn" onclick="window.location.href='https://bguhm.github.io./index.html'">Return to Page</button>
 
   <script>
     // Load saved username + profile picture
@@ -104,9 +145,13 @@
       likeBtn.classList.add("liked");
     }
 
-    // Follow button click
+    // Follow button toggle
     followBtn.addEventListener("click", () => {
-      if (!followBtn.classList.contains("following")) {
+      if (followBtn.classList.contains("following")) {
+        followBtn.textContent = "Follow";
+        followBtn.classList.remove("following");
+        localStorage.setItem("isFollowing", "false");
+      } else {
         followBtn.textContent = "Following";
         followBtn.classList.add("following");
         localStorage.setItem("isFollowing", "true");
