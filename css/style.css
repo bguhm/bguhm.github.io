@@ -24,7 +24,7 @@ html, body {
 }
 /* Dashboard button aligned tightly with PFP */
 #dashboardBtn {
-  width: 60px;
+  width: 80px;
   cursor: pointer;
   margin-right: 5px;        /* optional fine-tuning */
   transition: transform 0.25s ease;
