@@ -12,6 +12,16 @@ html, body {
   flex-direction: column;
 }
 
+/* Remove purple visited state + blue outline */
+a,
+a:visited {
+  color: white;
+  text-decoration: none;
+}
+a:focus {
+  outline: none; /* kill default blue outline */
+}
+
 /* Header */
 header {
   display: flex;
@@ -26,10 +36,12 @@ header a, footer a {
   text-decoration: none;
   font-family: monospace;
   font-weight: bold;
+  transition: color 0.3s, text-decoration 0.3s;
 }
 header a:hover, footer a:hover {
   color: #ff4444;
   text-decoration: underline;
+  text-decoration-color: #ff4444;
 }
 header img {
   width: 30px;
@@ -43,14 +55,13 @@ header img {
   gap: 15px;
 }
 .nav-links a {
-  color: white;
-  text-decoration: none;
   font-family: monospace;
   font-weight: bold;
 }
 .nav-links a:hover {
   color: #ff4444;
   text-decoration: underline;
+  text-decoration-color: #ff4444;
 }
 
 /* Right side controls */
@@ -102,11 +113,16 @@ header img {
 }
 .dashboard-menu a {
   padding: 12px 16px;
+  font-family: monospace;
   color: white;
   text-decoration: none;
   display: block;
+  transition: color 0.3s, text-decoration 0.3s, background 0.3s;
 }
 .dashboard-menu a:hover {
+  color: #ff4444;
+  text-decoration: underline;
+  text-decoration-color: #ff4444;
   background: rgba(255, 255, 255, 0.1);
 }
 
@@ -296,11 +312,8 @@ footer {
   text-align: center;
   padding: 40px;
 }
-/* ===============================
-   Unified Text Styling
-   =============================== */
 
-/* Grid containers (main + discovery) */
+/* Unified Text Styling */
 #container div h3,
 #container div p,
 #container-discov div h3,
@@ -310,8 +323,6 @@ footer {
   text-decoration: none;
   transition: color 0.3s, text-decoration 0.3s;
 }
-
-/* Hover on the text itself */
 #container div h3:hover,
 #container div p:hover,
 #container-discov div h3:hover,
@@ -319,21 +330,4 @@ footer {
   color: #ff4444;
   text-decoration: underline;
   text-decoration-color: #ff4444;
-}
-
-/* Dashboard dropdown links */
-.dashboard-menu a {
-  color: white;
-  font-family: monospace;
-  text-decoration: none;
-  padding: 12px 16px;
-  display: block;
-  transition: color 0.3s, text-decoration 0.3s;
-}
-
-.dashboard-menu a:hover {
-  color: #ff4444;
-  text-decoration: underline;
-  text-decoration-color: #ff4444;
-  background: rgba(255, 255, 255, 0.1);
 }
