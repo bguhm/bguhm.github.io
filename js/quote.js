@@ -54,10 +54,10 @@
     }
 
     // Hover effects
-    wrapper.addEventListener("mouseenter", () => { targetMultiplier = 0.8; });
-    wrapper.addEventListener("mouseleave", () => { targetMultiplier = 1; });
-    quoteBox.addEventListener("mouseenter", () => { targetMultiplier = 0.2; });
-    quoteBox.addEventListener("mouseleave", () => { targetMultiplier = 1; });
+    wrapper.addEventListener("mouseenter", () => { targetMultiplier = 2.8; });
+    wrapper.addEventListener("mouseleave", () => { targetMultiplier = 3; });
+    quoteBox.addEventListener("mouseenter", () => { targetMultiplier = 2.2; });
+    quoteBox.addEventListener("mouseleave", () => { targetMultiplier = 3; });
 
     // Pause on hold (mousedown/up)
     function pause() { paused = true; }
