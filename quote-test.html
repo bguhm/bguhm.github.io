@@ -2,67 +2,66 @@
 <html>
   <head>
     <title>Test Quotes</title>
+    <style>
+      body {
+        background-color: black;
+      }
+      #quoteWrapper {
+        position: relative;
+        width: 100vw;
+        height: 40px;
+        overflow: hidden;
+        background: #1D201F;
+        color: white;
+      }
+
+      #quoteBox {
+        position: absolute;
+        white-space: nowrap;
+        font-size: 1.2em;
+        color: white;
+        animation: scroll-left 12s linear infinite;
+      }
+
+      @keyframes scroll-left {
+        0%   { transform: translateX(100vw); }   /* start completely off-screen */
+        100% { transform: translateX(-100%); }   /* slide all the way out */
+      }
+    </style>
   </head>
   <body>
-  <div id="quoteWrapper">
-  <p id="quoteBox"></p>
-</div>
+    <div id="quoteWrapper">
+      <p id="quoteBox"></p>
+    </div>
 
-<style>
-  body{
-      background-color:black;
-  }
-  #quoteWrapper {
-    position: relative;
-    width: 100vw;
-    height: 40px; /* adjust height */
-    overflow: hidden;
-    background: #1D201F; /* keep it clean */
-    color:white;
-  }
+    <script>
+      const quotes = [
+        "slackrr now bg.uhm",
+        "jouyuss now bg.uhm",
+        "v1 release on sept 26th 2025",
+        "POKEMON NOW WORKING!!!",
+        "join the discord! https://discord.gg/vskTb44F5j",
+        "Support Selenite and contributors on Sources/credits page or Github!",
+        "one for all.",
+        "all for one.",
+        "24 songs, 76 projects.",
+        "i make music too!",
+        "cloak is gonna be fixed soon...",
+        "OFWGKTA!"
+      ];
 
-  #quoteBox {
-    position: absolute;
-    white-space: nowrap;
-    font-size: 1.2em;
-    color: white; /* change to fit your theme */
-    animation: scroll-left 6s linear infinite;
-  }
+      const quoteBox = document.getElementById("quoteBox");
 
-  @keyframes scroll-left {
-    0%   { transform: translateX(100%); }
-    100% { transform: translateX(-100%); }
-  }
-</style>
+      function setRandomQuote() {
+        const randomQuote = quotes[Math.floor(Math.random() * quotes.length)];
+        quoteBox.textContent = randomQuote;
+      }
 
-<script>
-  const quotes = [
-    "slackrr now bg.uhm",
-    "jouyuss now bg.uhm",
-    "v1 release on sept 26th 2025",
-    "POKEMON NOW WORKING!!!",
-    "join the discord! https://discord.gg/vskTb44F5j",
-    "Support Selenite and contributors on Sources/credits page or Github!",
-    "one for all.",
-    "all for one.",
-    "24 songs, 76 projects.",
-    "i make music too!",
-    "cloak is gonna be fixed soon...",
-    "OFWGKTA!"
-  ];
+      // Set first quote
+      setRandomQuote();
 
-  const quoteBox = document.getElementById("quoteBox");
-
-  function setRandomQuote() {
-    const randomQuote = quotes[Math.floor(Math.random() * quotes.length)];
-    quoteBox.textContent = randomQuote;
-  }
-
-  // Set first quote
-  setRandomQuote();
-
-  // After each scroll cycle, replace with a new random quote
-  quoteBox.addEventListener("animationiteration", setRandomQuote);
-</script>
-</body>
+      // After each scroll cycle, replace with a new random quote
+      quoteBox.addEventListener("animationiteration", setRandomQuote);
+    </script>
+  </body>
 </html>
