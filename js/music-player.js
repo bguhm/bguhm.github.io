@@ -126,6 +126,9 @@ const music_list = [
 
 loadTrack(track_index);
 
+// force dark grey background
+document.body.style.background = "#222";
+
 function loadTrack(track_index){
     clearInterval(updateTimer);
     reset();
@@ -139,35 +142,15 @@ function loadTrack(track_index){
     now_playing.textContent = "Playing music " + (track_index + 1) + " of " + music_list.length;
 
     updateTimer = setInterval(setUpdate, 1000);
-
     curr_track.addEventListener('ended', nextTrack);
-    random_bg_color();
 }
 
-function random_bg_color(){
-    let hex = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e'];
-    let a;
-
-    function populate(a){
-        for(let i=0; i<6; i++){
-            let x = Math.round(Math.random() * 14);
-            let y = hex[x];
-            a += y;
-        }
-        return a;
-    }
-    let Color1 = populate('#');
-    let Color2 = populate('#');
-    var angle = 'to right';
-
-    let gradient = 'linear-gradient(' + angle + ',' + Color1 + ', ' + Color2 + ")";
-    document.body.style.background = gradient;
-}
 function reset(){
     curr_time.textContent = "00:00";
     total_duration.textContent = "00:00";
     seek_slider.value = 0;
 }
+
 function randomTrack(){
     isRandom ? pauseRandom() : playRandom();
 }
@@ -244,6 +227,11 @@ function setUpdate(){
         if(durationSeconds < 10) { durationSeconds = "0" + durationSeconds; }
         if(currentMinutes < 10) {currentMinutes = "0" + currentMinutes; }
         if(durationMinutes < 10) { durationMinutes = "0" + durationMinutes; }
+
+        curr_time.textContent = currentMinutes + ":" + currentSeconds;
+        total_duration.textContent = durationMinutes + ":" + durationSeconds;
+    }
+}
 
         curr_time.textContent = currentMinutes + ":" + currentSeconds;
         total_duration.textContent = durationMinutes + ":" + durationSeconds;
