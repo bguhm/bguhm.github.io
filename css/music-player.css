@@ -15,7 +15,7 @@ body {
       border: 1px solid transparent;
       padding: 30px;
       border-radius: 20px;
-      background-color: #ddd;
+      background-color: #2D3142;
       box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px, rgba(0, 0, 0, 0.22) 0px 15px 12px;
     }
     
@@ -30,7 +30,7 @@ body {
     margin: 25px;
     height: 250px;
     width: 250px;
-    border:2px solid 	#FFFAFA;
+    border:2px solid 	#333232;
     background-size: cover;
     background-position: center;
     border-radius: 50%;
@@ -174,11 +174,11 @@ body {
       @keyframes animate {
         50% {
           height: 20%;
-          background: #4286f4;
+          background: #000;
         }
     
         100% {
-          background: #4286f4;
+          background: #000;
           height: 100%;
         }
       }
