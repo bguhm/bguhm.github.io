@@ -22,105 +22,28 @@ let updateTimer;
 
 const music_list = [
     {
-        img : 'https://raw.githubusercontent.com/bguhm/bguhm.github.io/main/library/images/albums/maybe-maybe/maybe-maybe-cover-art.png',
-        name : 'Slackrr.',
-        artist : 'Rhap5ody.',
-        music : 'library/albums/maybe-maybe/slackrr.mp3'
-    },    {
-        img : 'https://raw.githubusercontent.com/bguhm/bguhm.github.io/main/library/images/albums/maybe-maybe/maybe-maybe-cover-art.png',
-        name : 'Caramel eyes.',
-        artist : 'Rhap5ody.',
-        music : 'library/albums/maybe-maybe/caramel-eyes.mp3'
-    },    {
-        img : 'https://raw.githubusercontent.com/bguhm/bguhm.github.io/main/library/images/albums/maybe-maybe/maybe-maybe-cover-art.png',
-        name : 'PUNK HAZARD',
-        artist : 'Rhap5ody.',
-        music : 'library/albums/maybe-maybe/punk-hazard.mp3'
-    },    {
-        img : 'https://raw.githubusercontent.com/bguhm/bguhm.github.io/main/library/images/albums/maybe-maybe/maybe-maybe-cover-art.png',
-        name : 'HOUND.',
-        artist : 'Rhap5ody.',
-        music : 'library/albums/maybe-maybe/hound.mp3'
-    },    {
-        img : 'https://raw.githubusercontent.com/bguhm/bguhm.github.io/main/library/images/albums/maybe-maybe/maybe-maybe-cover-art.png',
-        name : 'Arizona Girl',
-        artist : 'Rhap5ody.',
-        music : 'library/albums/maybe-maybe/arizona-girl.mp3'
-    },    {
-        img : 'https://raw.githubusercontent.com/bguhm/bguhm.github.io/main/library/images/albums/maybe-maybe/maybe-maybe-cover-art.png',
-        name : 'MARIGOLD.',
-        artist : 'Rhap5ody.',
-        music : 'library/albums/maybe-maybe/marigold.mp3'
-    },    {
-        img : 'https://raw.githubusercontent.com/bguhm/bguhm.github.io/main/library/images/albums/maybe-maybe/maybe-maybe-cover-art.png',
-        name : 'Besto Friendo',
-        artist : 'Rhap5ody.',
-        music : 'library/albums/maybe-maybe/besto-friendo.mp3'
-    },    {
-        img : 'https://raw.githubusercontent.com/bguhm/bguhm.github.io/main/library/images/albums/maybe-maybe/maybe-maybe-cover-art.png',
-        name : 'HippoCript.',
-        artist : 'Rhap5ody.',
-        music : 'library/albums/maybe-maybe/hippocript.mp3'
-    },    {
-        img : 'https://raw.githubusercontent.com/bguhm/bguhm.github.io/main/library/images/albums/maybe-maybe/maybe-maybe-cover-art.png',
-        name : 'AloneAgain.',
-        artist : 'Rhap5ody.',
-        music : 'library/albums/maybe-maybe/alone-again.mp3'
-    },    {
-        img : 'https://raw.githubusercontent.com/bguhm/bguhm.github.io/main/library/images/albums/maybe-maybe/maybe-maybe-cover-art.png',
-        name : 'RoofTop.',
-        artist : 'Rhap5ody.',
-        music : 'library/albums/maybe-maybe/rooftop.mp3'
-    },    {
-        img : 'https://raw.githubusercontent.com/bguhm/bguhm.github.io/main/library/images/albums/maybe-maybe/maybe-maybe-cover-art.png',
-        name : 'November.',
-        artist : 'Rhap5ody.',
-        music : 'library/albums/maybe-maybe/november.mp3'
-    },    {
-        img : 'https://raw.githubusercontent.com/bguhm/bguhm.github.io/main/library/images/albums/maybe-maybe/maybe-maybe-cover-art.png',
-        name : 'Street.',
-        artist : 'Rhap5ody.',
-        music : 'library/albums/maybe-maybe/street.mp3'
-    },    {
-        img : 'https://raw.githubusercontent.com/bguhm/bguhm.github.io/main/library/images/albums/maybe-maybe/maybe-maybe-cover-art.png',
-        name : 'Self Concious.',
-        artist : 'Rhap5ody.',
-        music : 'library/albums/maybe-maybe/selfconcious.mp3'
-    },    {
-        img : 'https://raw.githubusercontent.com/bguhm/bguhm.github.io/main/library/images/albums/maybe-maybe/maybe-maybe-cover-art.png',
-        name : 'Scribble.',
-        artist : 'Rhap5ody.',
-        music : 'library/albums/maybe-maybe/scribble.mp3'
-    },    {
-        img : 'https://raw.githubusercontent.com/bguhm/bguhm.github.io/main/library/images/albums/maybe-maybe/maybe-maybe-cover-art.png',
-        name : 'Feelings In A Bottle.',
-        artist : 'Rhap5ody.',
-        music : 'library/albums/maybe-maybe/fiab.mp3'
-    },    {
-        img : 'https://raw.githubusercontent.com/bguhm/bguhm.github.io/main/library/images/albums/maybe-maybe/maybe-maybe-cover-art.png',
-        name : 'SoloCup.',
-        artist : 'Rhap5ody.',
-        music : 'library/albums/maybe-maybe/solocup.mp3'
-    },    {
-        img : 'https://raw.githubusercontent.com/bguhm/bguhm.github.io/main/library/images/albums/maybe-maybe/maybe-maybe-cover-art.png',
-        name : 'Bg.uhm',
-        artist : 'Rhap5ody.',
-        music : 'library/albums/maybe-maybe/bguhm.mp3'
-    },    {
-        img : 'https://raw.githubusercontent.com/bguhm/bguhm.github.io/main/library/images/albums/maybe-maybe/maybe-maybe-cover-art.png',
-        name : '6:27',
-        artist : 'Rhap5ody.',
-        music : 'library/albums/maybe-maybe/627.mp3'
-    },    {
-        img : 'https://raw.githubusercontent.com/bguhm/bguhm.github.io/main/library/images/albums/maybe-maybe/maybe-maybe-cover-art.png',
-        name : 'Daisy.',
-        artist : 'Rhap5ody.',
-        music : 'library/albums/maybe-maybe/daisy.mp3'
-    },    {
-        img : 'https://raw.githubusercontent.com/bguhm/bguhm.github.io/main/library/images/albums/maybe-maybe/maybe-cover-art.png',
-        name : 'Maybe (Maybe).',
-        artist : 'Rhap5ody.',
-        music : 'library/albums/maybe-maybe/maybemaybe.mp3'
+        img : 'images/stay.png',
+        name : 'Stay',
+        artist : 'The Kid LAROI, Justin Bieber',
+        music : 'music/stay.mp3'
+    },
+    {
+        img : 'images/fallingdown.jpg',
+        name : 'Falling Down',
+        artist : 'Wid Cards',
+        music : 'music/fallingdown.mp3'
+    },
+    {
+        img : 'images/faded.png',
+        name : 'Faded',
+        artist : 'Alan Walker',
+        music : 'music/Faded.mp3'
+    },
+    {
+        img : 'images/ratherbe.jpg',
+        name : 'Rather Be',
+        artist : 'Clean Bandit',
+        music : 'music/Rather Be.mp3'
     }
 ];
 
@@ -144,25 +67,25 @@ function loadTrack(track_index){
     random_bg_color();
 }
 
-// function random_bg_color(){
-//    let hex = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e'];
-//    let a;
-//
-//    function populate(a){
-//        for(let i=0; i<6; i++){
-//            let x = Math.round(Math.random() * 14);
-//            let y = hex[x];
-//            a += y;
-//        }
-//        return a;
-//    }
-//    let Color1 = populate('#');
-//    let Color2 = populate('#');
-//    var angle = 'to right';
-//
-//    let gradient = 'linear-gradient(' + angle + ',' + Color1 + ', ' + Color2 + ")";
-//    document.body.style.background = gradient;
-//}
+function random_bg_color(){
+    let hex = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e'];
+    let a;
+
+    function populate(a){
+        for(let i=0; i<6; i++){
+            let x = Math.round(Math.random() * 14);
+            let y = hex[x];
+            a += y;
+        }
+        return a;
+    }
+    let Color1 = populate('#');
+    let Color2 = populate('#');
+    var angle = 'to right';
+
+    let gradient = 'linear-gradient(' + angle + ',' + Color1 + ', ' + Color2 + ")";
+    document.body.style.background = gradient;
+}
 function reset(){
     curr_time.textContent = "00:00";
     total_duration.textContent = "00:00";
