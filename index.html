@@ -845,5 +845,74 @@
     }
   });
 </script>
+	  <!--settings or sum-->
+  <script>
+    // Helper: set favicon
+    function setFavicon(url) {
+      let link = document.querySelector("link[rel~='icon']");
+      if (!link) {
+        link = document.createElement("link");
+        link.rel = "icon";
+        document.head.appendChild(link);
+      }
+      link.href = url;
+    }
+
+    // Generic toggle setup with localStorage
+    function setupToggle(id, callback) {
+      const el = document.getElementById(id);
+
+      // Restore saved state
+      const saved = localStorage.getItem(id);
+      if (saved === "on") {
+        el.classList.add("on");
+        el.textContent = "ON";
+      }
+
+      // Apply initial state
+      if (callback) callback(el.classList.contains("on"));
+
+      el.addEventListener("click", () => {
+        el.classList.toggle("on");
+        const isOn = el.classList.contains("on");
+        el.textContent = isOn ? "ON" : "OFF";
+
+        // Save state
+        localStorage.setItem(id, isOn ? "on" : "off");
+
+        // Run feature change
+        if (callback) callback(isOn);
+      });
+    }
+
+    // Cloak Mode toggle
+    if setupToggle("cloakToggle", (active) => {
+      if (active) {
+        document.title = "Google Docs";
+        setFavicon("icons/docs.png");
+      } else {
+        document.title = "Bguhm.GuiHub.io";
+        setFavicon("icons/default.png");
+      }
+    });
+
+    // Dark Theme toggle
+    if setupToggle("themeToggle", (active) => {
+      if (active) {
+        document.body.style.background = "#1e1e1e";
+        document.body.style.color = "#f4f4f4";
+      } else {
+        document.body.style.background = "#f4f4f4";
+        document.body.style.color = "#111";
+      }
+    });
+
+    // Background Image toggle
+    setupToggle("bgToggle", (active) => {
+      document.body.style.backgroundImage = active 
+        ? "url('images/bg1.jpg')" 
+        : "none";
+    });
+  </script>
   </body>
 </html>
