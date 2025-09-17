@@ -20,6 +20,36 @@ let isPlaying = false;
 let isRandom = false;
 let updateTimer;
 
+// ---- NEW: Web Audio API setup ----
+let audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+let analyser = audioCtx.createAnalyser();
+let source = audioCtx.createMediaElementSource(curr_track);
+source.connect(analyser);
+analyser.connect(audioCtx.destination);
+
+analyser.fftSize = 256;
+let bufferLength = analyser.frequencyBinCount;
+let dataArray = new Uint8Array(bufferLength);
+
+// Animate wave
+function renderWave() {
+    requestAnimationFrame(renderWave);
+    if (isPlaying) {
+        analyser.getByteFrequencyData(dataArray);
+        let volume = dataArray.reduce((a, b) => a + b) / dataArray.length;
+
+        // Show & scale wave with volume
+        wave.style.display = "block";
+        wave.style.transform = `scaleY(${Math.max(0.3, volume / 100)})`;
+    } else {
+        // Hide when not playing
+        wave.style.display = "none";
+    }
+}
+renderWave();
+
+// ------------------
+
 const music_list = [
     {
         img : 'https://raw.githubusercontent.com/bguhm/bguhm.github.io./main/library/images/albums/maybe-maybe/maybe-maybe-cover-art.png',
@@ -172,16 +202,15 @@ function playpauseTrack(){
 }
 function playTrack(){
     curr_track.play();
+    audioCtx.resume(); // needed for autoplay policies
     isPlaying = true;
     track_art.classList.add('rotate');
-    wave.classList.add('loader');
     playpause_btn.innerHTML = '<i class="fa fa-pause-circle fa-5x"></i>';
 }
 function pauseTrack(){
     curr_track.pause();
     isPlaying = false;
     track_art.classList.remove('rotate');
-    wave.classList.remove('loader');
     playpause_btn.innerHTML = '<i class="fa fa-play-circle fa-5x"></i>';
 }
 function nextTrack(){
@@ -233,7 +262,5 @@ function setUpdate(){
     }
 }
 
-        curr_time.textContent = currentMinutes + ":" + currentSeconds;
-        total_duration.textContent = durationMinutes + ":" + durationSeconds;
-    }
-}
+
+
