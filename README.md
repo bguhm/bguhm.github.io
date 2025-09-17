@@ -21,6 +21,7 @@
   <img src="https://contrib.rocks/image?repo=genizy/genizy.github.io" />
    <img src="https://contrib.rocks/image?repo=tw31122007/HTML-Games-V2" />
     <img src="https://contrib.rocks/image?repo=selenite-cc/selenite" />
+  <img src="https://contrib.rocks/image?repo=kaizhelam/Music-Player" />
 </p>
 
 # credits
