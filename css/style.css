@@ -148,8 +148,8 @@ header img {
   background: #555;
 }
 
-/* Mid Container Grid */
-#container {
+/* Mid container-1 Grid */
+#container-1 {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
   gap: 20px;
@@ -159,7 +159,7 @@ header img {
   align-items: start;
   min-height: calc(100vh - 120px);
 }
-#container div {
+#container-1 div {
   width: 280px;
   min-height: 220px;
   background: #d4d4d4;
@@ -171,7 +171,7 @@ header img {
   border: 3px solid transparent;
   transition: opacity 0.3s ease;
 }
-#container div img {
+#container-1 div img {
   width: 100px;
   height: auto;
   display: block;
@@ -179,12 +179,12 @@ header img {
   border-radius: 15%;
   transition: transform 0.3s ease;
 }
-#container div:hover img { transform: scale(1.05); }
-#container div:hover p { transform: scale(1.1); }
-#container div:hover h3 { transform: scale(1.1); }
+#container-1 div:hover img { transform: scale(1.05); }
+#container-1 div:hover p { transform: scale(1.1); }
+#container-1 div:hover h3 { transform: scale(1.1); }
 
-/* BIG Container Grid */
-#container-discov {
+/* BIG container-1 Grid */
+#container-1-discov {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
@@ -193,7 +193,7 @@ header img {
   padding: 20px;
   background-color: #d3d3d3;
 }
-#container-discov div {
+#container-1-discov div {
   flex: 1 1 280px;
   width: 280px;
   margin: 10px;
@@ -205,7 +205,7 @@ header img {
   overflow: hidden;
   border: 3px solid transparent;
 }
-#container-discov div img {
+#container-1-discov div img {
   width: 300px;
   height: auto;
   display: block;
@@ -213,9 +213,9 @@ header img {
   border-radius: 15%;
   transition: transform 0.3s ease;
 }
-#container-discov div:hover img { transform: scale(1.05); }
-#container-discov div:hover p { transform: scale(1.1); }
-#container-discov div:hover h3 { transform: scale(1.1); }
+#container-1-discov div:hover img { transform: scale(1.05); }
+#container-1-discov div:hover p { transform: scale(1.1); }
+#container-1-discov div:hover h3 { transform: scale(1.1); }
 
 /* Status Effects */
 .soon {
@@ -313,19 +313,19 @@ footer {
 }
 
 /* Unified Text Styling */
-#container div h3,
-#container div p,
-#container-discov div h3,
-#container-discov div p {
+#container-1 div h3,
+#container-1 div p,
+#container-1-discov div h3,
+#container-1-discov div p {
   color: white;
   font-family: monospace;
   text-decoration: none;
   transition: color 0.3s, text-decoration 0.3s;
 }
-#container div h3:hover,
-#container div p:hover,
-#container-discov div h3:hover,
-#container-discov div p:hover {
+#container-1 div h3:hover,
+#container-1 div p:hover,
+#container-1-discov div h3:hover,
+#container-1-discov div p:hover {
   color: #ff4444;
   text-decoration: underline;
   text-decoration-color: #ff4444;
