@@ -117,7 +117,7 @@ const music_list = [
         artist : 'Rhap5ody.',
         music : 'library/albums/maybe-maybe/daisy.mp3'
     },    {
-        img : 'library/images/albums/maybe-maybe-cover-art.png',
+        img : 'library/images/albums/maybe-cover-art.png',
         name : 'Maybe (Maybe).',
         artist : 'Rhap5ody.',
         music : 'library/albums/maybe-maybe/maybemaybe.mp3'
