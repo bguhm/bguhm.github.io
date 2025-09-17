@@ -147,7 +147,7 @@ const music_list = [
         artist : 'Rhap5ody.',
         music : 'library/albums/maybe-maybe/daisy.mp3'
     },    {
-        img : 'https://raw.githubusercontent.com/bguhm/bguhm.github.io./main/library/images/albums/maybe-maybe/maybe-cover-art.png',
+        img : 'https://raw.githubusercontent.com/bguhm/bguhm.github.io/main/library/images/albums/maybe-maybe/maybe-cover-art.png',
         name : 'Maybe (Maybe).',
         artist : 'Rhap5ody.',
         music : 'library/albums/maybe-maybe/maybemaybe.mp3'
