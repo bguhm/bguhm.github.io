@@ -491,3 +491,15 @@ footer {
   font-size: 14px;
   z-index: 1000;
 }
+#searchFeedback {
+  display: none;
+  position: fixed;
+  top: 80px;       /* adjust so it doesn’t overlap header */
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1000;
+  text-align: center;
+}
+#searchFeedback img {
+  max-height: 120px;
+}
