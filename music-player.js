@@ -102,7 +102,7 @@ const music_list = [
   { name: "RoofTop.", file: "rooftop.mp3" },
   { name: "November.", file: "november.mp3" },
   { name: "Street.", file: "street.mp3" },
-  { name: "Self Concious.", file: "selfconcious.mp3" },
+  { name: "Self Concious.", file: "self-concious.mp3" },
   { name: "Scribble.", file: "scribble.mp3" },
   { name: "Feelings In A Bottle.", file: "fiab.mp3" },
   { name: "SoloCup.", file: "solocup.mp3" },
