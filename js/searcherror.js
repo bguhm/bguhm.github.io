@@ -9,12 +9,16 @@ function isGibberish(str) {
   return !/[aeiou]/i.test(str) || (str.length > 3 && /^[^aeiou]+$/i.test(str));
 }
 
+// Hide feedback initially
+feedback.style.display = "none";
+
 searchBtn.addEventListener("click", () => {
   const query = searchInput.value.trim().toLowerCase();
   let found = false;
 
   // Reset feedback each search
   feedback.innerHTML = "";
+  feedback.style.display = "none";
 
   if (query.length === 0) {
     return; // nothing typed
@@ -34,6 +38,7 @@ searchBtn.addEventListener("click", () => {
 
   // If no results
   if (!found) {
+    feedback.style.display = "block"; // show floating box
     if (isGibberish(query)) {
       feedback.innerHTML = `<img src="realfunny.gif" alt="Funny gif">`;
     } else {
