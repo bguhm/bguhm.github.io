@@ -38,21 +38,27 @@
     <a href="system/pages/settings.html">Settings</a>
     <a href="system/pages/support.html">Support</a>
     <a href="system/pages/info.html">Info</a>
-	  <div class="pages-anchor">
-  <img src="images/left.png" alt="Previous Page" class="arrow left" onclick="prevPage()">
-  <span class="page-indicator">Page 1</span>
-  <img src="images/right.png" alt="Next Page" class="arrow right" onclick="nextPage()">
-</div>
+
+    <!-- Pages control -->
+    <div class="pages-anchor">
+      <button class="arrow left" onclick="prevPage()">
+        <img src="images/left.png" alt="Previous Page">
+      </button>
+      <span class="page-indicator">Page 1</span>
+      <button class="arrow right" onclick="nextPage()">
+        <img src="images/right.png" alt="Next Page">
+      </button>
+    </div>
   </nav>
 
   <!-- Search / profile / dashboard grouped -->
   <div class="header-controls">
-<div class="search-box">
-  <input type="text" id="searchInputHeader" placeholder="Search games..." />
-  <button id="searchBtnHeader">
-    <img src="search3.png" alt="Search" />
-  </button>
-</div>	  
+    <div class="search-box">
+      <input type="text" id="searchInputHeader" placeholder="Search games..." />
+      <button id="searchBtnHeader">
+        <img src="search3.png" alt="Search" />
+      </button>
+    </div>	  
     <a href="system/pages/profile.html"><img src="profile.png" alt="profile" id="pfp" /></a>
     <img src="dashboard.png" alt="Dashboard" id="dashboardBtn" />
   </div>
