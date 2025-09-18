@@ -422,3 +422,63 @@ footer {
 .page-container.active {
   display: block;
 }
+/* Example: applies only to <div id="container-1" class="page-container"> */
+#container-1.page-container,
+#container-2.page-container,
+#container-3.page-container,
+#container-4.page-container,
+#container-5.page-container,
+#container-6.page-container,
+#container-7.page-container,
+#container-8.page-container,
+#container-9.page-container,
+#container-10.page-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 20px;
+  padding: 20px;
+  background-color: #d3d3d3;
+  justify-items: center;
+  align-items: start;
+  min-height: calc(100vh - 120px);
+}
+
+#container-1.page-container div,
+#container-2.page-container div,
+#container-3.page-container div,
+#container-4.page-container div,
+#container-5.page-container div,
+#container-6.page-container div,
+#container-7.page-container div,
+#container-8.page-container div,
+#container-9.page-container div,
+#container-10.page-container div {
+  width: 280px;
+  min-height: 220px;
+  background: #d4d4d4;
+  text-align: center;
+  border-radius: 15%;
+  padding: 10px;
+  position: relative;
+  overflow: hidden;
+  border: 3px solid transparent;
+  transition: opacity 0.3s ease;
+}
+
+#container-1.page-container div img,
+#container-2.page-container div img,
+#container-3.page-container div img,
+#container-4.page-container div img,
+#container-5.page-container div img,
+#container-6.page-container div img,
+#container-7.page-container div img,
+#container-8.page-container div img,
+#container-9.page-container div img,
+#container-10.page-container div img {
+  width: 100px;
+  height: auto;
+  display: block;
+  margin: 0 auto 10px;
+  border-radius: 15%;
+  transition: transform 0.3s ease;
+}
