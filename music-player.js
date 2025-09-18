@@ -1,3 +1,13 @@
+/***********************
+ * music-player.js
+ * Merged/updated version:
+ * - preserves original variable names
+ * - supports per-track cover art
+ * - creates .disc (rotating) + .cover (static) inside .track-art
+ * - last track uses a different cover (maybe.png)
+ ***********************/
+
+/* DOM references (kept same as your original) */
 let now_playing = document.querySelector('.now-playing');
 let track_art = document.querySelector('.track-art');
 let track_name = document.querySelector('.track-name');
@@ -20,7 +30,7 @@ let isPlaying = false;
 let isRandom = false;
 let updateTimer;
 
-// ---- Web Audio API setup ----
+/* ---- Web Audio API setup ---- */
 let audioCtx = new (window.AudioContext || window.webkitAudioContext)();
 let analyser = audioCtx.createAnalyser();
 let source = audioCtx.createMediaElementSource(curr_track);
@@ -31,24 +41,54 @@ analyser.fftSize = 256;
 let bufferLength = analyser.frequencyBinCount;
 let dataArray = new Uint8Array(bufferLength);
 
-// Animate wave
+/* helper: ensure .disc and .cover exist inside .track-art */
+let discEl, coverEl;
+function ensureArtChildren() {
+  if (!track_art) return;
+  discEl = track_art.querySelector('.disc');
+  coverEl = track_art.querySelector('.cover');
+
+  // Create disc (rotates) if missing
+  if (!discEl) {
+    discEl = document.createElement('div');
+    discEl.className = 'disc';
+    // let CSS control appearance; insert as first child (beneath cover)
+    track_art.insertBefore(discEl, track_art.firstChild);
+  }
+
+  // Create cover (top, static) if missing
+  if (!coverEl) {
+    coverEl = document.createElement('div');
+    coverEl.className = 'cover';
+    track_art.appendChild(coverEl);
+  }
+}
+
+/* call once on load */
+ensureArtChildren();
+
+/* Animate wave (simple scaleY approach like before) */
 function renderWave() {
   requestAnimationFrame(renderWave);
   if (isPlaying) {
     analyser.getByteFrequencyData(dataArray);
-    let volume = dataArray.reduce((a, b) => a + b) / dataArray.length;
-    wave.style.display = "block";
-    wave.style.transform = `scaleY(${Math.max(0.3, volume / 100)})`;
+    let volume = dataArray.reduce((a, b) => a + b, 0) / dataArray.length;
+    if (wave) {
+      wave.style.display = "block";
+      wave.style.transform = `scaleY(${Math.max(0.25, volume / 100)})`;
+    }
   } else {
-    wave.style.display = "none";
+    if (wave) wave.style.display = "none";
   }
 }
 renderWave();
 
-// ---- Music list ----
+/* ---- Music list (per-track cover allowed) ---- */
 const basePath = "./music/albums/maybe-maybe/";
-const coverArt = "https://raw.githubusercontent.com/bguhm/bguhm.github.io/main/library/images/albums/maybe-maybe/maybe-maybe-cover-art.png";
+const coverDefault = "https://raw.githubusercontent.com/bguhm/bguhm.github.io/main/library/images/albums/maybe-maybe/maybe-maybe-cover-art.png";
 
+/* You can add a `cover` property per track to override the default cover.
+   The last track below deliberately has a different cover file "maybe.png". */
 const music_list = [
   { name: "Slackrr.", file: "slackrr.mp3" },
   { name: "Caramel eyes.", file: "caramel-eyes.mp3" },
@@ -69,15 +109,17 @@ const music_list = [
   { name: "Bg.uhm", file: "bguhm.mp3" },
   { name: "6:27", file: "627.mp3" },
   { name: "Daisy.", file: "daisy.mp3" },
-  { name: "Maybe (Maybe).", file: "maybemaybe.mp3" }
+
+  /* last track overrides cover to maybe.png (relative path to your repo) */
+  { name: "Maybe (Maybe).", file: "maybemaybe.mp3", cover: "./library/images/albums/maybe-maybe/maybe.png" }
 ].map(track => ({
-  img: coverArt,
+  img: track.cover || coverDefault,     // per-track cover or fallback
   name: track.name,
-  artist: "Rhap5ody.",
+  artist: track.artist || "Rhap5ody.",
   music: basePath + track.file
 }));
 
-// ---- Player functions ----
+/* ---- Player functions (kept same behavior, updated for disc/cover) ---- */
 loadTrack(track_index);
 document.body.style.background = "#222";
 
@@ -85,10 +127,21 @@ function loadTrack(index) {
   clearInterval(updateTimer);
   reset();
 
+  // Bound check
+  if (index < 0) index = 0;
+  if (index >= music_list.length) index = music_list.length - 1;
+
   curr_track.src = music_list[index].music;
   curr_track.load();
 
-  track_art.style.backgroundImage = `url(${music_list[index].img})`;
+  // Ensure art children exist (in case HTML changed after load)
+  ensureArtChildren();
+
+  // Set cover art on the .cover element
+  if (coverEl) coverEl.style.backgroundImage = `url("${music_list[index].img}")`;
+
+  // (Optional) allow a 'disc' visual per-track (not required). If you add a 'disc' property later,
+  // you could set discEl.style.backgroundImage = `url("${music_list[index].disc}")`
   track_name.textContent = music_list[index].name;
   track_artist.textContent = music_list[index].artist;
   now_playing.textContent = `Playing music ${index + 1} of ${music_list.length}`;
@@ -108,11 +161,11 @@ function randomTrack() {
 }
 function playRandom() {
   isRandom = true;
-  randomIcon.classList.add('randomActive');
+  if (randomIcon) randomIcon.classList.add('randomActive');
 }
 function pauseRandom() {
   isRandom = false;
-  randomIcon.classList.remove('randomActive');
+  if (randomIcon) randomIcon.classList.remove('randomActive');
 }
 function repeatTrack() {
   loadTrack(track_index);
@@ -122,16 +175,27 @@ function playpauseTrack() {
   isPlaying ? pauseTrack() : playTrack();
 }
 function playTrack() {
-  curr_track.play();
-  audioCtx.resume(); // needed for autoplay policies
+  // resume audio context for autoplay policies
+  if (audioCtx && audioCtx.state === 'suspended') {
+    audioCtx.resume();
+  }
+
+  curr_track.play().catch(err => {
+    // Autoplay blocked — user interaction required. Silently ignore here.
+    // You could show a notice prompting user to click to start.
+    // console.warn('Playback failed (autoplay policy):', err);
+  });
+
   isPlaying = true;
-  track_art.classList.add('rotate');
+
+  // rotate the disc element (not the cover) so the cover stays static
+  if (discEl) discEl.classList.add('rotate');
   playpause_btn.innerHTML = '<i class="fa fa-pause-circle fa-5x"></i>';
 }
 function pauseTrack() {
   curr_track.pause();
   isPlaying = false;
-  track_art.classList.remove('rotate');
+  if (discEl) discEl.classList.remove('rotate');
   playpause_btn.innerHTML = '<i class="fa fa-play-circle fa-5x"></i>';
 }
 function nextTrack() {
@@ -151,11 +215,12 @@ function prevTrack() {
   playTrack();
 }
 function seekTo() {
+  if (!curr_track.duration) return;
   let seekto = curr_track.duration * (seek_slider.value / 100);
   curr_track.currentTime = seekto;
 }
 function setVolume() {
-  curr_track.volume = volume_slider.value / 100;
+  curr_track.volume = (volume_slider && volume_slider.value) ? volume_slider.value / 100 : 1;
 }
 function setUpdate() {
   if (!isNaN(curr_track.duration)) {
@@ -176,3 +241,8 @@ function setUpdate() {
     total_duration.textContent = `${durationMinutes}:${durationSeconds}`;
   }
 }
+
+/* Optional: if you want click handlers in JS instead of inline onclick attributes */
+// playpause_btn && playpause_btn.addEventListener('click', playpauseTrack);
+// next_btn && next_btn.addEventListener('click', nextTrack);
+// prev_btn && prev_btn.addEventListener('click', prevTrack);
