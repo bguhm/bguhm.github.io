@@ -395,3 +395,25 @@ footer {
   border-radius: 10px; /* optional for smoother edges */
   image-rendering: pixelated; /* keeps retro style if your gif is pixel art */
 }
+/* Page arrows */
+.pages-anchor button {
+  background: transparent;      /* no background */
+  border: none;                 /* remove default button border */
+  padding: 5px;                 /* space around the image */
+  cursor: pointer;              /* pointer cursor */
+  border-radius: 0;             /* sharp edges */
+  display: flex;                /* keep image centered */
+  align-items: center;
+  justify-content: center;
+}
+
+.pages-anchor button img {
+  width: 40px;                  /* adjust size of arrow images */
+  height: 40px;                 /* keeps it square */
+  object-fit: contain;          /* prevent stretching */
+  transition: transform 0.2s ease;
+}
+
+.pages-anchor button:hover img {
+  transform: scale(1.15);       /* zoom on hover */
+}
