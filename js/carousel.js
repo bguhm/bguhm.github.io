@@ -1,6 +1,7 @@
-<script>
 document.addEventListener("DOMContentLoaded", () => {
-  const pageControls = document.querySelectorAll(".page-control");
+  let currentPage = 1;
+  const totalPages = 10; // change if you have more/less
+  const pageIndicator = document.querySelector(".page-indicator");
   const allPages = document.querySelectorAll("[class*='page-']");
 
   function showPage(pageNumber) {
@@ -9,22 +10,27 @@ document.addEventListener("DOMContentLoaded", () => {
       div.style.display = "none";
     });
 
-    // Show only selected page
+    // Show selected
     const selected = document.querySelectorAll(`.page-${pageNumber}`);
     selected.forEach(div => {
       div.style.display = "block";
     });
+
+    // Update indicator text
+    pageIndicator.textContent = `Page ${pageNumber}`;
   }
 
-  // Attach click listeners to header spans
-  pageControls.forEach(control => {
-    control.addEventListener("click", () => {
-      const pageNumber = control.getAttribute("data-page");
-      showPage(pageNumber);
-    });
-  });
+  // Global functions for your arrows
+  window.nextPage = function() {
+    currentPage = currentPage >= totalPages ? 1 : currentPage + 1;
+    showPage(currentPage);
+  };
 
-  // Default to Page 1
-  showPage(1);
+  window.prevPage = function() {
+    currentPage = currentPage <= 1 ? totalPages : currentPage - 1;
+    showPage(currentPage);
+  };
+
+  // Default load
+  showPage(currentPage);
 });
-</script>
