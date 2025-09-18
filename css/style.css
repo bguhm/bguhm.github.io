@@ -478,3 +478,16 @@ footer {
   font-family: monospace;
   line-height: 1;        /* prevents vertical stretching */
 }
+.search-error {
+  display: none;  
+  position: fixed; /* stick to viewport */
+  top: 80px;       /* adjust as needed */
+  left: 50%;
+  transform: translateX(-50%);
+  background: #ff4d4d;
+  color: #fff;
+  padding: 6px 12px;
+  border-radius: 4px;
+  font-size: 14px;
+  z-index: 1000;
+}
