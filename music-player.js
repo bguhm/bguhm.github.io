@@ -95,7 +95,7 @@ const music_list = [
   { name: "PUNK HAZARD", file: "punk-hazard.mp3" },
   { name: "HOUND.", file: "hound.mp3" },
   { name: "Arizona Girl", file: "arizona-girl.mp3" },
-  { name: "MARIGOLD.", file: "marigold.mp3" },
+  { name: "MARIGOLD.", file: "marigold.m4a" },
   { name: "Besto Friendo", file: "besto-friendo.mp3" },
   { name: "HippoCript.", file: "hippocript.mp3" },
   { name: "AloneAgain.", file: "alone-again.mp3" },
