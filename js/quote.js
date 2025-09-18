@@ -17,13 +17,15 @@
       "im so cooked bro.",
       "page one is finished!",
       "ddlc soon??",
+      "pokemon green version soon??",
       "login and sign up is NOT gonna happen any time soon ✌",
       "you think v1 gonna come out on time?",
       "should probably get more people to help me on the website..",
       "choppy orc da best music",
-      "music page doesnt work.",
-      "gonna fix music page.",
-      "math aint make no sense. oh wait nvm i think i get it."
+      "MUSIC NOW WORKING!!",
+      "fixed music page :D",
+      "math aint make no sense. oh wait nvm i think i get it.",
+      "dont search blank you will find a mob of angry git octocats!"
     ];
 
     const wrapper = document.getElementById("quoteWrapper");
