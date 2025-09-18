@@ -434,3 +434,46 @@ footer {
 .pages-anchor .page-indicator {
   line-height: 1; 
 }
+/* Nav container holds links + page controls neatly */
+.nav-links {
+  display: flex;
+  align-items: center;   /* vertically align links and page controls */
+  gap: 15px;
+}
+
+/* Page controls */
+.pages-anchor {
+  display: inline-flex;  /* keep in row but not act like block */
+  align-items: center;   /* center arrows + span */
+  gap: 8px;
+  margin-left: 10px;     /* small spacing from links */
+}
+
+.pages-anchor button {
+  background: transparent;
+  border: none;
+  padding: 0;            /* tighter so buttons don’t expand div */
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.pages-anchor button img {
+  width: 28px;           /* smaller so they match link height */
+  height: 28px;
+  object-fit: contain;
+  transition: transform 0.2s ease;
+}
+
+.pages-anchor button:hover img {
+  transform: scale(1.2);
+}
+
+.pages-anchor .page-indicator {
+  font-weight: bold;
+  font-size: 0.9rem;     /* scale text closer to nav link size */
+  color: white;
+  font-family: monospace;
+  line-height: 1;        /* prevents vertical stretching */
+}
