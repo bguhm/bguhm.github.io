@@ -1,30 +1,30 @@
-let currentPage = 1;
-const totalPages = 10;
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  const pageControls = document.querySelectorAll(".page-control");
+  const allPages = document.querySelectorAll("[class*='page-']");
 
-function showPage(page) {
-  // hide all pages
-  document.querySelectorAll(".page-container").forEach(div => {
-    div.classList.remove("active");
+  function showPage(pageNumber) {
+    // Hide all
+    allPages.forEach(div => {
+      div.style.display = "none";
+    });
+
+    // Show only selected page
+    const selected = document.querySelectorAll(`.page-${pageNumber}`);
+    selected.forEach(div => {
+      div.style.display = "block";
+    });
+  }
+
+  // Attach click listeners to header spans
+  pageControls.forEach(control => {
+    control.addEventListener("click", () => {
+      const pageNumber = control.getAttribute("data-page");
+      showPage(pageNumber);
+    });
   });
 
-  // show selected page
-  document.getElementById(`container-${page}`).classList.add("active");
-
-  // update indicator
-  document.querySelector(".page-indicator").textContent = `Page ${page}`;
-}
-
-function nextPage() {
-  currentPage++;
-  if (currentPage > totalPages) currentPage = 1;
-  showPage(currentPage);
-}
-
-function prevPage() {
-  currentPage--;
-  if (currentPage < 1) currentPage = totalPages;
-  showPage(currentPage);
-}
-
-// initialize
-showPage(currentPage);
+  // Default to Page 1
+  showPage(1);
+});
+</script>
