@@ -395,3 +395,30 @@ footer {
   border-radius: 10px; /* optional for smoother edges */
   image-rendering: pixelated; /* keeps retro style if your gif is pixel art */
 }
+.pages-anchor {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 20px auto;
+  gap: 20px;
+}
+
+.pages-anchor .arrow {
+  width: 40px;
+  height: 40px;
+  cursor: pointer;
+  user-select: none;
+}
+
+.page-indicator {
+  font-weight: bold;
+  font-size: 1.2rem;
+}
+
+.page-container {
+  display: none;
+}
+
+.page-container.active {
+  display: block;
+}
