@@ -20,7 +20,7 @@ let isPlaying = false;
 let isRandom = false;
 let updateTimer;
 
-// ---- NEW: Web Audio API setup ----
+// ---- Web Audio API setup ----
 let audioCtx = new (window.AudioContext || window.webkitAudioContext)();
 let analyser = audioCtx.createAnalyser();
 let source = audioCtx.createMediaElementSource(curr_track);
@@ -33,156 +33,146 @@ let dataArray = new Uint8Array(bufferLength);
 
 // Animate wave
 function renderWave() {
-    requestAnimationFrame(renderWave);
-    if (isPlaying) {
-        analyser.getByteFrequencyData(dataArray);
-        let volume = dataArray.reduce((a, b) => a + b) / dataArray.length;
-
-        // Show & scale wave with volume
-        wave.style.display = "block";
-        wave.style.transform = `scaleY(${Math.max(0.3, volume / 100)})`;
-    } else {
-        // Hide when not playing
-        wave.style.display = "none";
-    }
+  requestAnimationFrame(renderWave);
+  if (isPlaying) {
+    analyser.getByteFrequencyData(dataArray);
+    let volume = dataArray.reduce((a, b) => a + b) / dataArray.length;
+    wave.style.display = "block";
+    wave.style.transform = `scaleY(${Math.max(0.3, volume / 100)})`;
+  } else {
+    wave.style.display = "none";
+  }
 }
 renderWave();
 
-// ------------------
-
-// Base path for all tracks (change to full GitHub URL if you want absolute paths)
-let basePath = "./library/albums/maybe-maybe/";
+// ---- Music list ----
+const basePath = "./library/albums/maybe-maybe/";
+const coverArt = "https://raw.githubusercontent.com/bguhm/bguhm.github.io/main/library/images/albums/maybe-maybe/maybe-maybe-cover-art.png";
 
 const music_list = [
-    { img: "https://raw.githubusercontent.com/bguhm/bguhm.github.io/main/library/images/albums/maybe-maybe/maybe-maybe-cover-art.png", name: "Slackrr.", artist: "Rhap5ody.", music: basePath + "slackrr.mp3" },
-    { img: "https://raw.githubusercontent.com/bguhm/bguhm.github.io/main/library/images/albums/maybe-maybe/maybe-maybe-cover-art.png", name: "Caramel eyes.", artist: "Rhap5ody.", music: basePath + "caramel-eyes.mp3" },
-    { img: "https://raw.githubusercontent.com/bguhm/bguhm.github.io/main/library/images/albums/maybe-maybe/maybe-maybe-cover-art.png", name: "PUNK HAZARD", artist: "Rhap5ody.", music: basePath + "punk-hazard.mp3" },
-    { img: "https://raw.githubusercontent.com/bguhm/bguhm.github.io/main/library/images/albums/maybe-maybe/maybe-maybe-cover-art.png", name: "HOUND.", artist: "Rhap5ody.", music: basePath + "hound.mp3" },
-    { img: "https://raw.githubusercontent.com/bguhm/bguhm.github.io/main/library/images/albums/maybe-maybe/maybe-maybe-cover-art.png", name: "Arizona Girl", artist: "Rhap5ody.", music: basePath + "arizona-girl.mp3" },
-    { img: "https://raw.githubusercontent.com/bguhm/bguhm.github.io/main/library/images/albums/maybe-maybe/maybe-maybe-cover-art.png", name: "MARIGOLD.", artist: "Rhap5ody.", music: basePath + "marigold.mp3" },
-    { img: "https://raw.githubusercontent.com/bguhm/bguhm.github.io/main/library/images/albums/maybe-maybe/maybe-maybe-cover-art.png", name: "Besto Friendo", artist: "Rhap5ody.", music: basePath + "besto-friendo.mp3" },
-    { img: "https://raw.githubusercontent.com/bguhm/bguhm.github.io/main/library/images/albums/maybe-maybe/maybe-maybe-cover-art.png", name: "HippoCript.", artist: "Rhap5ody.", music: basePath + "hippocript.mp3" },
-    { img: "https://raw.githubusercontent.com/bguhm/bguhm.github.io/main/library/images/albums/maybe-maybe/maybe-maybe-cover-art.png", name: "AloneAgain.", artist: "Rhap5ody.", music: basePath + "alone-again.mp3" },
-    { img: "https://raw.githubusercontent.com/bguhm/bguhm.github.io/main/library/images/albums/maybe-maybe/maybe-maybe-cover-art.png", name: "RoofTop.", artist: "Rhap5ody.", music: basePath + "rooftop.mp3" },
-    { img: "https://raw.githubusercontent.com/bguhm/bguhm.github.io/main/library/images/albums/maybe-maybe/maybe-maybe-cover-art.png", name: "November.", artist: "Rhap5ody.", music: basePath + "november.mp3" },
-    { img: "https://raw.githubusercontent.com/bguhm/bguhm.github.io/main/library/images/albums/maybe-maybe/maybe-maybe-cover-art.png", name: "Street.", artist: "Rhap5ody.", music: basePath + "street.mp3" },
-    { img: "https://raw.githubusercontent.com/bguhm/bguhm.github.io/main/library/images/albums/maybe-maybe/maybe-maybe-cover-art.png", name: "Self Concious.", artist: "Rhap5ody.", music: basePath + "selfconcious.mp3" },
-    { img: "https://raw.githubusercontent.com/bguhm/bguhm.github.io/main/library/images/albums/maybe-maybe/maybe-maybe-cover-art.png", name: "Scribble.", artist: "Rhap5ody.", music: basePath + "scribble.mp3" },
-    { img: "https://raw.githubusercontent.com/bguhm/bguhm.github.io/main/library/images/albums/maybe-maybe/maybe-maybe-cover-art.png", name: "Feelings In A Bottle.", artist: "Rhap5ody.", music: basePath + "fiab.mp3" },
-    { img: "https://raw.githubusercontent.com/bguhm/bguhm.github.io/main/library/images/albums/maybe-maybe/maybe-maybe-cover-art.png", name: "SoloCup.", artist: "Rhap5ody.", music: basePath + "solocup.mp3" },
-    { img: "https://raw.githubusercontent.com/bguhm/bguhm.github.io/main/library/images/albums/maybe-maybe/maybe-maybe-cover-art.png", name: "Bg.uhm", artist: "Rhap5ody.", music: basePath + "bguhm.mp3" },
-    { img: "https://raw.githubusercontent.com/bguhm/bguhm.github.io/main/library/images/albums/maybe-maybe/maybe-maybe-cover-art.png", name: "6:27", artist: "Rhap5ody.", music: basePath + "627.mp3" },
-    { img: "https://raw.githubusercontent.com/bguhm/bguhm.github.io/main/library/images/albums/maybe-maybe/maybe-maybe-cover-art.png", name: "Daisy.", artist: "Rhap5ody.", music: basePath + "daisy.mp3" },
-    { img: "https://raw.githubusercontent.com/bguhm/bguhm.github.io/main/library/images/albums/maybe-maybe/maybe-cover-art.png", name: "Maybe (Maybe).", artist: "Rhap5ody.", music: basePath + "maybemaybe.mp3" }
-];
+  { name: "Slackrr.", file: "slackrr.mp3" },
+  { name: "Caramel eyes.", file: "caramel-eyes.mp3" },
+  { name: "PUNK HAZARD", file: "punk-hazard.mp3" },
+  { name: "HOUND.", file: "hound.mp3" },
+  { name: "Arizona Girl", file: "arizona-girl.mp3" },
+  { name: "MARIGOLD.", file: "marigold.mp3" },
+  { name: "Besto Friendo", file: "besto-friendo.mp3" },
+  { name: "HippoCript.", file: "hippocript.mp3" },
+  { name: "AloneAgain.", file: "alone-again.mp3" },
+  { name: "RoofTop.", file: "rooftop.mp3" },
+  { name: "November.", file: "november.mp3" },
+  { name: "Street.", file: "street.mp3" },
+  { name: "Self Concious.", file: "selfconcious.mp3" },
+  { name: "Scribble.", file: "scribble.mp3" },
+  { name: "Feelings In A Bottle.", file: "fiab.mp3" },
+  { name: "SoloCup.", file: "solocup.mp3" },
+  { name: "Bg.uhm", file: "bguhm.mp3" },
+  { name: "6:27", file: "627.mp3" },
+  { name: "Daisy.", file: "daisy.mp3" },
+  { name: "Maybe (Maybe).", file: "maybemaybe.mp3" }
+].map(track => ({
+  img: coverArt,
+  name: track.name,
+  artist: "Rhap5ody.",
+  music: basePath + track.file
+}));
 
+// ---- Player functions ----
 loadTrack(track_index);
-
-// force dark grey background
 document.body.style.background = "#222";
 
-function loadTrack(track_index){
-    clearInterval(updateTimer);
-    reset();
+function loadTrack(index) {
+  clearInterval(updateTimer);
+  reset();
 
-    curr_track.src = music_list[track_index].music;
-    curr_track.load();
+  curr_track.src = music_list[index].music;
+  curr_track.load();
 
-    track_art.style.backgroundImage = "url(" + music_list[track_index].img + ")";
-    track_name.textContent = music_list[track_index].name;
-    track_artist.textContent = music_list[track_index].artist;
-    now_playing.textContent = "Playing music " + (track_index + 1) + " of " + music_list.length;
+  track_art.style.backgroundImage = `url(${music_list[index].img})`;
+  track_name.textContent = music_list[index].name;
+  track_artist.textContent = music_list[index].artist;
+  now_playing.textContent = `Playing music ${index + 1} of ${music_list.length}`;
 
-    updateTimer = setInterval(setUpdate, 1000);
-    curr_track.addEventListener('ended', nextTrack);
-}
-
-function reset(){
-    curr_time.textContent = "00:00";
-    total_duration.textContent = "00:00";
-    seek_slider.value = 0;
+  updateTimer = setInterval(setUpdate, 1000);
+  curr_track.addEventListener('ended', nextTrack);
 }
 
-function randomTrack(){
-    isRandom ? pauseRandom() : playRandom();
-}
-function playRandom(){
-    isRandom = true;
-    randomIcon.classList.add('randomActive');
-}
-function pauseRandom(){
-    isRandom = false;
-    randomIcon.classList.remove('randomActive');
-}
-function repeatTrack(){
-    let current_index = track_index;
-    loadTrack(current_index);
-    playTrack();
-}
-function playpauseTrack(){
-    isPlaying ? pauseTrack() : playTrack();
-}
-function playTrack(){
-    curr_track.play();
-    audioCtx.resume(); // needed for autoplay policies
-    isPlaying = true;
-    track_art.classList.add('rotate');
-    playpause_btn.innerHTML = '<i class="fa fa-pause-circle fa-5x"></i>';
-}
-function pauseTrack(){
-    curr_track.pause();
-    isPlaying = false;
-    track_art.classList.remove('rotate');
-    playpause_btn.innerHTML = '<i class="fa fa-play-circle fa-5x"></i>';
-}
-function nextTrack(){
-    if(track_index < music_list.length - 1 && isRandom === false){
-        track_index += 1;
-    }else if(track_index < music_list.length - 1 && isRandom === true){
-        let random_index = Number.parseInt(Math.random() * music_list.length);
-        track_index = random_index;
-    }else{
-        track_index = 0;
-    }
-    loadTrack(track_index);
-    playTrack();
-}
-function prevTrack(){
-    if(track_index > 0){
-        track_index -= 1;
-    }else{
-        track_index = music_list.length -1;
-    }
-    loadTrack(track_index);
-    playTrack();
-}
-function seekTo(){
-    let seekto = curr_track.duration * (seek_slider.value / 100);
-    curr_track.currentTime = seekto;
-}
-function setVolume(){
-    curr_track.volume = volume_slider.value / 100;
-}
-function setUpdate(){
-    let seekPosition = 0;
-    if(!isNaN(curr_track.duration)){
-        seekPosition = curr_track.currentTime * (100 / curr_track.duration);
-        seek_slider.value = seekPosition;
-
-        let currentMinutes = Math.floor(curr_track.currentTime / 60);
-        let currentSeconds = Math.floor(curr_track.currentTime - currentMinutes * 60);
-        let durationMinutes = Math.floor(curr_track.duration / 60);
-        let durationSeconds = Math.floor(curr_track.duration - durationMinutes * 60);
-
-        if(currentSeconds < 10) {currentSeconds = "0" + currentSeconds; }
-        if(durationSeconds < 10) { durationSeconds = "0" + durationSeconds; }
-        if(currentMinutes < 10) {currentMinutes = "0" + currentMinutes; }
-        if(durationMinutes < 10) { durationMinutes = "0" + durationMinutes; }
-
-        curr_time.textContent = currentMinutes + ":" + currentSeconds;
-        total_duration.textContent = durationMinutes + ":" + durationSeconds;
-    }
+function reset() {
+  curr_time.textContent = "00:00";
+  total_duration.textContent = "00:00";
+  seek_slider.value = 0;
 }
 
+function randomTrack() {
+  isRandom ? pauseRandom() : playRandom();
+}
+function playRandom() {
+  isRandom = true;
+  randomIcon.classList.add('randomActive');
+}
+function pauseRandom() {
+  isRandom = false;
+  randomIcon.classList.remove('randomActive');
+}
+function repeatTrack() {
+  loadTrack(track_index);
+  playTrack();
+}
+function playpauseTrack() {
+  isPlaying ? pauseTrack() : playTrack();
+}
+function playTrack() {
+  curr_track.play();
+  audioCtx.resume(); // needed for autoplay policies
+  isPlaying = true;
+  track_art.classList.add('rotate');
+  playpause_btn.innerHTML = '<i class="fa fa-pause-circle fa-5x"></i>';
+}
+function pauseTrack() {
+  curr_track.pause();
+  isPlaying = false;
+  track_art.classList.remove('rotate');
+  playpause_btn.innerHTML = '<i class="fa fa-play-circle fa-5x"></i>';
+}
+function nextTrack() {
+  if (track_index < music_list.length - 1 && !isRandom) {
+    track_index++;
+  } else if (track_index < music_list.length - 1 && isRandom) {
+    track_index = Math.floor(Math.random() * music_list.length);
+  } else {
+    track_index = 0;
+  }
+  loadTrack(track_index);
+  playTrack();
+}
+function prevTrack() {
+  track_index = track_index > 0 ? track_index - 1 : music_list.length - 1;
+  loadTrack(track_index);
+  playTrack();
+}
+function seekTo() {
+  let seekto = curr_track.duration * (seek_slider.value / 100);
+  curr_track.currentTime = seekto;
+}
+function setVolume() {
+  curr_track.volume = volume_slider.value / 100;
+}
+function setUpdate() {
+  if (!isNaN(curr_track.duration)) {
+    let seekPosition = curr_track.currentTime * (100 / curr_track.duration);
+    seek_slider.value = seekPosition;
 
+    let currentMinutes = Math.floor(curr_track.currentTime / 60);
+    let currentSeconds = Math.floor(curr_track.currentTime % 60);
+    let durationMinutes = Math.floor(curr_track.duration / 60);
+    let durationSeconds = Math.floor(curr_track.duration % 60);
 
+    if (currentSeconds < 10) currentSeconds = "0" + currentSeconds;
+    if (durationSeconds < 10) durationSeconds = "0" + durationSeconds;
+    if (currentMinutes < 10) currentMinutes = "0" + currentMinutes;
+    if (durationMinutes < 10) durationMinutes = "0" + durationMinutes;
+
+    curr_time.textContent = `${currentMinutes}:${currentSeconds}`;
+    total_duration.textContent = `${durationMinutes}:${durationSeconds}`;
+  }
+}
