@@ -29,14 +29,53 @@ body {
 }
 
 .track-art {
+  position: relative;
   margin: 25px;
   height: 250px;
   width: 250px;
-  border: 2px solid #FFFAFA;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* Shadow stays here (does not rotate) */
+  box-shadow: 0px 6px 12px rgba(0,0,0,0.6);
+}
+
+/* Vinyl disc */
+.vinyl {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  border-radius: 50%;
+  background: radial-gradient(circle, #111 60%, #333 85%, #111 100%);
+  background-size: cover;
+  animation: rotation 8s infinite linear;
+  z-index: 0;
+}
+
+/* Album cover */
+.cover {
+  position: relative;
+  height: 65%;
+  width: 65%;
+  border-radius: 10px; /* square cover, or 50% if you want it circular */
   background-size: cover;
   background-position: center;
-  border-radius: 50%;
-  box-shadow: 0px 6px 5px black;
+  z-index: 1;
+  box-shadow: 0px 4px 6px rgba(0,0,0,0.5);
+}
+
+/* Remove rotation from .track-art, apply only to vinyl */
+.track-art.rotate .vinyl {
+  animation-play-state: running;
+}
+.track-art .vinyl {
+  animation-play-state: paused;
+}
+
+@keyframes rotation {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
 }
 
 .now-playing {
