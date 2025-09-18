@@ -46,7 +46,7 @@ function renderWave() {
 renderWave();
 
 // ---- Music list ----
-const basePath = "./library/albums/maybe-maybe/";
+const basePath = "./music/albums/maybe-maybe/";
 const coverArt = "https://raw.githubusercontent.com/bguhm/bguhm.github.io/main/library/images/albums/maybe-maybe/maybe-maybe-cover-art.png";
 
 const music_list = [
