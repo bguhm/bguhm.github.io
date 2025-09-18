@@ -482,3 +482,43 @@ footer {
   border-radius: 15%;
   transition: transform 0.3s ease;
 }
+/* All containers share base styles */
+[id^="container-"].page-container {
+  display: none; /* hidden by default */
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 20px;
+  padding: 20px;
+  background-color: #d3d3d3;
+  justify-items: center;
+  align-items: start;
+  min-height: calc(100vh - 120px);
+}
+
+/* Active container is shown */
+[id^="container-"].page-container.active {
+  display: grid;
+}
+
+/* Item cards inside containers */
+[id^="container-"].page-container div {
+  width: 280px;
+  min-height: 220px;
+  background: #d4d4d4;
+  text-align: center;
+  border-radius: 15%;
+  padding: 10px;
+  position: relative;
+  overflow: hidden;
+  border: 3px solid transparent;
+  transition: opacity 0.3s ease;
+}
+
+/* Images inside item cards */
+[id^="container-"].page-container div img {
+  width: 100px;
+  height: auto;
+  display: block;
+  margin: 0 auto 10px;
+  border-radius: 15%;
+  transition: transform 0.3s ease;
+}
