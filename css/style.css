@@ -75,7 +75,6 @@ header img {
   width: 30px;
   border-radius: 50%;
   cursor: pointer;
-  margin-left: 5px;
   transition: transform 0.25s ease;
 }
 #pfp:hover {
