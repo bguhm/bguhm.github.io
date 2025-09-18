@@ -50,108 +50,30 @@ renderWave();
 
 // ------------------
 
+// Base path for all tracks (change to full GitHub URL if you want absolute paths)
+let basePath = "./library/albums/maybe-maybe/";
+
 const music_list = [
-    {
-        img : 'https://raw.githubusercontent.com/bguhm/bguhm.github.io/main/library/images/albums/maybe-maybe/maybe-maybe-cover-art.png',
-        name : 'Slackrr.',
-        artist : 'Rhap5ody.',
-        music : './library/albums/maybe-maybe/slackrr.mp3'
-    },    {
-        img : 'https://raw.githubusercontent.com/bguhm/bguhm.github.io/main/library/images/albums/maybe-maybe/maybe-maybe-cover-art.png',
-        name : 'Caramel eyes.',
-        artist : 'Rhap5ody.',
-        music : './library/albums/maybe-maybe/caramel-eyes.mp3'
-    },    {
-        img : 'https://raw.githubusercontent.com/bguhm/bguhm.github.io/main/library/images/albums/maybe-maybe/maybe-maybe-cover-art.png',
-        name : 'PUNK HAZARD',
-        artist : 'Rhap5ody.',
-        music : './library/albums/maybe-maybe/punk-hazard.mp3'
-    },    {
-        img : 'https://raw.githubusercontent.com/bguhm/bguhm.github.io/main/library/images/albums/maybe-maybe/maybe-maybe-cover-art.png',
-        name : 'HOUND.',
-        artist : 'Rhap5ody.',
-        music : './library/albums/maybe-maybe/hound.mp3'
-    },    {
-        img : 'https://raw.githubusercontent.com/bguhm/bguhm.github.io/main/library/images/albums/maybe-maybe/maybe-maybe-cover-art.png',
-        name : 'Arizona Girl',
-        artist : 'Rhap5ody.',
-        music : './library/albums/maybe-maybe/arizona-girl.mp3'
-    },    {
-        img : 'https://raw.githubusercontent.com/bguhm/bguhm.github.io/main/library/images/albums/maybe-maybe/maybe-maybe-cover-art.png',
-        name : 'MARIGOLD.',
-        artist : 'Rhap5ody.',
-        music : './library/albums/maybe-maybe/marigold.mp3'
-    },    {
-        img : 'https://raw.githubusercontent.com/bguhm/bguhm.github.io/main/library/images/albums/maybe-maybe/maybe-maybe-cover-art.png',
-        name : 'Besto Friendo',
-        artist : 'Rhap5ody.',
-        music : './library/albums/maybe-maybe/besto-friendo.mp3'
-    },    {
-        img : 'https://raw.githubusercontent.com/bguhm/bguhm.github.io/main/library/images/albums/maybe-maybe/maybe-maybe-cover-art.png',
-        name : 'HippoCript.',
-        artist : 'Rhap5ody.',
-        music : './library/albums/maybe-maybe/hippocript.mp3'
-    },    {
-        img : 'https://raw.githubusercontent.com/bguhm/bguhm.github.io/main/library/images/albums/maybe-maybe/maybe-maybe-cover-art.png',
-        name : 'AloneAgain.',
-        artist : 'Rhap5ody.',
-        music : './library/albums/maybe-maybe/alone-again.mp3'
-    },    {
-        img : 'https://raw.githubusercontent.com/bguhm/bguhm.github.io/main/library/images/albums/maybe-maybe/maybe-maybe-cover-art.png',
-        name : 'RoofTop.',
-        artist : 'Rhap5ody.',
-        music : './library/albums/maybe-maybe/rooftop.mp3'
-    },    {
-        img : 'https://raw.githubusercontent.com/bguhm/bguhm.github.io/main/library/images/albums/maybe-maybe/maybe-maybe-cover-art.png',
-        name : 'November.',
-        artist : 'Rhap5ody.',
-        music : './library/albums/maybe-maybe/november.mp3'
-    },    {
-        img : 'https://raw.githubusercontent.com/bguhm/bguhm.github.io/main/library/images/albums/maybe-maybe/maybe-maybe-cover-art.png',
-        name : 'Street.',
-        artist : 'Rhap5ody.',
-        music : './library/albums/maybe-maybe/street.mp3'
-    },    {
-        img : 'https://raw.githubusercontent.com/bguhm/bguhm.github.io/main/library/images/albums/maybe-maybe/maybe-maybe-cover-art.png',
-        name : 'Self Concious.',
-        artist : 'Rhap5ody.',
-        music : './library/albums/maybe-maybe/selfconcious.mp3'
-    },    {
-        img : 'https://raw.githubusercontent.com/bguhm/bguhm.github.io/main/library/images/albums/maybe-maybe/maybe-maybe-cover-art.png',
-        name : 'Scribble.',
-        artist : 'Rhap5ody.',
-        music : './library/albums/maybe-maybe/scribble.mp3'
-    },    {
-        img : 'https://raw.githubusercontent.com/bguhm/bguhm.github.io/main/library/images/albums/maybe-maybe/maybe-maybe-cover-art.png',
-        name : 'Feelings In A Bottle.',
-        artist : 'Rhap5ody.',
-        music : './library/albums/maybe-maybe/fiab.mp3'
-    },    {
-        img : 'https://raw.githubusercontent.com/bguhm/bguhm.github.io/main/library/images/albums/maybe-maybe/maybe-maybe-cover-art.png',
-        name : 'SoloCup.',
-        artist : 'Rhap5ody.',
-        music : './library/albums/maybe-maybe/solocup.mp3'
-    },    {
-        img : 'https://raw.githubusercontent.com/bguhm/bguhm.github.io/main/library/images/albums/maybe-maybe/maybe-maybe-cover-art.png',
-        name : 'Bg.uhm',
-        artist : 'Rhap5ody.',
-        music : './library/albums/maybe-maybe/bguhm.mp3'
-    },    {
-        img : 'https://raw.githubusercontent.com/bguhm/bguhm.github.io/main/library/images/albums/maybe-maybe/maybe-maybe-cover-art.png',
-        name : '6:27',
-        artist : 'Rhap5ody.',
-        music : './library/albums/maybe-maybe/627.mp3'
-    },    {
-        img : 'https://raw.githubusercontent.com/bguhm/bguhm.github.io/main/library/images/albums/maybe-maybe/maybe-maybe-cover-art.png',
-        name : 'Daisy.',
-        artist : 'Rhap5ody.',
-        music : './library/albums/maybe-maybe/daisy.mp3'
-    },    {
-        img : 'https://raw.githubusercontent.com/bguhm/bguhm.github.io/main/library/images/albums/maybe-maybe/maybe-cover-art.png',
-        name : 'Maybe (Maybe).',
-        artist : 'Rhap5ody.',
-        music : './library/albums/maybe-maybe/maybemaybe.mp3'
-    }
+    { img: "https://raw.githubusercontent.com/bguhm/bguhm.github.io/main/library/images/albums/maybe-maybe/maybe-maybe-cover-art.png", name: "Slackrr.", artist: "Rhap5ody.", music: basePath + "slackrr.mp3" },
+    { img: "https://raw.githubusercontent.com/bguhm/bguhm.github.io/main/library/images/albums/maybe-maybe/maybe-maybe-cover-art.png", name: "Caramel eyes.", artist: "Rhap5ody.", music: basePath + "caramel-eyes.mp3" },
+    { img: "https://raw.githubusercontent.com/bguhm/bguhm.github.io/main/library/images/albums/maybe-maybe/maybe-maybe-cover-art.png", name: "PUNK HAZARD", artist: "Rhap5ody.", music: basePath + "punk-hazard.mp3" },
+    { img: "https://raw.githubusercontent.com/bguhm/bguhm.github.io/main/library/images/albums/maybe-maybe/maybe-maybe-cover-art.png", name: "HOUND.", artist: "Rhap5ody.", music: basePath + "hound.mp3" },
+    { img: "https://raw.githubusercontent.com/bguhm/bguhm.github.io/main/library/images/albums/maybe-maybe/maybe-maybe-cover-art.png", name: "Arizona Girl", artist: "Rhap5ody.", music: basePath + "arizona-girl.mp3" },
+    { img: "https://raw.githubusercontent.com/bguhm/bguhm.github.io/main/library/images/albums/maybe-maybe/maybe-maybe-cover-art.png", name: "MARIGOLD.", artist: "Rhap5ody.", music: basePath + "marigold.mp3" },
+    { img: "https://raw.githubusercontent.com/bguhm/bguhm.github.io/main/library/images/albums/maybe-maybe/maybe-maybe-cover-art.png", name: "Besto Friendo", artist: "Rhap5ody.", music: basePath + "besto-friendo.mp3" },
+    { img: "https://raw.githubusercontent.com/bguhm/bguhm.github.io/main/library/images/albums/maybe-maybe/maybe-maybe-cover-art.png", name: "HippoCript.", artist: "Rhap5ody.", music: basePath + "hippocript.mp3" },
+    { img: "https://raw.githubusercontent.com/bguhm/bguhm.github.io/main/library/images/albums/maybe-maybe/maybe-maybe-cover-art.png", name: "AloneAgain.", artist: "Rhap5ody.", music: basePath + "alone-again.mp3" },
+    { img: "https://raw.githubusercontent.com/bguhm/bguhm.github.io/main/library/images/albums/maybe-maybe/maybe-maybe-cover-art.png", name: "RoofTop.", artist: "Rhap5ody.", music: basePath + "rooftop.mp3" },
+    { img: "https://raw.githubusercontent.com/bguhm/bguhm.github.io/main/library/images/albums/maybe-maybe/maybe-maybe-cover-art.png", name: "November.", artist: "Rhap5ody.", music: basePath + "november.mp3" },
+    { img: "https://raw.githubusercontent.com/bguhm/bguhm.github.io/main/library/images/albums/maybe-maybe/maybe-maybe-cover-art.png", name: "Street.", artist: "Rhap5ody.", music: basePath + "street.mp3" },
+    { img: "https://raw.githubusercontent.com/bguhm/bguhm.github.io/main/library/images/albums/maybe-maybe/maybe-maybe-cover-art.png", name: "Self Concious.", artist: "Rhap5ody.", music: basePath + "selfconcious.mp3" },
+    { img: "https://raw.githubusercontent.com/bguhm/bguhm.github.io/main/library/images/albums/maybe-maybe/maybe-maybe-cover-art.png", name: "Scribble.", artist: "Rhap5ody.", music: basePath + "scribble.mp3" },
+    { img: "https://raw.githubusercontent.com/bguhm/bguhm.github.io/main/library/images/albums/maybe-maybe/maybe-maybe-cover-art.png", name: "Feelings In A Bottle.", artist: "Rhap5ody.", music: basePath + "fiab.mp3" },
+    { img: "https://raw.githubusercontent.com/bguhm/bguhm.github.io/main/library/images/albums/maybe-maybe/maybe-maybe-cover-art.png", name: "SoloCup.", artist: "Rhap5ody.", music: basePath + "solocup.mp3" },
+    { img: "https://raw.githubusercontent.com/bguhm/bguhm.github.io/main/library/images/albums/maybe-maybe/maybe-maybe-cover-art.png", name: "Bg.uhm", artist: "Rhap5ody.", music: basePath + "bguhm.mp3" },
+    { img: "https://raw.githubusercontent.com/bguhm/bguhm.github.io/main/library/images/albums/maybe-maybe/maybe-maybe-cover-art.png", name: "6:27", artist: "Rhap5ody.", music: basePath + "627.mp3" },
+    { img: "https://raw.githubusercontent.com/bguhm/bguhm.github.io/main/library/images/albums/maybe-maybe/maybe-maybe-cover-art.png", name: "Daisy.", artist: "Rhap5ody.", music: basePath + "daisy.mp3" },
+    { img: "https://raw.githubusercontent.com/bguhm/bguhm.github.io/main/library/images/albums/maybe-maybe/maybe-cover-art.png", name: "Maybe (Maybe).", artist: "Rhap5ody.", music: basePath + "maybemaybe.mp3" }
 ];
 
 loadTrack(track_index);
