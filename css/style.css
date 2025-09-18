@@ -417,3 +417,20 @@ footer {
 .pages-anchor button:hover img {
   transform: scale(1.15);       /* zoom on hover */
 }
+/* Keep page controls in a row */
+.pages-anchor {
+  display: flex;
+  align-items: center;
+  gap: 10px;          /* space between arrow + span */
+  margin-left: 20px;  /* push away from nav links */
+}
+
+.pages-anchor .page-indicator {
+  font-weight: bold;
+  font-size: 1rem;
+  color: white;       /* make it visible in dark header */
+  font-family: monospace;
+}
+.pages-anchor .page-indicator {
+  line-height: 1; 
+}
