@@ -10,7 +10,20 @@
       "24 songs, 76 projects.",
       "i make music too!",
       "cloak is gonna be fixed soon...",
-      "OFWGKTA!"
+      "genizy genius",
+      "click the arrows to view more projects!",
+      "page 2 is gonna be added on friday!",
+      "no way its a week before release T-T",
+      "im so cooked bro.",
+      "page one is finished!",
+      "ddlc soon??",
+      "login and sign up is NOT gonna happen any time soon ✌",
+      "you think v1 gonna come out on time?",
+      "should probably get more people to help me on the website..",
+      "choppy orc da best music",
+      "music page doesnt work.",
+      "gonna fix music page.",
+      "math aint make no sense. oh wait nvm i think i get it."
     ];
 
     const wrapper = document.getElementById("quoteWrapper");
