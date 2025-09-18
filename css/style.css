@@ -148,8 +148,8 @@ header img {
   background: #555;
 }
 
-/* Mid container1 Grid */
-#container1 {
+/* Mid container-1 Grid */
+#container-1 {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
   gap: 20px;
@@ -159,7 +159,7 @@ header img {
   align-items: start;
   min-height: calc(100vh - 120px);
 }
-#container1 div {
+#container-1 div {
   width: 280px;
   min-height: 220px;
   background: #d4d4d4;
@@ -171,7 +171,7 @@ header img {
   border: 3px solid transparent;
   transition: opacity 0.3s ease;
 }
-#container1 div img {
+#container-1 div img {
   width: 100px;
   height: auto;
   display: block;
@@ -179,12 +179,12 @@ header img {
   border-radius: 15%;
   transition: transform 0.3s ease;
 }
-#container1 div:hover img { transform: scale(1.05); }
-#container1 div:hover p { transform: scale(1.1); }
-#container1 div:hover h3 { transform: scale(1.1); }
+#container-1 div:hover img { transform: scale(1.05); }
+#container-1 div:hover p { transform: scale(1.1); }
+#container-1 div:hover h3 { transform: scale(1.1); }
 
-/* BIG container1 Grid */
-#container1-discov {
+/* BIG container-1 Grid */
+#container-1-discov {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
@@ -193,7 +193,7 @@ header img {
   padding: 20px;
   background-color: #d3d3d3;
 }
-#container1-discov div {
+#container-1-discov div {
   flex: 1 1 280px;
   width: 280px;
   margin: 10px;
@@ -205,7 +205,7 @@ header img {
   overflow: hidden;
   border: 3px solid transparent;
 }
-#container1-discov div img {
+#container-1-discov div img {
   width: 300px;
   height: auto;
   display: block;
@@ -213,9 +213,9 @@ header img {
   border-radius: 15%;
   transition: transform 0.3s ease;
 }
-#container1-discov div:hover img { transform: scale(1.05); }
-#container1-discov div:hover p { transform: scale(1.1); }
-#container1-discov div:hover h3 { transform: scale(1.1); }
+#container-1-discov div:hover img { transform: scale(1.05); }
+#container-1-discov div:hover p { transform: scale(1.1); }
+#container-1-discov div:hover h3 { transform: scale(1.1); }
 
 /* Status Effects */
 .soon {
@@ -313,19 +313,19 @@ footer {
 }
 
 /* Unified Text Styling */
-#container1 div h3,
-#container1 div p,
-#container1-discov div h3,
-#container1-discov div p {
+#container-1 div h3,
+#container-1 div p,
+#container-1-discov div h3,
+#container-1-discov div p {
   color: white;
   font-family: monospace;
   text-decoration: none;
   transition: color 0.3s, text-decoration 0.3s;
 }
-#container1 div h3:hover,
-#container1 div p:hover,
-#container1-discov div h3:hover,
-#container1-discov div p:hover {
+#container-1 div h3:hover,
+#container-1 div p:hover,
+#container-1-discov div h3:hover,
+#container-1-discov div p:hover {
   color: #ff4444;
   text-decoration: underline;
   text-decoration-color: #ff4444;
@@ -421,66 +421,6 @@ footer {
 
 .page-container.active {
   display: block;
-}
-/* Example: applies only to <div id="container-1" class="page-container"> */
-#container-1.page-container,
-#container-2.page-container,
-#container-3.page-container,
-#container-4.page-container,
-#container-5.page-container,
-#container-6.page-container,
-#container-7.page-container,
-#container-8.page-container,
-#container-9.page-container,
-#container-10.page-container {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-  gap: 20px;
-  padding: 20px;
-  background-color: #d3d3d3;
-  justify-items: center;
-  align-items: start;
-  min-height: calc(100vh - 120px);
-}
-
-#container-1.page-container div,
-#container-2.page-container div,
-#container-3.page-container div,
-#container-4.page-container div,
-#container-5.page-container div,
-#container-6.page-container div,
-#container-7.page-container div,
-#container-8.page-container div,
-#container-9.page-container div,
-#container-10.page-container div {
-  width: 280px;
-  min-height: 220px;
-  background: #d4d4d4;
-  text-align: center;
-  border-radius: 15%;
-  padding: 10px;
-  position: relative;
-  overflow: hidden;
-  border: 3px solid transparent;
-  transition: opacity 0.3s ease;
-}
-
-#container-1.page-container div img,
-#container-2.page-container div img,
-#container-3.page-container div img,
-#container-4.page-container div img,
-#container-5.page-container div img,
-#container-6.page-container div img,
-#container-7.page-container div img,
-#container-8.page-container div img,
-#container-9.page-container div img,
-#container-10.page-container div img {
-  width: 100px;
-  height: auto;
-  display: block;
-  margin: 0 auto 10px;
-  border-radius: 15%;
-  transition: transform 0.3s ease;
 }
 /* All containers share base styles */
 [id^="container-"].page-container {
