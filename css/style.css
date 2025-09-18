@@ -30,7 +30,7 @@ header {
   background-color: #111;
   padding: 10px 20px;
 }
-header a, footer a {
+header a, header span, footer a {
   margin: 0 10px;
   color: white;
   text-decoration: none;
@@ -38,7 +38,7 @@ header a, footer a {
   font-weight: bold;
   transition: color 0.3s, text-decoration 0.3s;
 }
-header a:hover, footer a:hover {
+header a:hover, header span:hover footer a:hover {
   color: #ff4444;
   text-decoration: underline;
   text-decoration-color: #ff4444;
