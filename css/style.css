@@ -295,7 +295,7 @@ embed {
   color: white;
   cursor: pointer;
   box-shadow: 0 4px 8px rgba(0,0,0,0.5);
-  opacity: 0.3;
+  opacity: 0.6;
   transition: color 0.3s, text-decoration 0.3s;
 }
 #toTopBtn:hover {
