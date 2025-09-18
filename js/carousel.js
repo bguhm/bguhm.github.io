@@ -4,11 +4,16 @@ document.addEventListener("DOMContentLoaded", () => {
   const pageIndicator = document.querySelector(".page-indicator");
   const allPages = document.querySelectorAll("[class*='page-']");
 
-  function showPage(pageNumber) {
-    // Hide all page divs
-    allPages.forEach(div => {
-      div.style.display = "none";
-    });
+  function showPage(pageNum) {
+  const allItems = document.querySelectorAll('[class*="page-"]');
+  allItems.forEach(item => {
+    if (item.classList.contains(`page-${pageNum}`)) {
+      item.style.display = "block"; // visible
+    } else {
+      item.style.display = "none"; // completely gone from layout
+    }
+  });
+}
 
     // Show only the selected page
     document.querySelectorAll(`.page-${pageNumber}`).forEach(div => {
