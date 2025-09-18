@@ -295,10 +295,11 @@ embed {
   color: white;
   cursor: pointer;
   box-shadow: 0 4px 8px rgba(0,0,0,0.5);
-  opacity: 1;
+  opacity: 0.3;
   transition: color 0.3s, text-decoration 0.3s;
 }
 #toTopBtn:hover {
+  opacity: 0.8;
   color: #ff0000;
   text-decoration: underline;
   text-decoration-color: #ff0000;
