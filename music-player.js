@@ -3,7 +3,7 @@
  * Merged/updated version:
  * - preserves original variable names
  * - supports per-track cover art
- * - creates .disc (rotating) + .cover (static) inside .track-art
+ * - creates .vinyl (rotating) + .cover (static) inside .track-art
  * - last track uses a different cover (maybe.png)
  ***********************/
 
@@ -41,11 +41,11 @@ analyser.fftSize = 256;
 let bufferLength = analyser.frequencyBinCount;
 let dataArray = new Uint8Array(bufferLength);
 
-/* helper: ensure .disc and .cover exist inside .track-art */
+/* helper: ensure .vinyl and .cover exist inside .track-art */
 let discEl, coverEl;
 function ensureArtChildren() {
   if (!track_art) return;
-  discEl = track_art.querySelector('.disc');
+  discEl = track_art.querySelector('.vinyl');
   coverEl = track_art.querySelector('.cover');
 
   // Create disc (rotates) if missing
@@ -141,7 +141,7 @@ function loadTrack(index) {
   if (coverEl) coverEl.style.backgroundImage = `url("${music_list[index].img}")`;
 
   // (Optional) allow a 'disc' visual per-track (not required). If you add a 'disc' property later,
-  // you could set discEl.style.backgroundImage = `url("${music_list[index].disc}")`
+  // you could set discEl.style.backgroundImage = `url("${music_list[index].vinyl}")`
   track_name.textContent = music_list[index].name;
   track_artist.textContent = music_list[index].artist;
   now_playing.textContent = `Playing music ${index + 1} of ${music_list.length}`;
