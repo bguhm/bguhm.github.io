@@ -111,7 +111,7 @@ const music_list = [
   { name: "Daisy.", file: "daisy.mp3" },
 
   /* last track overrides cover to maybe.png (relative path to your repo) */
-  { name: "Maybe (Maybe).", file: "maybemaybe.mp3", cover: "./library/images/albums/maybe-maybe/maybe.png" }
+  { name: "Maybe (Maybe).", file: "maybe-maybe.mp3", cover: "./library/images/albums/maybe-maybe/maybe-cover-art.png" }
 ].map(track => ({
   img: track.cover || coverDefault,     // per-track cover or fallback
   name: track.name,
