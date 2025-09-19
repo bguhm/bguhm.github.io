@@ -1273,18 +1273,6 @@
     </script>
 
     <script>
-      // Prevent browser from restoring old scroll position
-      if ("scrollRestoration" in history) {
-        history.scrollRestoration = "manual";
-      }
-
-      // Delay scroll-to-top when page loads
-      window.onload = function () {
-        setTimeout(() => {
-          window.scrollTo({ top: 0, behavior: "smooth" });
-        }, 3000);
-      };
-
       // double click to start it
       toTopBtn.addEventListener("dblclick", () => {
         window.scrollTo({ top: 0, behavior: "smooth" });
