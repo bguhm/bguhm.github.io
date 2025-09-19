@@ -24,12 +24,15 @@ function setFavicon(url) {
 // --- Apply theme globally ---
 (function applyTheme() {
   const themeState = localStorage.getItem("themeToggle");
+
+  // Reset classes
+  document.body.classList.remove("dark", "light");
+
+  // Apply based on saved state
   if (themeState === "off") {
-    document.body.style.background = "#f4f4f4";
-    document.body.style.color = "#111";
+    document.body.classList.add("light");
   } else {
-    document.body.style.background = "#1e1e1e";
-    document.body.style.color = "#f4f4f4";
+    document.body.classList.add("dark");
   }
 })();
 
@@ -38,13 +41,15 @@ function setFavicon(url) {
   const bgState = localStorage.getItem("bgToggle");
   const customBg = localStorage.getItem("bgUrl");
 
+  document.body.style.backgroundImage = "none"; // reset first
+
   if (bgState === "on" && customBg) {
     document.body.style.backgroundImage = `url('${customBg}')`;
     document.body.style.backgroundSize = "cover";
     document.body.style.backgroundRepeat = "no-repeat";
   } else if (bgState === "on") {
     document.body.style.backgroundImage = "url('images/bg1.jpg')";
-  } else {
-    document.body.style.backgroundImage = "none";
+    document.body.style.backgroundSize = "cover";
+    document.body.style.backgroundRepeat = "no-repeat";
   }
 })();
