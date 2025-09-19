@@ -86,6 +86,18 @@
     .save-btn:hover {
       background: #ff6666;
     }
+    .return-btn {
+      display: inline-block;
+      padding: 10px 18px;
+      font-size: 16px;
+      font-weight: bold;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      margin: 5px;
+      transition: transform 0.2s, background 0.2s;
+    }
   </style>
 </head>
 <body>
@@ -120,6 +132,7 @@
     <label>Footer Background:</label>
     <input type="color" id="footerColor">
     <button class="save-btn" onclick="saveTheme()">Save Theme</button>
+    <button class="return-btn" onclick="window.location.href='https://bguhm.github.io./index.html'">Return to Page</button>
   </div>
 
   <script>
