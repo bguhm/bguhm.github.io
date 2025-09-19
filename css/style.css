@@ -502,3 +502,11 @@ footer {
 #searchFeedback img {
   max-height: 120px;
 }
+body.dark {
+  background: #1e1e1e;
+  color: #f4f4f4;
+}
+body.light {
+  background: #f4f4f4;
+  color: #111;
+}
