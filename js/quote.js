@@ -9,6 +9,7 @@
       "all for one.",
       "24 songs, 76 projects.",
       "i make music too!",
+      "smash karts is working fine idk what jayden is on about.",
       "cloak is gonna be fixed soon...",
       "genizy genius",
       "click the arrows to view more projects!",
