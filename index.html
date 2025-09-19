@@ -1316,40 +1316,61 @@
        function confirmDownload() {
        return confirm("⚠️ Warning! You are about to download a port of Doki Doki Literature Club. After downloading, open 'index.html' inside the folder to play. Check port-help.html for extra resources.");
        }
-       </script>
-	  <!-- Loading screen -->
-	    <script>
-    function startCounter() {
-      const counterEl = document.getElementById("counter");
-      const loaderImg = document.getElementById("loaderImage");
-      let c = 0;
+       </script><script>
+function realLoader() {
+  const counterEl = document.getElementById("counter");
+  const loaderImg = document.getElementById("loaderImage");
+  const preloader = document.getElementById("preloader");
 
-      const interval = setInterval(() => {
-        c++;
-        counterEl.textContent = c + "%";
+  const images = document.querySelectorAll("#container img");
+  const total = images.length;
+  let loaded = 0;
 
-        if (c === 100) {
-          clearInterval(interval);
+  function updateProgress() {
+    loaded++;
+    const percent = Math.round((loaded / total) * 100);
+    counterEl.textContent = percent + "%";
 
-          // Step 1: swap GIF
-          loaderImg.src = "fire.gif"; // your 2nd gif
+    if (percent >= 100) {
+      // Step 1: swap GIF
+      loaderImg.src = "fire.gif";
 
-          // Step 2: fade out entire preloader after fire gif plays a bit
-          setTimeout(() => {
-            document.getElementById("preloader").classList.add("fade");
-          }, 1000); // fire shows for 1.5s
+      // Step 2: fade out
+      setTimeout(() => {
+        preloader.classList.add("fade");
+      }, 1000);
 
-          // Step 3: remove preloader & show main content
-          setTimeout(() => {
-            document.getElementById("preloader").style.display = "none";
-            document.getElementById("mainContent").style.display = "block";
-          }, 2000);
-        }
-      }, 20); // counter speed
+      // Step 3: hide preloader and show content
+      setTimeout(() => {
+        preloader.style.display = "none";
+        document.body.style.overflow = "auto"; // unlock scrolling
+      }, 2000);
     }
+  }
 
-    window.addEventListener("load", startCounter);
-  </script>
+  if (total === 0) {
+    // no images, just skip
+    counterEl.textContent = "100%";
+    preloader.style.display = "none";
+    return;
+  }
+
+  images.forEach((img) => {
+    if (img.complete) {
+      updateProgress();
+    } else {
+      img.addEventListener("load", updateProgress);
+      img.addEventListener("error", updateProgress); // count errors too
+    }
+  });
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+  document.body.style.overflow = "hidden"; // prevent scroll while loading
+  realLoader();
+});
+</script>
+
 	  <script>
   document.addEventListener("DOMContentLoaded", () => {
     const savedPic = localStorage.getItem("profilePic");
