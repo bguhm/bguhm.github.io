@@ -11,7 +11,6 @@
       color: #f4f4f4;
       text-align: center;
       padding: 20px;
-      transition: background 0.3s ease, color 0.3s ease;
     }
 
     h1 {
@@ -20,125 +19,141 @@
     }
 
     .setting {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
       background: #2a2a2a;
-      padding: 12px 20px;
-      margin: 10px auto;
+      padding: 16px;
+      margin: 15px auto;
       border-radius: 12px;
-      max-width: 500px;
+      max-width: 600px;
+      text-align: left;
     }
 
-    .setting span {
-      font-size: 1.1rem;
+    .setting h2 {
+      margin-bottom: 10px;
+      font-size: 1.2rem;
+      color: #ff4444;
     }
 
-    /* Circular toggle button */
-    .toggle {
-      width: 30px;
-      height: 30px;
-      border-radius: 50%;
-      background: #ff4d4d; /* off = red */
-      cursor: pointer;
-      transition: background 0.3s ease;
+    .cloak-buttons {
       display: flex;
-      justify-content: center;
-      align-items: center;
-      font-size: 0.8rem;
-      user-select: none;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 10px;
     }
 
-    .toggle.on {
-      background: #4dff4d; /* on = green */
+    .cloak-buttons button {
+      flex: 1;
+      min-width: 120px;
+      padding: 8px 12px;
+      background: #444;
+      border: none;
+      border-radius: 6px;
+      color: white;
+      cursor: pointer;
+      font-weight: bold;
+      transition: background 0.3s;
+    }
+
+    .cloak-buttons button:hover {
+      background: #666;
+    }
+
+    input[type="text"], input[type="color"] {
+      width: 100%;
+      padding: 8px;
+      margin-top: 6px;
+      border: none;
+      border-radius: 6px;
+      font-size: 14px;
+    }
+
+    label {
+      display: block;
+      margin-top: 12px;
+      font-size: 0.95rem;
+    }
+
+    .save-btn {
+      margin-top: 15px;
+      padding: 10px 18px;
+      background: #ff4444;
+      color: white;
+      font-weight: bold;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    .save-btn:hover {
+      background: #ff6666;
     }
   </style>
 </head>
 <body>
-  <h1>⚙️ Settings</h1>
+  <h1>Settings</h1>
 
+  <!-- Cloak Options -->
   <div class="setting">
-    <span>Cloak Mode</span>
-    <div class="toggle" id="cloakToggle">OFF</div>
+    <h2>Cloak Mode</h2>
+    <div class="cloak-buttons">
+      <button onclick="setCloak('Google Docs','icons/docs.png')">Google Docs</button>
+      <button onclick="setCloak('Canvas','icons/canvas.png')">Canvas</button>
+      <button onclick="setCloak('Clever','icons/clever.png')">Clever</button>
+      <button onclick="setCloak('New Tab','icons/newtab.png')">New Tab</button>
+      <button onclick="resetCloak()">Reset</button>
+    </div>
+    <label for="customCloakUrl">Custom Cloak Image URL:</label>
+    <input type="text" id="customCloakUrl" placeholder="Paste favicon URL">
+    <label for="customCloakTitle">Custom Cloak Title:</label>
+    <input type="text" id="customCloakTitle" placeholder="Enter custom tab title">
+    <button class="save-btn" onclick="saveCustomCloak()">Save Custom Cloak</button>
   </div>
 
+  <!-- Style Controls -->
   <div class="setting">
-    <span>Dark Theme</span>
-    <div class="toggle on" id="themeToggle">ON</div>
-  </div>
-
-  <div class="setting">
-    <span>Custom Backgrounds</span>
-    <div class="toggle" id="bgToggle">OFF</div>
+    <h2>Customize Theme</h2>
+    <label>Background Color:</label>
+    <input type="color" id="bgColor">
+    <label>Marquee Text Color:</label>
+    <input type="color" id="marqueeColor">
+    <label>Header Background:</label>
+    <input type="color" id="headerColor">
+    <label>Footer Background:</label>
+    <input type="color" id="footerColor">
+    <button class="save-btn" onclick="saveTheme()">Save Theme</button>
   </div>
 
   <script>
-    // Helper: set favicon
-    function setFavicon(url) {
-      let link = document.querySelector("link[rel~='icon']");
-      if (!link) {
-        link = document.createElement("link");
-        link.rel = "icon";
-        document.head.appendChild(link);
+    // Cloak logic
+    function setCloak(title, icon) {
+      localStorage.setItem("cloakTitle", title);
+      localStorage.setItem("cloakIcon", icon);
+      alert("Cloak set to " + title);
+    }
+    function resetCloak() {
+      localStorage.removeItem("cloakTitle");
+      localStorage.removeItem("cloakIcon");
+      alert("Cloak reset.");
+    }
+    function saveCustomCloak() {
+      const url = document.getElementById("customCloakUrl").value.trim();
+      const title = document.getElementById("customCloakTitle").value.trim();
+      if (url && title) {
+        localStorage.setItem("cloakTitle", title);
+        localStorage.setItem("cloakIcon", url);
+        alert("Custom cloak saved!");
+      } else {
+        alert("Please provide both a title and image URL.");
       }
-      link.href = url;
     }
 
-    // Generic toggle setup with localStorage
-    function setupToggle(id, callback) {
-      const el = document.getElementById(id);
-
-      // Restore saved state
-      const saved = localStorage.getItem(id);
-      if (saved === "on") {
-        el.classList.add("on");
-        el.textContent = "ON";
-      }
-
-      // Apply initial state
-      if (callback) callback(el.classList.contains("on"));
-
-      el.addEventListener("click", () => {
-        el.classList.toggle("on");
-        const isOn = el.classList.contains("on");
-        el.textContent = isOn ? "ON" : "OFF";
-
-        // Save state
-        localStorage.setItem(id, isOn ? "on" : "off");
-
-        // Run feature change
-        if (callback) callback(isOn);
-      });
+    // Theme logic
+    function saveTheme() {
+      localStorage.setItem("bgColor", document.getElementById("bgColor").value);
+      localStorage.setItem("marqueeColor", document.getElementById("marqueeColor").value);
+      localStorage.setItem("headerColor", document.getElementById("headerColor").value);
+      localStorage.setItem("footerColor", document.getElementById("footerColor").value);
+      alert("Theme saved!");
     }
-
-    // Cloak Mode toggle
-    setupToggle("cloakToggle", (active) => {
-      if (active) {
-        document.title = "Google Docs";
-        setFavicon("icons/docs.png");
-      } else {
-        document.title = "Bguhm.GuiHub.io";
-        setFavicon("icons/default.png");
-      }
-    });
-
-    // Dark Theme toggle
-    setupToggle("themeToggle", (active) => {
-      if (active) {
-        document.body.style.background = "#1e1e1e";
-        document.body.style.color = "#f4f4f4";
-      } else {
-        document.body.style.background = "#f4f4f4";
-        document.body.style.color = "#111";
-      }
-    });
-
-    // Background Image toggle
-    setupToggle("bgToggle", (active) => {
-      document.body.style.backgroundImage = active 
-        ? "url('images/bg1.jpg')" 
-        : "none";
-    });
   </script>
 </body>
 </html>
