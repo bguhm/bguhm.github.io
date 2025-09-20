@@ -73,6 +73,9 @@ function handleCommand(input) {
 :clear-all:
   → Clear everything including console
 
+close
+  → Close the admin console only
+
 marquee
   → Start rotating random marquee quotes
 
@@ -96,6 +99,15 @@ gif-flappy.gif:3,set-position:random;
   if (input === ":clear-all:") {
     document.querySelectorAll(".overlay, #devConsole").forEach(el => el.remove());
     devConsole = null;
+    return;
+  }
+
+  // === CLOSE command (new) ===
+  if (input === "close") {
+    if (devConsole) {
+      devConsole.remove();
+      devConsole = null;
+    }
     return;
   }
 
