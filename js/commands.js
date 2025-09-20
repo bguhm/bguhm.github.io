@@ -1,12 +1,25 @@
 let devConsole;
+let keyBuffer = "";
 
-// Listen for "admin" typed into any input and Enter
+// Listen for all key presses anywhere on the page
 window.addEventListener("keydown", (e) => {
+  if (e.key.length === 1 && !e.ctrlKey && !e.metaKey && !e.altKey) {
+    // Add typed character to buffer
+    keyBuffer += e.key.toLowerCase();
+
+    // Keep buffer short (last 10 chars max)
+    if (keyBuffer.length > 10) {
+      keyBuffer = keyBuffer.slice(-10);
+    }
+  }
+
+  // If Enter is pressed, check buffer
   if (e.key === "Enter") {
-    const value = (document.activeElement.value || "").trim().toLowerCase();
-    if (value === "admin" && !devConsole) {
+    if (keyBuffer.includes("admin") && !devConsole) {
       spawnDevConsole();
     }
+    // reset buffer after Enter so it doesn’t trigger twice
+    keyBuffer = "";
   }
 });
 
