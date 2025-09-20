@@ -1,5 +1,81 @@
+let devConsole;
+
+// Listen for "admin" typed into any input and Enter
+window.addEventListener("keydown", (e) => {
+  if (e.key === "Enter") {
+    const value = (document.activeElement.value || "").trim().toLowerCase();
+    if (value === "admin" && !devConsole) {
+      spawnDevConsole();
+    }
+  }
+});
+
+function spawnDevConsole() {
+  devConsole = document.createElement("div");
+  devConsole.id = "devConsole";
+  devConsole.style.position = "fixed";
+  devConsole.style.bottom = "10px";
+  devConsole.style.left = "50%";
+  devConsole.style.transform = "translateX(-50%)";
+  devConsole.style.background = "rgba(0,0,0,0.8)";
+  devConsole.style.padding = "10px";
+  devConsole.style.borderRadius = "8px";
+  devConsole.style.zIndex = "9999";
+
+  const input = document.createElement("input");
+  input.type = "text";
+  input.placeholder = "Enter command…";
+  input.style.width = "300px";
+  input.style.padding = "6px";
+  input.style.fontFamily = "monospace";
+  input.style.color = "lime";
+  input.style.background = "black";
+  input.style.border = "1px solid lime";
+  input.style.outline = "none";
+
+  input.addEventListener("keydown", (e) => {
+    if (e.key === "Enter") {
+      handleCommand(input.value);
+      input.value = "";
+    }
+  });
+
+  devConsole.appendChild(input);
+  document.body.appendChild(devConsole);
+}
+
+// === Command handler ===
 function handleCommand(input) {
   input = input.trim();
+
+  // === HELP ===
+  if (input === ":help:" || input === "commands") {
+    alert(`
+=== Available Commands ===
+
+:help: or commands
+  → Show this list
+
+:clear:
+  → Clear overlays (gifs, marquees, etc.)
+
+:clear-all:
+  → Clear everything including console
+
+marquee
+  → Start rotating random marquee quotes
+
+marquee: Hello world;
+  → Start custom marquee with your text
+
+gif
+  → Spawn demo gif
+
+gif-flappy.gif:3,set-position:random;
+  → Spawn 3 gifs randomly placed
+`);
+    return;
+  }
 
   // === CLEAR commands ===
   if (input === ":clear:") {
@@ -8,17 +84,16 @@ function handleCommand(input) {
   }
   if (input === ":clear-all:") {
     document.querySelectorAll(".overlay, #devConsole").forEach(el => el.remove());
+    devConsole = null;
     return;
   }
 
   // === MARQUEE commands ===
   if (input === "marquee") {
-    // special marquee with rotating quotes
     startCommandMarquee();
     return;
   }
   if (input.startsWith("marquee:")) {
-    // simple marquee with custom text
     const text = input.split(":")[1].replace(";", "").trim();
     showMarquee(text);
     return;
@@ -26,12 +101,10 @@ function handleCommand(input) {
 
   // === GIF commands ===
   if (input === "gif") {
-    // demo/test gif
     showGif("https://media.giphy.com/media/26ufdipQqU2lhNA4g/giphy.gif");
     return;
   }
   if (input.startsWith("gif-")) {
-    // Format: gif-filename:count,set-position:random;
     const [gifPart, settingsPart] = input.split(":");
     const filename = gifPart.replace("gif-", "").trim();
     const settings = settingsPart ? settingsPart.replace(";", "").split(",") : [];
