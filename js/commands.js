@@ -1,28 +1,25 @@
 let devConsole;
-let keyBuffer = "";
+let typedBuffer = "";
+const secretWord = "admin";
 
-// Listen for all key presses anywhere on the page
-window.addEventListener("keydown", (e) => {
+// === Detect "admin" typed anywhere ===
+document.addEventListener("keydown", (e) => {
   if (e.key.length === 1 && !e.ctrlKey && !e.metaKey && !e.altKey) {
-    // Add typed character to buffer
-    keyBuffer += e.key.toLowerCase();
+    typedBuffer += e.key.toLowerCase();
 
-    // Keep buffer short (last 10 chars max)
-    if (keyBuffer.length > 10) {
-      keyBuffer = keyBuffer.slice(-10);
+    // Keep buffer only as long as the secret word
+    if (typedBuffer.length > secretWord.length) {
+      typedBuffer = typedBuffer.slice(-secretWord.length);
     }
-  }
 
-  // If Enter is pressed, check buffer
-  if (e.key === "Enter") {
-    if (keyBuffer.includes("admin") && !devConsole) {
+    if (typedBuffer === secretWord && !devConsole) {
       spawnDevConsole();
+      typedBuffer = ""; // reset buffer
     }
-    // reset buffer after Enter so it doesn’t trigger twice
-    keyBuffer = "";
   }
 });
 
+// === Console spawn ===
 function spawnDevConsole() {
   devConsole = document.createElement("div");
   devConsole.id = "devConsole";
@@ -55,6 +52,7 @@ function spawnDevConsole() {
 
   devConsole.appendChild(input);
   document.body.appendChild(devConsole);
+  input.focus();
 }
 
 // === Command handler ===
