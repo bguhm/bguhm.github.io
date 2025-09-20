@@ -86,6 +86,7 @@
     .save-btn:hover {
       background: #ff6666;
     }
+
     .return-btn {
       display: inline-block;
       padding: 10px 18px;
@@ -133,11 +134,11 @@
     <label>Footer Background:</label>
     <input type="color" id="footerColor">
     <button class="save-btn" onclick="saveTheme()">Save Theme</button>
-    <button class="return-btn" onclick="window.location.href='https://bguhm.github.io./index.html'">Return to Page</button>
+    <button class="return-btn" onclick="window.location.href='index.html'">Return to Page</button>
   </div>
 
   <script>
-    // Cloak logic
+    // --- Cloak logic ---
     function setCloak(title, icon) {
       localStorage.setItem("cloakTitle", title);
       localStorage.setItem("cloakIcon", icon);
@@ -160,12 +161,16 @@
       }
     }
 
-    // Theme logic
+    // --- Theme logic ---
     function saveTheme() {
-      localStorage.setItem("bgColor", document.getElementById("bgColor").value);
-      localStorage.setItem("marqueeColor", document.getElementById("marqueeColor").value);
-      localStorage.setItem("headerColor", document.getElementById("headerColor").value);
-      localStorage.setItem("footerColor", document.getElementById("footerColor").value);
+      const theme = {
+        bgColor: document.getElementById("bgColor").value,
+        marqueeColor: document.getElementById("marqueeColor").value,
+        headerColor: document.getElementById("headerColor").value,
+        footerColor: document.getElementById("footerColor").value
+      };
+      localStorage.setItem("customTheme", JSON.stringify(theme));
+      localStorage.setItem("theme", "custom"); // mark as custom
       alert("Theme saved!");
     }
   </script>
