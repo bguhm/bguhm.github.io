@@ -1,63 +1,7 @@
-let typedBuffer = "";
-const secretWord = "admin";
-
-// Listen for typing
-document.addEventListener("keydown", (e) => {
-  // Only capture letters/numbers/spaces
-  if (e.key.length === 1) {
-    typedBuffer += e.key.toLowerCase();
-    
-    // Keep buffer short
-    if (typedBuffer.length > secretWord.length) {
-      typedBuffer = typedBuffer.slice(-secretWord.length);
-    }
-
-    // Check if buffer matches
-    if (typedBuffer === secretWord) {
-      openCommandMode();
-      typedBuffer = ""; // reset after trigger
-    }
-  }
-});
-
-function openCommandMode() {
-  // Prevent multiple consoles
-  if (document.getElementById("devConsole")) return;
-
-  let consoleEl = document.createElement("div");
-  consoleEl.id = "devConsole";
-  consoleEl.style.position = "fixed";
-  consoleEl.style.bottom = "20px";
-  consoleEl.style.left = "50%";
-  consoleEl.style.transform = "translateX(-50%)";
-  consoleEl.style.background = "#111";
-  consoleEl.style.color = "#0f0";
-  consoleEl.style.padding = "10px";
-  consoleEl.style.border = "1px solid #0f0";
-  consoleEl.style.borderRadius = "5px";
-  consoleEl.style.zIndex = "9999";
-
-  consoleEl.innerHTML = `
-    <input id="commandInput" placeholder="Enter command..." 
-      style="background:#000; color:#0f0; border:none; outline:none; width:250px;" />
-  `;
-  document.body.appendChild(consoleEl);
-
-  let inputEl = document.getElementById("commandInput");
-  inputEl.focus();
-
-  inputEl.addEventListener("keydown", (e) => {
-    if (e.key === "Enter") {
-      handleCommand(e.target.value.trim());
-      e.target.value = "";
-    }
-  });
-}
-
 function handleCommand(cmd) {
   switch (cmd.toLowerCase()) {
     case "marquee":
-      showMarquee("🚨 Site Update: New game added!");
+      startCommandMarquee();
       break;
     case "gif":
       showGif("https://media.giphy.com/media/26ufdipQqU2lhNA4g/giphy.gif");
@@ -70,44 +14,108 @@ function handleCommand(cmd) {
   }
 }
 
-function showMarquee(text) {
-  let el = document.createElement("div");
-  el.className = "overlay marquee";
-  el.textContent = text;
+// === NEW ===
+function startCommandMarquee() {
+  // Prevent duplicates
+  if (document.getElementById("commandMarquee")) return;
 
-  // Quick style
-  el.style.position = "fixed";
-  el.style.top = "10px";
-  el.style.left = "100%";
-  el.style.whiteSpace = "nowrap";
-  el.style.fontSize = "20px";
-  el.style.color = "yellow";
-  el.style.animation = "marquee 10s linear infinite";
+  // Container
+  const wrapper = document.createElement("div");
+  wrapper.id = "commandMarquee";
+  wrapper.className = "overlay";
+  wrapper.style.position = "fixed";
+  wrapper.style.top = "0";
+  wrapper.style.left = "0";
+  wrapper.style.width = "100%";
+  wrapper.style.height = "40px";
+  wrapper.style.background = "rgba(0,0,0,0.8)";
+  wrapper.style.overflow = "hidden";
+  wrapper.style.zIndex = "9999";
+  wrapper.style.display = "flex";
+  wrapper.style.alignItems = "center";
 
-  document.body.appendChild(el);
+  const quoteBox = document.createElement("div");
+  quoteBox.id = "commandQuoteBox";
+  quoteBox.style.whiteSpace = "nowrap";
+  quoteBox.style.color = "yellow";
+  quoteBox.style.fontFamily = "monospace";
+  quoteBox.style.fontSize = "18px";
+  wrapper.appendChild(quoteBox);
+  document.body.appendChild(wrapper);
 
-  // Keyframes (insert once)
-  if (!document.getElementById("marqueeStyles")) {
-    let style = document.createElement("style");
-    style.id = "marqueeStyles";
-    style.textContent = `
-      @keyframes marquee {
-        from { left: 100%; }
-        to { left: -100%; }
-      }
-    `;
-    document.head.appendChild(style);
+  // Quotes array (copy/paste from your version)
+  const quotes = [
+    "slackrr now bg.uhm",
+    "jouyuss now bg.uhm",
+    "v1 release on sept 26th 2025",
+    "POKEMON NOW WORKING!!!",
+    "join the discord! https://discord.gg/vskTb44F5j",
+    "Support Selenite and contributors on Sources/credits page or Github!",
+    "one for all.",
+    "all for one.",
+    "24 songs, 76 projects.",
+    "i make music too!",
+    "smash karts is working fine idk what jayden is on about.",
+    "cloak is gonna be fixed soon...",
+    "genizy genius",
+    "click the arrows to view more projects!",
+    "page 2 is gonna be added on friday!",
+    "no way its a week before release T-T",
+    "im so cooked bro.",
+    "page one is finished!",
+    "ddlc soon??",
+    "pokemon green version soon??",
+    "login and sign up is NOT gonna happen any time soon ✌",
+    "you think v1 gonna come out on time?",
+    "should probably get more people to help me on the website..",
+    "choppy orc da best music",
+    "MUSIC NOW WORKING!!",
+    "fixed music page :D",
+    "math aint make no sense. oh wait nvm i think i get it.",
+    "dont search blank you will find a mob of angry git octocats!"
+  ];
+
+  let baseSpeed = 120; // px per second
+  let targetMultiplier = 1;
+  let currentMultiplier = 1;
+  let position;
+  let lastTime = null;
+  let paused = false;
+
+  function setRandomQuote() {
+    const randomQuote = quotes[Math.floor(Math.random() * quotes.length)];
+    quoteBox.textContent = randomQuote;
+    position = wrapper.offsetWidth + 50;
+    quoteBox.style.transform = `translateX(${position}px)`;
   }
-}
 
-function showGif(url) {
-  let el = document.createElement("img");
-  el.className = "overlay gif";
-  el.src = url;
-  el.style.position = "fixed";
-  el.style.bottom = "50px";
-  el.style.right = "50px";
-  el.style.width = "150px";
-  el.style.zIndex = "9998";
-  document.body.appendChild(el);
+  function animate(timestamp) {
+    if (lastTime !== null) {
+      const delta = (timestamp - lastTime) / 1000;
+
+      const accel = 2;
+      currentMultiplier += (targetMultiplier - currentMultiplier) * accel * delta;
+
+      if (!paused) {
+        position -= baseSpeed * currentMultiplier * delta;
+        quoteBox.style.transform = `translateX(${position}px)`;
+      }
+
+      if (position + quoteBox.offsetWidth < 0) {
+        setRandomQuote();
+      }
+    }
+    lastTime = timestamp;
+    requestAnimationFrame(animate);
+  }
+
+  // Hover and pause (global to wrapper)
+  wrapper.addEventListener("mouseenter", () => { targetMultiplier = 0.8; });
+  wrapper.addEventListener("mouseleave", () => { targetMultiplier = 1; });
+  wrapper.addEventListener("mousedown", () => { paused = true; });
+  window.addEventListener("mouseup", () => { paused = false; });
+
+  // Init
+  setRandomQuote();
+  requestAnimationFrame(animate);
 }
