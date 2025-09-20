@@ -1,25 +1,89 @@
-function handleCommand(cmd) {
-  switch (cmd.toLowerCase()) {
-    case "marquee":
-      startCommandMarquee();
-      break;
-    case "gif":
-      showGif("https://media.giphy.com/media/26ufdipQqU2lhNA4g/giphy.gif");
-      break;
-    case "clear":
-      document.querySelectorAll(".overlay").forEach(el => el.remove());
-      break;
-    default:
-      console.log("Unknown command:", cmd);
+function handleCommand(input) {
+  input = input.trim();
+
+  // === CLEAR commands ===
+  if (input === ":clear:") {
+    document.querySelectorAll(".overlay").forEach(el => el.remove());
+    return;
   }
+  if (input === ":clear-all:") {
+    document.querySelectorAll(".overlay, #devConsole").forEach(el => el.remove());
+    return;
+  }
+
+  // === MARQUEE commands ===
+  if (input === "marquee") {
+    // special marquee with rotating quotes
+    startCommandMarquee();
+    return;
+  }
+  if (input.startsWith("marquee:")) {
+    // simple marquee with custom text
+    const text = input.split(":")[1].replace(";", "").trim();
+    showMarquee(text);
+    return;
+  }
+
+  // === GIF commands ===
+  if (input === "gif") {
+    // demo/test gif
+    showGif("https://media.giphy.com/media/26ufdipQqU2lhNA4g/giphy.gif");
+    return;
+  }
+  if (input.startsWith("gif-")) {
+    // Format: gif-filename:count,set-position:random;
+    const [gifPart, settingsPart] = input.split(":");
+    const filename = gifPart.replace("gif-", "").trim();
+    const settings = settingsPart ? settingsPart.replace(";", "").split(",") : [];
+
+    let count = 1;
+    let randomPos = false;
+
+    settings.forEach(setting => {
+      if (setting.includes("set-position")) {
+        if (setting.split(":")[1].trim() === "random") {
+          randomPos = true;
+        }
+      } else if (!isNaN(parseInt(setting))) {
+        count = parseInt(setting);
+      }
+    });
+
+    for (let i = 0; i < count; i++) {
+      showGif(filename, randomPos);
+    }
+    return;
+  }
+
+  console.log("Unknown command:", input);
 }
 
-// === NEW ===
+// === Simple one-line marquee ===
+function showMarquee(text) {
+  let wrapper = document.createElement("div");
+  wrapper.className = "overlay marquee";
+  wrapper.style.position = "fixed";
+  wrapper.style.top = "0";
+  wrapper.style.left = "0";
+  wrapper.style.width = "100%";
+  wrapper.style.background = "rgba(0,0,0,0.8)";
+  wrapper.style.color = "yellow";
+  wrapper.style.fontFamily = "monospace";
+  wrapper.style.padding = "5px";
+  wrapper.style.zIndex = "9999";
+  wrapper.textContent = text;
+  document.body.appendChild(wrapper);
+
+  wrapper.animate(
+    [{ transform: "translateX(100%)" }, { transform: "translateX(-100%)" }],
+    { duration: 10000, iterations: Infinity, easing: "linear" }
+  );
+}
+
+// === Advanced rotating marquee ===
 function startCommandMarquee() {
-  // Prevent duplicates
   if (document.getElementById("commandMarquee")) return;
 
-  // Container
   const wrapper = document.createElement("div");
   wrapper.id = "commandMarquee";
   wrapper.className = "overlay";
@@ -43,39 +107,25 @@ function startCommandMarquee() {
   wrapper.appendChild(quoteBox);
   document.body.appendChild(wrapper);
 
-  // Quotes array (copy/paste from your version)
   const quotes = [
-    "slackrr now bg.uhm",
-    "jouyuss now bg.uhm",
-    "v1 release on sept 26th 2025",
-    "POKEMON NOW WORKING!!!",
+    "slackrr now bg.uhm", "jouyuss now bg.uhm",
+    "v1 release on sept 26th 2025", "POKEMON NOW WORKING!!!",
     "join the discord! https://discord.gg/vskTb44F5j",
     "Support Selenite and contributors on Sources/credits page or Github!",
-    "one for all.",
-    "all for one.",
-    "24 songs, 76 projects.",
-    "i make music too!",
-    "smash karts is working fine idk what jayden is on about.",
-    "cloak is gonna be fixed soon...",
-    "genizy genius",
-    "click the arrows to view more projects!",
-    "page 2 is gonna be added on friday!",
-    "no way its a week before release T-T",
-    "im so cooked bro.",
-    "page one is finished!",
-    "ddlc soon??",
-    "pokemon green version soon??",
+    "one for all.", "all for one.", "24 songs, 76 projects.",
+    "i make music too!", "smash karts is working fine idk what jayden is on about.",
+    "cloak is gonna be fixed soon...", "genizy genius",
+    "click the arrows to view more projects!", "page 2 is gonna be added on friday!",
+    "no way its a week before release T-T", "im so cooked bro.", "page one is finished!",
+    "ddlc soon??", "pokemon green version soon??",
     "login and sign up is NOT gonna happen any time soon ✌",
-    "you think v1 gonna come out on time?",
-    "should probably get more people to help me on the website..",
-    "choppy orc da best music",
-    "MUSIC NOW WORKING!!",
-    "fixed music page :D",
+    "you think v1 gonna come out on time?", "should probably get more people to help me on the website..",
+    "choppy orc da best music", "MUSIC NOW WORKING!!", "fixed music page :D",
     "math aint make no sense. oh wait nvm i think i get it.",
     "dont search blank you will find a mob of angry git octocats!"
   ];
 
-  let baseSpeed = 120; // px per second
+  let baseSpeed = 120;
   let targetMultiplier = 1;
   let currentMultiplier = 1;
   let position;
@@ -92,7 +142,6 @@ function startCommandMarquee() {
   function animate(timestamp) {
     if (lastTime !== null) {
       const delta = (timestamp - lastTime) / 1000;
-
       const accel = 2;
       currentMultiplier += (targetMultiplier - currentMultiplier) * accel * delta;
 
@@ -109,13 +158,32 @@ function startCommandMarquee() {
     requestAnimationFrame(animate);
   }
 
-  // Hover and pause (global to wrapper)
   wrapper.addEventListener("mouseenter", () => { targetMultiplier = 0.8; });
   wrapper.addEventListener("mouseleave", () => { targetMultiplier = 1; });
   wrapper.addEventListener("mousedown", () => { paused = true; });
   window.addEventListener("mouseup", () => { paused = false; });
 
-  // Init
   setRandomQuote();
   requestAnimationFrame(animate);
+}
+
+// === GIF spawner ===
+function showGif(filename, randomPos = false) {
+  let el = document.createElement("img");
+  el.className = "overlay gif";
+  el.src = filename;
+  el.style.position = "fixed";
+  el.style.width = "100px";
+  el.style.zIndex = "9999";
+
+  if (randomPos) {
+    el.style.left = Math.floor(Math.random() * (window.innerWidth - 100)) + "px";
+    el.style.top = Math.floor(Math.random() * (window.innerHeight - 100)) + "px";
+  } else {
+    el.style.left = "50%";
+    el.style.top = "50%";
+    el.style.transform = "translate(-50%, -50%)";
+  }
+
+  document.body.appendChild(el);
 }
