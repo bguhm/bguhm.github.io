@@ -1,0 +1,42 @@
+#devConsole {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: black;
+  border: 2px solid red;
+  padding: 10px;
+  z-index: 9999;
+}
+
+#devConsole input {
+  background: black;
+  color: lime;
+  border: none;
+  outline: none;
+  font-family: monospace;
+  width: 300px;
+}
+
+.overlay.marquee {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  background: yellow;
+  color: black;
+  text-align: center;
+  animation: scroll 5s linear infinite;
+  font-family: monospace;
+}
+
+@keyframes scroll {
+  from { transform: translateY(-100%); }
+  to { transform: translateY(100vh); }
+}
+
+.overlay.gif {
+  position: fixed;
+  bottom: 50px;
+  right: 50px;
+  width: 150px;
+}
