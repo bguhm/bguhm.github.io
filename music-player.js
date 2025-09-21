@@ -85,7 +85,7 @@ renderWave();
 
 /* ---- Music list (per-track cover allowed) ---- */
 const basePath = "./music/albums/maybe-maybe/";
-const coverDefault = "https://raw.githubusercontent.com/bguhm/bguhm.github.io/main/library/images/albums/maybe-maybe/maybe-maybe-cover-art.png";
+const coverDefault = "https://raw.githubusercontent.com/bguhm/bguhm.github.io/main/music/albums/maybe-maybe/maybe-maybe-cover-art.png";
 
 /* You can add a `cover` property per track to override the default cover.
    The last track below deliberately has a different cover file "maybe.png". */
@@ -111,7 +111,7 @@ const music_list = [
   { name: "Daisy.", file: "daisy.mp3" },
 
   /* last track overrides cover to maybe.png (relative path to your repo) */
-  { name: "Maybe (Maybe).", file: "maybe-maybe.m4a", cover: "https://raw.githubusercontent.com/bguhm/bguhm.github.io/main/library/images/albums/maybe-maybe/maybe-cover-art.png" }
+  { name: "Maybe (Maybe).", file: "maybe-maybe.m4a", cover: "https://raw.githubusercontent.com/bguhm/bguhm.github.io/main/music/albums/maybe-maybe/maybe-cover-art.png" }
 ].map(track => ({
   img: track.cover || coverDefault,     // per-track cover or fallback
   name: track.name,
